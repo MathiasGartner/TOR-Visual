@@ -8,6 +8,10 @@ import java.util.ArrayList;
 
 public class MainCanvas extends PApplet {
 
+    private int displayId;
+    private int screenW;
+    private int screenH;
+
     private Overview overview;
     private MCResults mcResults;
     private MCResults mcResults2;
@@ -15,19 +19,23 @@ public class MainCanvas extends PApplet {
     private ArrayList<SketchArea> sketchAreas;
     private int borderPx;
 
-    public MainCanvas() {
+    public MainCanvas(int displayId, int w, int h) {
+        this.displayId = displayId;
+        this.screenW = w;
+        this.screenH = h;
+
         borderPx = 3;
     }
 
     public void settings() {
-        fullScreen(2);
+        fullScreen(this.displayId);
 
         sketchAreas = new ArrayList<SketchArea>();
-        sketchAreas.add(new SketchArea(0, 0, (int)(displayWidth * 0.8), displayHeight));
+        sketchAreas.add(new SketchArea(0, 0, (int)(screenW * 0.8), screenH));
         int currentX = sketchAreas.get(0).xw + borderPx;
-        sketchAreas.add(new SketchArea(currentX, 0, displayWidth - currentX, (int)(displayHeight * 0.6)));
+        sketchAreas.add(new SketchArea(currentX, 0, screenW - currentX, (int)(screenH * 0.6)));
         int currentY = sketchAreas.get(1).yh + borderPx;
-        sketchAreas.add(new SketchArea(currentX, currentY, displayWidth - currentX, displayHeight - currentY));
+        sketchAreas.add(new SketchArea(currentX, currentY, screenW - currentX, screenH - currentY));
         overview = new Overview(this, sketchAreas.get(0));
         mcResults = new MCResults(this, sketchAreas.get(1));
         mcResults2 = new MCResults(this, sketchAreas.get(2));
