@@ -1,9 +1,8 @@
 package TORVisual;
 
 import TORVisual.Sketches.AreaTest;
-import TORVisual.Sketches.MCResults;
-import TORVisual.Sketches.Overview;
-import TORVisual.Sketches.RandomWalker;
+import TORVisual.Sketches.RandomWalks.Ellipse;
+import TORVisual.Sketches.RandomWalks.RandomWalker;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
@@ -30,8 +29,8 @@ public class MainCanvas extends PApplet {
     }
 
     public void settings() {
-        fullScreen(this.displayId);
-
+        //fullScreen(this.displayId);
+        size(this.screenW, this.screenH);
         //define sketch areas
         sketchAreas = new ArrayList<SketchArea>();
         sketchAreas.add(new SketchArea(0, 0, (int) (screenW * 0.7), screenH));
@@ -49,11 +48,11 @@ public class MainCanvas extends PApplet {
         areaTest3.setBackgroundColor(20, 250, 100);
 
         RandomWalker randomWalkerSketch = new RandomWalker(this, sketchAreas.get(0));
-
+        Ellipse EllipseSketch = new Ellipse(this, sketchAreas.get(1));
         //add sketches to sketch-list
         sketches = new ArrayList<EmbeddedSketch>();
         sketches.add(randomWalkerSketch);
-        sketches.add(areaTest2);
+        sketches.add(EllipseSketch);
         sketches.add(areaTest3);
     }
 
