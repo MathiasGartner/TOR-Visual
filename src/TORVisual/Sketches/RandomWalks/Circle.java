@@ -1,26 +1,15 @@
 package TORVisual.Sketches.RandomWalks;
 
+import TORVisual.MainCanvas;
 import TORVisual.SketchArea;
 import processing.core.PApplet;
 
+public class Circle extends RandomWalker{
 
-// Lavendel: draw purple, blue Ellipse with strokes, fill /3
-
-public class Ellipse extends RandomWalker
-{
-
-    public Ellipse(PApplet sketch, SketchArea area)
+    public Circle(PApplet sketch, SketchArea area)
     {
         super(sketch, area);
-        cr = 71;
-        cg = 55;
-        cb = 119;
-        dx = (float) 4;
-        dy = (float) 4;
-        ds = (float) 2;
-        w=3;
-        h=3;
-        size = 10;
+
     }
 
     @Override
@@ -48,7 +37,7 @@ public class Ellipse extends RandomWalker
 
                 //  if (cb > 0)  //blue -1
                 //      cb -= 1;
-                if (h < size)
+                if (h < 20)
                     h += ds;
 
                 break;
@@ -59,7 +48,7 @@ public class Ellipse extends RandomWalker
                 //   if (cb < 255)  //blue + 1
                 //cb += 1;
 
-                if (w < size)
+                if (w < 20)
                     w += ds;
                 break;
 
@@ -82,8 +71,8 @@ public class Ellipse extends RandomWalker
                     alpha += 1;
                 break;
         }
-        sketch.fill(cr/3, cg/3, cb/3, alpha/3);
+        sketch.fill(cr, cg, cb, alpha);
         sketch.stroke(cr, cg, cb, alpha);
-        sketch.ellipse(x, y, w, h);
+        sketch.circle(x, y, size);
     }
 }

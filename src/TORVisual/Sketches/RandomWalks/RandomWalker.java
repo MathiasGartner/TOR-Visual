@@ -107,8 +107,10 @@ public class RandomWalker extends EmbeddedSketch {
         }
         sketch.fill(cr, cg, cb, alpha);
         sketch.stroke(cr, cg, cb, alpha);
-        //sketch.circle(x, y, size);
         //sketch.triangle(x1, y1, x2, y2, x3, y3);
         sketch.ellipse(x,y,w,h);
+
+
+
     }
 }

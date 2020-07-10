@@ -1,8 +1,7 @@
 package TORVisual;
 
 import TORVisual.Sketches.AreaTest;
-import TORVisual.Sketches.RandomWalks.Ellipse;
-import TORVisual.Sketches.RandomWalks.RandomWalker;
+import TORVisual.Sketches.RandomWalks.*;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
@@ -47,12 +46,21 @@ public class MainCanvas extends PApplet {
         areaTest3 = new AreaTest(this, sketchAreas.get(2));
         areaTest3.setBackgroundColor(20, 250, 100);
 
-        RandomWalker randomWalkerSketch = new RandomWalker(this, sketchAreas.get(0));
-        Ellipse EllipseSketch = new Ellipse(this, sketchAreas.get(1));
+        //RandomWalker randomWalkerSketch = new RandomWalker(this, sketchAreas.get(0));
+        //Ellipse EllipseSketch = new Ellipse(this, sketchAreas.get(0));
+        //Circle CircleSketch = new Circle(this, sketchAreas.get(0));
+        //EllipseCotton EllipseCottonSketch = new EllipseCotton(this, sketchAreas.get(0));
+        //WoodCircle WoodCircleSketch = new WoodCircle(this, sketchAreas.get(0));
+        Sternanis SternanisSketch = new Sternanis (this, sketchAreas.get(0));
+        RoundSquare RoundSquareSketch = new RoundSquare(this, sketchAreas.get(0));
         //add sketches to sketch-list
         sketches = new ArrayList<EmbeddedSketch>();
-        sketches.add(randomWalkerSketch);
-        sketches.add(EllipseSketch);
+        //sketches.add(CircleSketch);
+        //sketches.add(EllipseCottonSketch);
+        //sketches.add(EllipseSketch);
+        //sketches.add(WoodCircleSketch);
+        //sketches.add(SternanisSketch);
+        sketches.add(RoundSquareSketch);
         sketches.add(areaTest3);
     }
 

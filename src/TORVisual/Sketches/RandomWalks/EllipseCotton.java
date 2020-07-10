@@ -3,23 +3,18 @@ package TORVisual.Sketches.RandomWalks;
 import TORVisual.SketchArea;
 import processing.core.PApplet;
 
-
-// Lavendel: draw purple, blue Ellipse with strokes, fill /3
-
-public class Ellipse extends RandomWalker
-{
-
-    public Ellipse(PApplet sketch, SketchArea area)
-    {
+public class EllipseCotton extends RandomWalker{
+    public EllipseCotton(PApplet sketch, SketchArea area) {
         super(sketch, area);
-        cr = 71;
-        cg = 55;
-        cb = 119;
+
+        cr = 255;
+        cg = 255;
+        cb = 255;
         dx = (float) 4;
         dy = (float) 4;
-        ds = (float) 2;
-        w=3;
-        h=3;
+        ds = (float) 4;
+        w=4;
+        h=4;
         size = 10;
     }
 
@@ -30,34 +25,28 @@ public class Ellipse extends RandomWalker
             case 1:
                 if (x < area.w)
                     x += dx;
-
-                if (cg < 255)  //green + 1
-                    cg += 1;
+                if (x+1 == area.w)
+                    x -= dx;
                 break;
             case 2:
                 if (y < area.h)
                     y += dy;
-
-                if (cg > 0)  //green -1
-                    cg -= 1;
-
                 break;
             case 3:
-                if (x > 1 & x < area.w)
+                if (x > 1)
                     x -= dx;
+                if (x == 1)
+                    x += dx;
 
-                //  if (cb > 0)  //blue -1
-                //      cb -= 1;
                 if (h < size)
                     h += ds;
 
                 break;
             case 4:
-                if (y > 1 & y < area.h)
+                if (y > 1 )
                     y -= dy;
-
-                //   if (cb < 255)  //blue + 1
-                //cb += 1;
+                if (y+1 == area.h)
+                    x += dy;
 
                 if (w < size)
                     w += ds;
@@ -67,10 +56,8 @@ public class Ellipse extends RandomWalker
 
                 if (w > ds)
                     w -= ds;
-                //if (size > ds)
-                //    size -= ds;
 
-                if (alpha <= 100 & alpha >= 20)
+                if (alpha <= 60 & alpha >= 10)
                     alpha -= 1;
                 break;
             case 6:
@@ -78,12 +65,13 @@ public class Ellipse extends RandomWalker
                 if (h > ds)
                     h -= ds;
 
-                if (alpha >= 20 & alpha <= 100)
+                if (alpha >= 10 & alpha <= 60)
                     alpha += 1;
                 break;
         }
-        sketch.fill(cr/3, cg/3, cb/3, alpha/3);
+        sketch.fill(cr, cg, cb, alpha);
         sketch.stroke(cr, cg, cb, alpha);
         sketch.ellipse(x, y, w, h);
     }
 }
+
