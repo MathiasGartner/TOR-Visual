@@ -1,9 +1,11 @@
 package TORVisual;
 
+import TORVisual.Data.DBManager;
 import TORVisual.Sketches.AreaTest;
 import TORVisual.Sketches.RandomWalks.*;
 import processing.core.PApplet;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class MainCanvas extends PApplet {
@@ -62,6 +64,16 @@ public class MainCanvas extends PApplet {
         //sketches.add(SternanisSketch);
         sketches.add(RoundSquareSketch);
         sketches.add(areaTest3);
+
+        DBManager db = new DBManager();
+        try {
+            var diceResults = db.getDiceResultAboveId(lastId);
+            for (var dr : diceResults) {
+                System.out.println(dr.Id);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setup() {
@@ -90,4 +102,6 @@ public class MainCanvas extends PApplet {
             rect(area.xw, area.y - borderPx , borderPx, area.yh + 2 * borderPx);
         }
     }
+
+    static int lastId = 0;
 }
