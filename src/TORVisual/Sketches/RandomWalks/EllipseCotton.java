@@ -1,11 +1,15 @@
 package TORVisual.Sketches.RandomWalks;
 
+import TORVisual.Data.DiceResult;
 import TORVisual.SketchArea;
 import processing.core.PApplet;
 
+import java.util.ArrayList;
+
 public class EllipseCotton extends RandomWalker{
-    public EllipseCotton(PApplet sketch, SketchArea area) {
-        super(sketch, area);
+
+    public EllipseCotton(PApplet sketch, SketchArea area,  ArrayList<DiceResult> resultsToShow) {
+        super(sketch, area, resultsToShow);
 
         cr = 255;
         cg = 255;

@@ -1,7 +1,10 @@
 package TORVisual.Sketches.RandomWalks;
 
+import TORVisual.Data.DiceResult;
 import TORVisual.SketchArea;
 import processing.core.PApplet;
+
+import java.util.ArrayList;
 
 
 // Lavendel: draw purple, blue Ellipse with strokes, fill /3
@@ -9,9 +12,8 @@ import processing.core.PApplet;
 public class Ellipse extends RandomWalker
 {
 
-    public Ellipse(PApplet sketch, SketchArea area)
-    {
-        super(sketch, area);
+    public Ellipse(PApplet sketch, SketchArea area,  ArrayList<DiceResult> resultsToShow) {
+        super(sketch, area, resultsToShow);
         cr = 71;
         cg = 55;
         cb = 119;

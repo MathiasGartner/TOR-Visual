@@ -1,14 +1,22 @@
 package TORVisual;
 
 import TORVisual.Data.DBManager;
+import TORVisual.Data.DiceResult;
+import TORVisual.Settings.SettingsVisual;
 import TORVisual.Sketches.AreaTest;
 import TORVisual.Sketches.RandomWalks.*;
+import org.apache.commons.collections4.queue.CircularFifoQueue;
 import processing.core.PApplet;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class MainCanvas extends PApplet {
+
+    private static int counter = 0;
+    private int lastDiceResultId = -1;
+    private ArrayList<DiceResult> nextDiceResults;
+    private ArrayList<DiceResult> resultsToShow;
 
     private int displayId;
     private int screenW;
@@ -22,6 +30,9 @@ public class MainCanvas extends PApplet {
     private int borderPx;
 
     public MainCanvas(int displayId, int w, int h) {
+        this.resultsToShow = new ArrayList<DiceResult>();
+        resultsToShow.add(new DiceResult());
+
         this.displayId = displayId;
         this.screenW = w;
         this.screenH = h;
@@ -53,27 +64,19 @@ public class MainCanvas extends PApplet {
         //Circle CircleSketch = new Circle(this, sketchAreas.get(0));
         //EllipseCotton EllipseCottonSketch = new EllipseCotton(this, sketchAreas.get(0));
         //WoodCircle WoodCircleSketch = new WoodCircle(this, sketchAreas.get(0));
-        Sternanis SternanisSketch = new Sternanis (this, sketchAreas.get(0));
-        RoundSquare RoundSquareSketch = new RoundSquare(this, sketchAreas.get(0));
+        Sternanis SternanisSketch = new Sternanis(this, sketchAreas.get(0), this.resultsToShow);
+        SternanisSketch.setRecentDiceResultsCount(5);
+        RoundSquare RoundSquareSketch = new RoundSquare(this, sketchAreas.get(1), this.resultsToShow);
+        RoundSquareSketch.setRecentDiceResultsCount(15);
         //add sketches to sketch-list
         sketches = new ArrayList<EmbeddedSketch>();
         //sketches.add(CircleSketch);
         //sketches.add(EllipseCottonSketch);
         //sketches.add(EllipseSketch);
         //sketches.add(WoodCircleSketch);
-        //sketches.add(SternanisSketch);
+        sketches.add(SternanisSketch);
         sketches.add(RoundSquareSketch);
         sketches.add(areaTest3);
-
-        DBManager db = new DBManager();
-        try {
-            var diceResults = db.getDiceResultAboveId(lastId);
-            for (var dr : diceResults) {
-                System.out.println(dr.Id);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public void setup() {
@@ -84,9 +87,44 @@ public class MainCanvas extends PApplet {
         }
     }
 
+    double resultsPerFrame;
+    double lastShownResultIndex;
+
+
     public void draw() {
+        if (counter % SettingsVisual.LoadDataEveryNthFrame == 0) {
+            DBManager db = new DBManager();
+            try {
+                nextDiceResults = db.getDiceResultAboveId(lastDiceResultId);
+                resultsPerFrame = (double)nextDiceResults.size() / SettingsVisual.LoadDataEveryNthFrame;
+                lastShownResultIndex = 0;
+                if (nextDiceResults.size() > 0) {
+                    lastDiceResultId = nextDiceResults.get(nextDiceResults.size() - 1).Id;
+                }
+                System.out.println("results ids until: " + lastDiceResultId);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            counter = 0;
+        }
+        counter++;
+        //TODO: make sure also the last result in nextDiceResults is shown
+        double showResultsUpToIndex = lastShownResultIndex + resultsPerFrame;
+        resultsToShow.clear();
+        for (int i = (int)lastShownResultIndex; i < (int)showResultsUpToIndex; i++) {
+           resultsToShow.add(nextDiceResults.get(i));
+        }
+        if (resultsToShow.size() > 0) {
+            System.out.println("frame: " + frameCount);
+            for (var dr : resultsToShow) System.out.println(dr.Id);
+        }
+        //System.out.println("size: " + resultsToShow.size());
+        //for (var dr : resultsToShow) System.out.println(dr.Id);
+        lastShownResultIndex = showResultsUpToIndex;
+
         //draw sketches
         for (var sketch : sketches) {
+            sketch.addNewDiceResults(resultsToShow);
             pushMatrix();
             translate(sketch.area.x, sketch.area.y);
             sketch.draw();
@@ -102,6 +140,4 @@ public class MainCanvas extends PApplet {
             rect(area.xw, area.y - borderPx , borderPx, area.yh + 2 * borderPx);
         }
     }
-
-    static int lastId = 0;
 }

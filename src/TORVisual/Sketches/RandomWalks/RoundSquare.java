@@ -1,13 +1,17 @@
 package TORVisual.Sketches.RandomWalks;
 
+import TORVisual.Data.DiceResult;
 import TORVisual.SketchArea;
 import processing.core.PApplet;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 public class RoundSquare extends RandomWalker{
 
+    public RoundSquare(PApplet sketch, SketchArea area,  ArrayList<DiceResult> resultsToShow) {
+        super(sketch, area, resultsToShow);
 
-    public RoundSquare(PApplet sketch, SketchArea area) {
-        super(sketch, area);
         cr = 163;
         cg = 77;
         cb = 59;
@@ -26,67 +30,77 @@ public class RoundSquare extends RandomWalker{
         float tr=1;
         float bl=1;
         float br=1;
-        int r = randInt();
-        switch (r) {
-            case 1:
-                if (x < area.w)
-                    x += dx;
 
-                if (cg < 255)  //green + 1
-                    cg += 1;
-                break;
-            case 2:
-                if (y < area.h)
-                    y += dy;
+        for (var result : this.resultsToShow) {
+            //int r = randInt();
+            int r = result.Result;
 
-                if (cg > 0)  //green -1
-                    cg -= 1;
+            switch (r) {
+                case 1:
+                    if (x < area.w)
+                        x += dx;
 
-                break;
-            case 3:
-                if (x > 1 & x < area.w)
-                    x -= dx;
+                    if (cg < 255)  //green + 1
+                        cg += 1;
+                    break;
+                case 2:
+                    if (y < area.h)
+                        y += dy;
 
-                //  if (cb > 0)  //blue -1
-                //      cb -= 1;
-                if (h < size)
-                    h += ds;
+                    if (cg > 0)  //green -1
+                        cg -= 1;
 
-                break;
-            case 4:
-                if (y > 1 & y < area.h)
-                    y -= dy;
+                    break;
+                case 3:
+                    if (x > 1 & x < area.w)
+                        x -= dx;
 
-                //   if (cb < 255)  //blue + 1
-                //cb += 1;
+                    //  if (cb > 0)  //blue -1
+                    //      cb -= 1;
+                    if (h < size)
+                        h += ds;
 
-                if (w < size)
-                    w += ds;
-                break;
+                    break;
+                case 4:
+                    if (y > 1 & y < area.h)
+                        y -= dy;
 
-            case 5:
+                    //   if (cb < 255)  //blue + 1
+                    //cb += 1;
 
-                if (w > ds)
-                    w -= ds;
-                //if (size > ds)
-                //    size -= ds;
+                    if (w < size)
+                        w += ds;
+                    break;
 
-                if (alpha <= 100 & alpha >= 20)
-                    alpha -= 1;
-                break;
-            case 6:
-                //size += ds;
-                if (h > ds)
-                    h -= ds;
+                case 5:
 
-                if (alpha >= 20 & alpha <= 100)
-                    alpha += 1;
-                break;
+                    if (w > ds)
+                        w -= ds;
+                    //if (size > ds)
+                    //    size -= ds;
+
+                    if (alpha <= 100 & alpha >= 20)
+                        alpha -= 1;
+                    break;
+                case 6:
+                    //size += ds;
+                    if (h > ds)
+                        h -= ds;
+
+                    if (alpha >= 20 & alpha <= 100)
+                        alpha += 1;
+                    break;
+            }
+            sketch.fill(cr / 3, cg / 3, cb / 3, alpha / 3);
+            sketch.stroke(cr, cg, cb, alpha);
+            sketch.ellipse(x, y, w, h);
+            sketch.rect(x, y, w, h, tl, tr, br, bl);
         }
-        sketch.fill(cr/3, cg/3, cb/3, alpha/3);
-        sketch.stroke(cr, cg, cb, alpha);
-        sketch.ellipse(x, y, w, h);
-        sketch.rect(x, y, w, h, tl, tr, br, bl);
-    }
 
+        sketch.fill(60);
+        sketch.rect(0, 0, 230, 40);
+        sketch.fill(255);
+        String recentResultsText = this.recentDiceResults.stream().map(p -> Integer.toString(p.Result)).collect(Collectors.joining(" "));
+        sketch.text(recentResultsText, 10, 10);
     }
+}

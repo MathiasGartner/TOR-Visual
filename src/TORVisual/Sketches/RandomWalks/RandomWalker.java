@@ -1,12 +1,16 @@
 package TORVisual.Sketches.RandomWalks;
 
+import TORVisual.Data.DiceResult;
 import TORVisual.EmbeddedSketch;
 import TORVisual.SketchArea;
 import processing.core.PApplet;
 
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomWalker extends EmbeddedSketch {
+
+    protected ArrayList<DiceResult> resultsToShow;
 
     int startX;
     int startY;
@@ -22,8 +26,11 @@ public class RandomWalker extends EmbeddedSketch {
     int w, h;
 
 
-    public RandomWalker(PApplet sketch, SketchArea area) {
+    public RandomWalker(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area);
+
+        this.resultsToShow = resultsToShow;
+
         startX = this.area.w / 2;
         startY = this.area.h / 2;
         size = 5;

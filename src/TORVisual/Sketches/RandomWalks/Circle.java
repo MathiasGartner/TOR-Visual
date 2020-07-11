@@ -1,15 +1,16 @@
 package TORVisual.Sketches.RandomWalks;
 
+import TORVisual.Data.DiceResult;
 import TORVisual.MainCanvas;
 import TORVisual.SketchArea;
 import processing.core.PApplet;
 
+import java.util.ArrayList;
+
 public class Circle extends RandomWalker{
 
-    public Circle(PApplet sketch, SketchArea area)
-    {
-        super(sketch, area);
-
+    public Circle(PApplet sketch, SketchArea area,  ArrayList<DiceResult> resultsToShow) {
+        super(sketch, area, resultsToShow);
     }
 
     @Override

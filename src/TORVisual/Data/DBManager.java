@@ -1,15 +1,16 @@
 package TORVisual.Data;
 
-import TORVisual.Settings.Private;
+import TORVisual.Settings.SettingsPrivate;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class DBManager {
 
-    private String url = Private.DB_URL;
-    private String username = Private.DB_USERNAME;
-    private String password = Private.DB_PASSWORD;
+    private String url = SettingsPrivate.DB_URL;
+    private String username = SettingsPrivate.DB_USERNAME;
+    private String password = SettingsPrivate.DB_PASSWORD;
 
     public DBManager() {
 
@@ -31,7 +32,7 @@ public class DBManager {
 
     public ArrayList<DiceResult> getDiceResultAboveId(int resultId) throws SQLException {
         var diceResults = new ArrayList<DiceResult>();
-        String sql = "SELECT d.Id, d.ClientId, c.Name, d.Result, d.Time FROM tor.diceresult d LEFT JOIN tor.Client c ON d.ClientId = c.Id WHERE d.Id > ?";
+        String sql = "SELECT d.Id, d.ClientId, c.Name, d.Result, d.Time FROM tor.diceresult d LEFT JOIN tor.Client c ON d.ClientId = c.Id WHERE d.Id > ? LIMIT 10";
         try (
             Connection conn = this.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -73,5 +74,19 @@ public class DBManager {
             }
         }
         return diceResults;
+    }
+
+    public void CreateDummyResults(int count) throws SQLException {
+        String sql = "INSERT INTO diceresult (ClientId, Result) VALUES (50, ?)";
+        try (
+                Connection conn = this.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+        ){
+            for (int i = 0; i < count; i++) {
+                int randomNum = ThreadLocalRandom.current().nextInt(1, 6+1);
+                ps.setInt(1, randomNum);
+                ps.executeUpdate();
+            }
+        }
     }
 }

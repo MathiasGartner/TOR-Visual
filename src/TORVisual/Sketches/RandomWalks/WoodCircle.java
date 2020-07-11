@@ -1,13 +1,17 @@
 package TORVisual.Sketches.RandomWalks;
 
+import TORVisual.Data.DiceResult;
 import TORVisual.SketchArea;
 import processing.core.PApplet;
+
+import java.util.ArrayList;
 
 public class WoodCircle extends RandomWalker{
 
 float sw, swd;
-    public WoodCircle(PApplet sketch, SketchArea area) {
-        super(sketch, area);
+    public WoodCircle(PApplet sketch, SketchArea area,  ArrayList<DiceResult> resultsToShow) {
+        super(sketch, area, resultsToShow);
+
         x = startX;
         y = startY;
         cr = 126;
