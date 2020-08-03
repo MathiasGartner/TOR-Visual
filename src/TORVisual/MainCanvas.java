@@ -21,6 +21,7 @@ public class MainCanvas extends PApplet {
     private int displayId;
     private int screenW;
     private int screenH;
+    private boolean fullScreen;
 
     private AreaTest areaTest1;
     private AreaTest areaTest2;
@@ -29,20 +30,33 @@ public class MainCanvas extends PApplet {
     private ArrayList<SketchArea> sketchAreas;
     private int borderPx;
 
-    public MainCanvas(int displayId, int w, int h) {
+    private MainCanvas() {
         this.resultsToShow = new ArrayList<DiceResult>();
-        resultsToShow.add(new DiceResult());
+        this.resultsToShow.add(new DiceResult());
+        this.borderPx = 13;
+    }
 
+    public MainCanvas(int displayId) {
+        this();
+        this.displayId = displayId;
+        fullScreen = true;
+    }
+
+    public MainCanvas(int displayId, int w, int h) {
+        this();
         this.displayId = displayId;
         this.screenW = w;
         this.screenH = h;
-
-        borderPx = 13;
+        fullScreen = false;
     }
 
     public void settings() {
-        //fullScreen(this.displayId);
-        size(this.screenW, this.screenH);
+        if (this.fullScreen) {
+            fullScreen(P2D);
+        }
+        else {
+            size(this.screenW, this.screenH);
+        }
         //define sketch areas
         sketchAreas = new ArrayList<SketchArea>();
         sketchAreas.add(new SketchArea(0, 0, (int) (screenW * 0.7), screenH));
