@@ -96,11 +96,5 @@ public class RoundSquare extends RandomWalker{
             sketch.ellipse(x, y, w, h);
             sketch.rect(x, y, w, h, tl, tr, br, bl);
         }
-
-        sketch.fill(60);
-        sketch.rect(0, 0, 230, 40);
-        sketch.fill(255);
-        String recentResultsText = this.recentDiceResults.stream().map(p -> Integer.toString(p.Result)).collect(Collectors.joining(" "));
-        sketch.text(recentResultsText, 10, 10);
     }
 }
