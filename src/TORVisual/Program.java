@@ -40,12 +40,14 @@ public class Program {
         }
         //MainCanvas mainCanvas = new MainCanvas(2, 800, 600);
 
-        /*DBManager db = new DBManager();
+        /*
+        DBManager db = new DBManager();
         try {
             db.CreateDummyResults(10000);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }*/
+        }
+         */
 
         PApplet.runSketch(processingArgs, mainCanvas);
     }

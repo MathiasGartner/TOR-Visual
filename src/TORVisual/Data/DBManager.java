@@ -77,13 +77,15 @@ public class DBManager {
     }
 
     public void CreateDummyResults(int count) throws SQLException {
-        String sql = "INSERT INTO diceresult (ClientId, Result) VALUES (50, ?)";
+        String sql = "INSERT INTO diceresult (ClientId, Result, X, Y) VALUES (?, ?, 0, 0)";
         try (
                 Connection conn = this.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);
         ){
             for (int i = 0; i < count; i++) {
                 int randomNum = ThreadLocalRandom.current().nextInt(1, 6+1);
+                ps.setInt(2, randomNum);
+                randomNum = ThreadLocalRandom.current().nextInt(1, 25);
                 ps.setInt(1, randomNum);
                 ps.executeUpdate();
             }

@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class MainCanvas extends PApplet {
 
     private static int counter = 0;
+    private static int resultCounter = 0;
     private int lastDiceResultId = -1;
     private ArrayList<DiceResult> nextDiceResults;
     private ArrayList<DiceResult> resultsToShow;
@@ -132,6 +133,7 @@ public class MainCanvas extends PApplet {
                 if (nextDiceResults.size() > 0) {
                     lastDiceResultId = nextDiceResults.get(nextDiceResults.size() - 1).Id;
                 }
+                resultCounter += nextDiceResults.size();
                 System.out.println("results ids until: " + lastDiceResultId);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -177,8 +179,9 @@ public class MainCanvas extends PApplet {
         info.fill(0);
         info.rect(0, 0, info.width, info.height);
         info.fill(255);
-        String recentResultsText = resultsToShow.stream().map(p -> Integer.toString(p.Result)).collect(Collectors.joining(" "));
-        info.text(recentResultsText, 10, 10);
+        //String recentResultsText = resultsToShow.stream().map(p -> Integer.toString(p.Result)).collect(Collectors.joining(" "));
+        //info.text(recentResultsText, 10, 10);
+        info.text("Results shown: " + resultCounter, 10, 20);
         info.text("Frame rate: " + frameRate, 10, 40);
         info.endDraw();
         image(info, screenW - info.width, screenH - info.height);
