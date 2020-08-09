@@ -7,9 +7,12 @@ import TORVisual.Sketches.AreaTest;
 import TORVisual.Sketches.RandomWalks.*;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 import processing.core.PApplet;
+import processing.core.PGraphics;
+import processing.core.PShape;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class MainCanvas extends PApplet {
 
@@ -22,6 +25,7 @@ public class MainCanvas extends PApplet {
     private int screenW;
     private int screenH;
     private boolean fullScreen;
+    PGraphics info;
 
     private AreaTest areaTest1;
     private AreaTest areaTest2;
@@ -33,7 +37,7 @@ public class MainCanvas extends PApplet {
     private MainCanvas() {
         this.resultsToShow = new ArrayList<DiceResult>();
         this.resultsToShow.add(new DiceResult());
-        this.borderPx = 13;
+        this.borderPx = 0;
     }
 
     public MainCanvas(int displayId) {
@@ -51,28 +55,43 @@ public class MainCanvas extends PApplet {
     }
 
     public void settings() {
+        var renderer = JAVA2D;
         if (this.fullScreen) {
-            fullScreen(P2D);
+            fullScreen(renderer, displayId);
         }
         else {
-            size(this.screenW, this.screenH);
+            size(this.screenW, this.screenH, renderer);
         }
+    }
+
+    public void setup() {
+        if (this.fullScreen) {
+            this.screenW = this.width;
+            this.screenH = this.height;
+        }
+
+        info = createGraphics(230, 60);
+        info.noStroke();
+
         //define sketch areas
         sketchAreas = new ArrayList<SketchArea>();
-        sketchAreas.add(new SketchArea(0, 0, (int) (screenW * 0.7), screenH));
-        int currentX = sketchAreas.get(0).xw + borderPx;
-        sketchAreas.add(new SketchArea(currentX, 0, screenW - currentX, (int) (screenH * 0.6)));
-        int currentY = sketchAreas.get(1).yh + borderPx;
-        sketchAreas.add(new SketchArea(currentX, currentY, screenW - currentX, screenH - currentY));
+        int d = screenH / 3;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                sketchAreas.add(new SketchArea(i * d, j * d, d, d));
+            }
+        }
+        sketchAreas.add(new SketchArea(screenH + 1, 0, screenW - screenH, screenH));
 
         //create sketches
-        areaTest1 = new AreaTest(this, sketchAreas.get(0));
-        areaTest1.setBackgroundColor(20, 50, 100);
-        areaTest2 = new AreaTest(this, sketchAreas.get(1));
-        areaTest2.setBackgroundColor(220, 50, 100);
-        areaTest3 = new AreaTest(this, sketchAreas.get(2));
-        areaTest3.setBackgroundColor(20, 250, 100);
+        sketches = new ArrayList<EmbeddedSketch>();
+        for (int i = 0; i < 10; i++) {
+            var sketch = new AreaTest(this, sketchAreas.get(i));
+            sketch.setBackgroundColor(10 * i, 20 * i, 200 / (i + 1));
+            sketches.add(sketch);
+        }
 
+        /*
         //RandomWalker randomWalkerSketch = new RandomWalker(this, sketchAreas.get(0));
         //Ellipse EllipseSketch = new Ellipse(this, sketchAreas.get(0));
         //Circle CircleSketch = new Circle(this, sketchAreas.get(0));
@@ -91,9 +110,8 @@ public class MainCanvas extends PApplet {
         sketches.add(SternanisSketch);
         sketches.add(RoundSquareSketch);
         sketches.add(areaTest3);
-    }
+        */
 
-    public void setup() {
         for (var sketch : sketches) {
             stroke(sketch.backgroundColor);
             fill(sketch.backgroundColor);
@@ -103,7 +121,6 @@ public class MainCanvas extends PApplet {
 
     double resultsPerFrame;
     double lastShownResultIndex;
-
 
     public void draw() {
         if (counter % SettingsVisual.LoadDataEveryNthFrame == 0) {
@@ -145,6 +162,7 @@ public class MainCanvas extends PApplet {
             popMatrix();
         }
         //draw borders
+        /*
         for (var area : sketchAreas) {
             stroke(0, 0, 0);
             fill(0, 0, 0);
@@ -153,5 +171,16 @@ public class MainCanvas extends PApplet {
             rect(area.x - borderPx, area.yh, area.xw + 2 * borderPx, borderPx);
             rect(area.xw, area.y - borderPx , borderPx, area.yh + 2 * borderPx);
         }
+        */
+
+        info.beginDraw();
+        info.fill(0);
+        info.rect(0, 0, info.width, info.height);
+        info.fill(255);
+        String recentResultsText = resultsToShow.stream().map(p -> Integer.toString(p.Result)).collect(Collectors.joining(" "));
+        info.text(recentResultsText, 10, 10);
+        info.text("Frame rate: " + frameRate, 10, 40);
+        info.endDraw();
+        image(info, screenW - info.width, screenH - info.height);
     }
 }
