@@ -18,9 +18,9 @@ public class RandomWalker extends EmbeddedSketch {
     int y;
     int x1, y1, x2, y2, x3, y3;
     float size;
-    float dx; //x change
-    float dy; //y change
-    float ds; //size change
+    double dx; //x change
+    double dy; //y change
+    double ds; //size change
     int cr, cg, cb;
     int alpha = 30;
     int w, h;

@@ -35,8 +35,8 @@ public class Program {
             mainCanvas = new MainCanvas(screen, w, h);
         }
         else {
-            //mainCanvas = new MainCanvas(screen, 1000, 600);
-            mainCanvas = new MainCanvas(2);
+            mainCanvas = new MainCanvas(screen, 1000, 600);
+            //mainCanvas = new MainCanvas(2);
         }
         //MainCanvas mainCanvas = new MainCanvas(2, 800, 600);
 

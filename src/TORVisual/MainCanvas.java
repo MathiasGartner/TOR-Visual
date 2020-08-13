@@ -78,39 +78,45 @@ public class MainCanvas extends PApplet {
         int d = screenH / 3;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                sketchAreas.add(new SketchArea(i * d, j * d, d, d));
+                //sketchAreas.add(new SketchArea(i * d, j * d, d, d));
             }
         }
-        sketchAreas.add(new SketchArea(screenH + 1, 0, screenW - screenH, screenH));
-
+        //sketchAreas.add(new SketchArea(screenH + 1, 0, screenW - screenH, screenH));
+        sketchAreas.add(new SketchArea(0, 0, 300, 300));
         //create sketches
         sketches = new ArrayList<EmbeddedSketch>();
-        for (int i = 0; i < 10; i++) {
+        /*for (int i = 0; i < 10; i++) {
             var sketch = new AreaTest(this, sketchAreas.get(i));
             sketch.setBackgroundColor(10 * i, 20 * i, 200 / (i + 1));
             sketches.add(sketch);
-        }
+        }*/
 
         /*
         //RandomWalker randomWalkerSketch = new RandomWalker(this, sketchAreas.get(0));
         //Ellipse EllipseSketch = new Ellipse(this, sketchAreas.get(0));
         //Circle CircleSketch = new Circle(this, sketchAreas.get(0));
-        //EllipseCotton EllipseCottonSketch = new EllipseCotton(this, sketchAreas.get(0));
         //WoodCircle WoodCircleSketch = new WoodCircle(this, sketchAreas.get(0));
-        Sternanis SternanisSketch = new Sternanis(this, sketchAreas.get(0), this.resultsToShow);
+
         SternanisSketch.setRecentDiceResultsCount(5);
-        RoundSquare RoundSquareSketch = new RoundSquare(this, sketchAreas.get(1), this.resultsToShow);
-        RoundSquareSketch.setRecentDiceResultsCount(15);
+
         //add sketches to sketch-list
         sketches = new ArrayList<EmbeddedSketch>();
         //sketches.add(CircleSketch);
-        //sketches.add(EllipseCottonSketch);
+
         //sketches.add(EllipseSketch);
         //sketches.add(WoodCircleSketch);
-        sketches.add(SternanisSketch);
-        sketches.add(RoundSquareSketch);
+
         sketches.add(areaTest3);
         */
+
+        //Sternanis SternanisSketch = new Sternanis(this, sketchAreas.get(0), this.resultsToShow);
+        //sketches.add(SternanisSketch);
+
+        //RoundSquare RoundSquareSketch = new RoundSquare(this, sketchAreas.get(0), this.resultsToShow);
+        //sketches.add(RoundSquareSketch);
+
+        EllipseCotton EllipseCottonSketch = new EllipseCotton(this, sketchAreas.get(0), this.resultsToShow);
+        sketches.add(EllipseCottonSketch);
 
         for (var sketch : sketches) {
             stroke(sketch.backgroundColor);

@@ -18,8 +18,8 @@ public class RoundSquare extends RandomWalker{
         dx = (float) 4;
         dy = (float) 4;
         ds = (float) 2;
-        w=3;
-        h=3;
+        h=this.sketch.height/100;
+        w=this.sketch.width/100;
         size = 10;
 
     }
@@ -30,7 +30,7 @@ public class RoundSquare extends RandomWalker{
         float tr=1;
         float bl=1;
         float br=1;
-
+        //this.recentDiceResults();
         for (var result : this.resultsToShow) {
             //int r = randInt();
             int r = result.Result;
