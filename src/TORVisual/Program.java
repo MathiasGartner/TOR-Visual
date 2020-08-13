@@ -43,11 +43,11 @@ public class Program {
         /*
         DBManager db = new DBManager();
         try {
-            db.CreateDummyResults(10000);
+            db.CreateDummyResults(79000);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-         */
+        */
 
         PApplet.runSketch(processingArgs, mainCanvas);
     }

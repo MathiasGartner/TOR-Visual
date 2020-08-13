@@ -41,6 +41,11 @@ public abstract class EmbeddedSketch {
         this.backgroundColor = sketch.color(r, g, b);
     }
 
+    public void clear() {
+        this.sketch.fill(this.backgroundColor);
+        this.sketch.rect(0, 0, this.area.w, this.area.h);
+    }
+
     public void setBackgroundColor(int r, int g, int b, int a) {
         this.backgroundColor = sketch.color(r, g, b, a);
     }
