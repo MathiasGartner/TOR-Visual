@@ -4,6 +4,7 @@ import TORVisual.Data.DBManager;
 import TORVisual.Data.DiceResult;
 import TORVisual.Settings.SettingsVisual;
 import TORVisual.Sketches.AreaTest;
+import TORVisual.Sketches.PiMC;
 import TORVisual.Sketches.RandomWalks.*;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 import processing.core.PApplet;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 public class MainCanvas extends PApplet {
 
     private static int counter = 0;
+    private static int resultCounter = 0;
     private int lastDiceResultId = -1;
     private ArrayList<DiceResult> nextDiceResults;
     private ArrayList<DiceResult> resultsToShow;
@@ -85,11 +87,13 @@ public class MainCanvas extends PApplet {
         sketchAreas.add(new SketchArea(0, 0, 300, 300));
         //create sketches
         sketches = new ArrayList<EmbeddedSketch>();
-        /*for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 9; i++) {
             var sketch = new AreaTest(this, sketchAreas.get(i));
             sketch.setBackgroundColor(10 * i, 20 * i, 200 / (i + 1));
             sketches.add(sketch);
-        }*/
+        }
+        PiMC piMCSketch = new PiMC(this, sketchAreas.get(9), this.resultsToShow);
+        sketches.add(piMCSketch);
 
         /*
         //RandomWalker randomWalkerSketch = new RandomWalker(this, sketchAreas.get(0));
@@ -138,7 +142,8 @@ public class MainCanvas extends PApplet {
                 if (nextDiceResults.size() > 0) {
                     lastDiceResultId = nextDiceResults.get(nextDiceResults.size() - 1).Id;
                 }
-                System.out.println("results ids until: " + lastDiceResultId);
+                resultCounter += nextDiceResults.size();
+                //System.out.println("results ids until: " + lastDiceResultId);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -152,8 +157,8 @@ public class MainCanvas extends PApplet {
            resultsToShow.add(nextDiceResults.get(i));
         }
         if (resultsToShow.size() > 0) {
-            System.out.println("frame: " + frameCount);
-            for (var dr : resultsToShow) System.out.println(dr.Id);
+            //System.out.println("frame: " + frameCount);
+            //for (var dr : resultsToShow) System.out.println(dr.Id);
         }
         //System.out.println("size: " + resultsToShow.size());
         //for (var dr : resultsToShow) System.out.println(dr.Id);
@@ -183,8 +188,9 @@ public class MainCanvas extends PApplet {
         info.fill(0);
         info.rect(0, 0, info.width, info.height);
         info.fill(255);
-        String recentResultsText = resultsToShow.stream().map(p -> Integer.toString(p.Result)).collect(Collectors.joining(" "));
-        info.text(recentResultsText, 10, 10);
+        //String recentResultsText = resultsToShow.stream().map(p -> Integer.toString(p.Result)).collect(Collectors.joining(" "));
+        //info.text(recentResultsText, 10, 10);
+        info.text("Results shown: " + resultCounter, 10, 20);
         info.text("Frame rate: " + frameRate, 10, 40);
         info.endDraw();
         image(info, screenW - info.width, screenH - info.height);
