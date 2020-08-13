@@ -4,6 +4,7 @@ import TORVisual.Data.DBManager;
 import TORVisual.Data.DiceResult;
 import TORVisual.Settings.SettingsVisual;
 import TORVisual.Sketches.AreaTest;
+import TORVisual.Sketches.PiMC;
 import TORVisual.Sketches.RandomWalks.*;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 import processing.core.PApplet;
@@ -86,11 +87,13 @@ public class MainCanvas extends PApplet {
 
         //create sketches
         sketches = new ArrayList<EmbeddedSketch>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 9; i++) {
             var sketch = new AreaTest(this, sketchAreas.get(i));
             sketch.setBackgroundColor(10 * i, 20 * i, 200 / (i + 1));
             sketches.add(sketch);
         }
+        PiMC piMCSketch = new PiMC(this, sketchAreas.get(9), this.resultsToShow);
+        sketches.add(piMCSketch);
 
         /*
         //RandomWalker randomWalkerSketch = new RandomWalker(this, sketchAreas.get(0));
@@ -134,7 +137,7 @@ public class MainCanvas extends PApplet {
                     lastDiceResultId = nextDiceResults.get(nextDiceResults.size() - 1).Id;
                 }
                 resultCounter += nextDiceResults.size();
-                System.out.println("results ids until: " + lastDiceResultId);
+                //System.out.println("results ids until: " + lastDiceResultId);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -148,8 +151,8 @@ public class MainCanvas extends PApplet {
            resultsToShow.add(nextDiceResults.get(i));
         }
         if (resultsToShow.size() > 0) {
-            System.out.println("frame: " + frameCount);
-            for (var dr : resultsToShow) System.out.println(dr.Id);
+            //System.out.println("frame: " + frameCount);
+            //for (var dr : resultsToShow) System.out.println(dr.Id);
         }
         //System.out.println("size: " + resultsToShow.size());
         //for (var dr : resultsToShow) System.out.println(dr.Id);
