@@ -1,7 +1,6 @@
 package TORVisual.Sketches.RandomWalks;
 
 import TORVisual.Data.DiceResult;
-import TORVisual.MainCanvas;
 import TORVisual.SketchArea;
 import processing.core.PApplet;
 
@@ -74,6 +73,6 @@ public class Circle extends RandomWalker{
         }
         sketch.fill(cr, cg, cb, alpha);
         sketch.stroke(cr, cg, cb, alpha);
-        sketch.circle(x, y, size);
+        sketch.circle(x, y, (float) size);
     }
 }

@@ -14,12 +14,12 @@ public class EllipseCotton extends RandomWalker{
         cr = 255;
         cg = 255;
         cb = 255;
-        dx = this.sketch.width/280.0;
-        dy = this.sketch.width/280.0;
-        ds = this.sketch.width/130;
-        w=this.sketch.width/130;
-        h=this.sketch.height/130;
-        size = this.sketch.height/100;
+        dx = this.sketch.width/330.0f;
+        dy = this.sketch.width/330.0f;
+        ds = this.sketch.width/170;
+        w=this.sketch.width/200;
+        h=this.sketch.height/200;
+        size = this.sketch.height/150;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class EllipseCotton extends RandomWalker{
             case 1:
                 if (x < area.w)
                     x += dx;
-                if (x+1 == area.w)
+                if (x+dx == area.w)
                     x -= dx;
                 break;
             case 2:

@@ -5,7 +5,6 @@ import TORVisual.SketchArea;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class RoundSquare extends RandomWalker{
 
