@@ -14,8 +14,8 @@ public class Ellipse extends RandomWalker
 
     public Ellipse(PApplet sketch, SketchArea area,  ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
-        cr = 71;
-        cg = 55;
+        cr = 40;
+        cg = 140;
         cb = 119;
         dx = (float) 4;
         dy = (float) 4;
@@ -30,19 +30,18 @@ public class Ellipse extends RandomWalker
         int r = randInt();
         switch (r) {
             case 1:
-                if (x < area.w)
+                if (x+dx < area.w)
                     x += dx;
 
-                if (cg < 255)  //green + 1
+                if (cg < 140)  //green + 1
                     cg += 1;
                 break;
             case 2:
-                if (y < area.h)
+                if (y+dy < area.h)
                     y += dy;
 
-                if (cg > 0)  //green -1
+                if (cg > 50 && cg <140)  //green -1
                     cg -= 1;
-
                 break;
             case 3:
                 if (x > 1 & x < area.w)
@@ -52,18 +51,23 @@ public class Ellipse extends RandomWalker
                 //      cb -= 1;
                 if (h < size)
                     h += ds;
-
                 break;
+
             case 4:
                 if (y > 1 & y < area.h)
                     y -= dy;
 
-                //   if (cb < 255)  //blue + 1
-                //cb += 1;
+                   //if (cb < 255)  //blue + 1
+                   //cb += 1;
 
                 if (w < size)
                     w += ds;
+
+                if (cg > 50 && cg <140)  //green -1
+                    cg -= 1;
                 break;
+
+
 
             case 5:
 
@@ -75,6 +79,7 @@ public class Ellipse extends RandomWalker
                 if (alpha <= 100 & alpha >= 20)
                     alpha -= 1;
                 break;
+
             case 6:
                 //size += ds;
                 if (h > ds)
@@ -84,8 +89,8 @@ public class Ellipse extends RandomWalker
                     alpha += 1;
                 break;
         }
-        sketch.fill(cr/3, cg/3, cb/3, alpha/3);
-        sketch.stroke(cr, cg, cb, alpha);
+        sketch.fill(cr/3, cg/3, cb/3, alpha/1.5f);
+        sketch.stroke(cr, cg, cb, alpha/1.7f);
         sketch.ellipse(x, y, w, h);
     }
 }
