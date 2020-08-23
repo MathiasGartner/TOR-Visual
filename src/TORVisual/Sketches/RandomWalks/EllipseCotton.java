@@ -14,22 +14,26 @@ public class EllipseCotton extends RandomWalker{
         cr = 255;
         cg = 255;
         cb = 255;
-        dx = (float) 4;
-        dy = (float) 4;
-        ds = (float) 4;
-        w=4;
-        h=4;
-        size = 10;
+        dx = this.sketch.width/330.0f;
+        dy = this.sketch.width/330.0f;
+        ds = this.sketch.width/170;
+        w=this.sketch.width/200;
+        h=this.sketch.height/200;
+        size = this.sketch.height/150;
     }
 
     @Override
     public void draw() {
-        int r = randInt();
-        switch (r) {
+
+        for (var result : this.resultsToShow) {
+            //int r = randInt();
+            int r = result.Result;
+
+            switch (r) {
             case 1:
                 if (x < area.w)
                     x += dx;
-                if (x+1 == area.w)
+                if (x+dx == area.w)
                     x -= dx;
                 break;
             case 2:
@@ -61,7 +65,7 @@ public class EllipseCotton extends RandomWalker{
                 if (w > ds)
                     w -= ds;
 
-                if (alpha <= 60 & alpha >= 10)
+                if (alpha <= 20 & alpha >= 1)
                     alpha -= 1;
                 break;
             case 6:
@@ -69,9 +73,10 @@ public class EllipseCotton extends RandomWalker{
                 if (h > ds)
                     h -= ds;
 
-                if (alpha >= 10 & alpha <= 60)
+                if (alpha >= 1 & alpha <= 20)
                     alpha += 1;
                 break;
+        }
         }
         sketch.fill(cr, cg, cb, alpha);
         sketch.stroke(cr, cg, cb, alpha);

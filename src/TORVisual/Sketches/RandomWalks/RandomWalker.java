@@ -12,18 +12,18 @@ public class RandomWalker extends EmbeddedSketch {
 
     protected ArrayList<DiceResult> resultsToShow;
 
-    int startX;
-    int startY;
-    int x;
-    int y;
-    int x1, y1, x2, y2, x3, y3;
+    float startX;
+    float startY;
+    float x;
+    float y;
+    float x1, y1, x2, y2, x3, y3;
     float size;
     float dx; //x change
     float dy; //y change
     float ds; //size change
     int cr, cg, cb;
     int alpha = 30;
-    int w, h;
+    float w, h;
 
 
     public RandomWalker(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {

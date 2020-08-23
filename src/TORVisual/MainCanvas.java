@@ -80,41 +80,79 @@ public class MainCanvas extends PApplet {
         int d = screenH / 3;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                sketchAreas.add(new SketchArea(i * d, j * d, d, d));
+                //sketchAreas.add(new SketchArea(i * d, j * d, d, d));
             }
         }
-        sketchAreas.add(new SketchArea(screenH + 1, 0, screenW - screenH, screenH));
-
+        //sketchAreas.add(new SketchArea(screenH + 1, 0, screenW - screenH, screenH));
+        sketchAreas.add(new SketchArea(0, 0, 900, 900));
         //create sketches
         sketches = new ArrayList<EmbeddedSketch>();
-        for (int i = 0; i < 9; i++) {
+        /*for (int i = 0; i < 9; i++) {
             var sketch = new AreaTest(this, sketchAreas.get(i));
             sketch.setBackgroundColor(10 * i, 20 * i, 200 / (i + 1));
             sketches.add(sketch);
         }
         PiMC piMCSketch = new PiMC(this, sketchAreas.get(9), this.resultsToShow);
-        sketches.add(piMCSketch);
+        sketches.add(piMCSketch);*/
+
+
+
+        //Circle CircleSketch = new Circle(this, sketchAreas.get(0));
 
         /*
-        //RandomWalker randomWalkerSketch = new RandomWalker(this, sketchAreas.get(0));
-        //Ellipse EllipseSketch = new Ellipse(this, sketchAreas.get(0));
-        //Circle CircleSketch = new Circle(this, sketchAreas.get(0));
-        //EllipseCotton EllipseCottonSketch = new EllipseCotton(this, sketchAreas.get(0));
-        //WoodCircle WoodCircleSketch = new WoodCircle(this, sketchAreas.get(0));
-        Sternanis SternanisSketch = new Sternanis(this, sketchAreas.get(0), this.resultsToShow);
         SternanisSketch.setRecentDiceResultsCount(5);
-        RoundSquare RoundSquareSketch = new RoundSquare(this, sketchAreas.get(1), this.resultsToShow);
-        RoundSquareSketch.setRecentDiceResultsCount(15);
+
         //add sketches to sketch-list
         sketches = new ArrayList<EmbeddedSketch>();
         //sketches.add(CircleSketch);
-        //sketches.add(EllipseCottonSketch);
+
         //sketches.add(EllipseSketch);
+        sketches.add(areaTest3);*/
+
+
+        //funkt nicht
+        //RandomWalker randomWalkerSketch = new RandomWalker(this, sketchAreas.get(0), this.resultsToShow);
+        //sketches.add(randomWalkerSketch);
+
+        Ellipse EllipseSketch = new Ellipse(this, sketchAreas.get(0), this.resultsToShow);
+        sketches.add(EllipseSketch);
+
+        //Sterne funktionieren - jedoch noch nicht schön
+        //Sternanis SternanisSketch = new Sternanis(this, sketchAreas.get(0), this.resultsToShow);
+        //sketches.add(SternanisSketch);
+
+        //überlegen zu welchen es passen könnte, jedoch ist ein Fehler drinnen
+        //RoundSquare RoundSquareSketch = new RoundSquare(this, sketchAreas.get(0), this.resultsToShow);
+        //sketches.add(RoundSquareSketch);
+
+        //könnte wieder mehr wolkiger sein/heller
+        //EllipseCotton EllipseCottonSketch = new EllipseCotton(this, sketchAreas.get(0), this.resultsToShow);
+        //sketches.add(EllipseCottonSketch);
+
+        //optisch gut
+        //Iceland_Moss Iceland_MossSketch = new Iceland_Moss(this, sketchAreas.get(0), this.resultsToShow);
+        //sketches.add(Iceland_MossSketch);
+
+        //nicht fertig
+        //WoodCircle WoodCircleSketch = new WoodCircle(this, sketchAreas.get(0), this.resultsToShow);
         //sketches.add(WoodCircleSketch);
-        sketches.add(SternanisSketch);
-        sketches.add(RoundSquareSketch);
-        sketches.add(areaTest3);
-        */
+
+        //Cinnamon CinnamonSketch = new Cinnamon(this, sketchAreas.get(0), this.resultsToShow);
+        //sketches.add(CinnamonSketch);
+
+        //Fehler klebt nur links am Rand,optisch noch nicht ganz ideal
+        //Pepper PepperSketch = new Pepper(this, sketchAreas.get(0), this.resultsToShow);
+        //sketches.add(PepperSketch);
+
+        //->irgendwo bei 4000 ein Fehler
+        //Chili ChiliSketch = new Chili(this, sketchAreas.get(0), this.resultsToShow);
+        //sketches.add(ChiliSketch);
+
+        //Polstermoos PolstermoosSketch = new Polstermoos(this, sketchAreas.get(0), this.resultsToShow);
+        //sketches.add(PolstermoosSketch);
+
+        //test testSketch = new test(this, sketchAreas.get(0), this.resultsToShow);
+        //sketches.add(testSketch);
 
         for (var sketch : sketches) {
             stroke(sketch.backgroundColor);
