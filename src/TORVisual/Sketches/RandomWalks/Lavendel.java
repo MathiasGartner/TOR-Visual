@@ -103,11 +103,11 @@ public class Lavendel extends RandomWalker
 
                 break;
         }
-        sketch.fill(cr/3, cg/3, cb/3, alpha/3);
-        sketch.stroke(cr, cg, cb, alpha);
-        sketch.ellipse(x, y, w, h);
-        sketch.fill(255, 255, 255, 255);
-        sketch.textSize(20);
-        sketch.text("Lavendula", 10, 30);
+        this.canvas.fill(cr/3, cg/3, cb/3, alpha/3);
+        this.canvas.stroke(cr, cg, cb, alpha);
+        this.canvas.ellipse(x, y, w, h);
+        this.canvas.fill(255, 255, 255, 255);
+        this.canvas.textSize(20);
+        this.canvas.text("Lavendula", 10, 30);
     }
 }

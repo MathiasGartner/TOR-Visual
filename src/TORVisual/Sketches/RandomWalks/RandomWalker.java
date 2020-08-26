@@ -4,6 +4,7 @@ import TORVisual.Data.DiceResult;
 import TORVisual.EmbeddedSketch;
 import TORVisual.SketchArea;
 import processing.core.PApplet;
+import processing.core.PGraphics;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;

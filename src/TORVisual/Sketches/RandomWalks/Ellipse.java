@@ -29,54 +29,56 @@ public class Ellipse extends RandomWalker
 
     @Override
     public void draw() {
-        int r = Utils.randDiceResult();
-        switch (r) {
-            case 1:
-                this.moveX(dx);
+        for (var result : this.resultsToShow) {
+            int r = result.Result;
+            switch (r) {
+                case 1:
+                    this.moveX(dx);
 
-                if (colorPercent < 1) {
-                    colorPercent += dColor;
-                }
-                break;
-            case 2:
-                this.moveY(dy);
+                    if (colorPercent < 1) {
+                        colorPercent += dColor;
+                    }
+                    break;
+                case 2:
+                    this.moveY(dy);
 
-                if (colorPercent > 0) {
-                    colorPercent -= dColor;
-                }
-                break;
-            case 3:
-                this.moveX(-dx);
+                    if (colorPercent > 0) {
+                        colorPercent -= dColor;
+                    }
+                    break;
+                case 3:
+                    this.moveX(-dx);
 
-                if (h < size)
-                    h += ds;
-                break;
-            case 4:
-                this.moveY(-dy);
+                    if (h < size)
+                        h += ds;
+                    break;
+                case 4:
+                    this.moveY(-dy);
 
-                if (w < size)
-                    w += ds;
-                break;
-            case 5:
-                if (w > ds) {
-                    w -= ds;
-                }
-                if (alpha <= 100 & alpha >= 20) {
-                    alpha -= 1;
-                }
-                break;
-            case 6:
-                if (h > ds) {
-                    h -= ds;
-                }
-                if (alpha >= 20 & alpha <= 100) {
-                    alpha += 1;
-                }
-                break;
+                    if (w < size)
+                        w += ds;
+                    break;
+                case 5:
+                    if (w > ds) {
+                        w -= ds;
+                    }
+                    if (alpha <= 100 & alpha >= 20) {
+                        alpha -= 1;
+                    }
+                    break;
+                case 6:
+                    if (h > ds) {
+                        h -= ds;
+                    }
+                    if (alpha >= 20 & alpha <= 100) {
+                        alpha += 1;
+                    }
+                    break;
+            }
+            var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
+            this.canvas.fill(c, alpha / 4.0f);
+            this.canvas.stroke(c, alpha);
+            this.canvas.ellipse(x, y, w, h);
         }
-        var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
-        sketch.fill(c, alpha / 4.0f);
-        sketch.stroke(c, alpha);
-        sketch.ellipse(x, y, w, h);
     }
 }

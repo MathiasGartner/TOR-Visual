@@ -34,7 +34,11 @@ public class MainCanvas extends PApplet {
     private AreaTest areaTest1;
     private AreaTest areaTest2;
     private AreaTest areaTest3;
-    private ArrayList<EmbeddedSketch> sketches;
+    private ArrayList<EmbeddedSketch> sketchesFront;
+    private ArrayList<EmbeddedSketch> sketchesCenter;
+    private ArrayList<EmbeddedSketch> sketchesBack;
+    private ArrayList<EmbeddedSketch> sketchesToShow;
+    private ArrayList<EmbeddedSketch> sketchesAll;
     private ArrayList<SketchArea> sketchAreas;
     private int borderPx;
 
@@ -87,8 +91,14 @@ public class MainCanvas extends PApplet {
         }
         //sketchAreas.add(new SketchArea(screenH + 1, 0, screenW - screenH, screenH));
         //sketchAreas.add(new SketchArea(0, 0, 900, 900));
+
         //create sketches
-        sketches = new ArrayList<EmbeddedSketch>();
+        sketchesFront = new ArrayList<EmbeddedSketch>();
+        sketchesCenter = new ArrayList<EmbeddedSketch>();
+        sketchesBack = new ArrayList<EmbeddedSketch>();
+        sketchesToShow = new ArrayList<EmbeddedSketch>();
+        sketchesAll = new ArrayList<EmbeddedSketch>();
+
         /*for (int i = 0; i < 9; i++) {
             var sketch = new AreaTest(this, sketchAreas.get(i));
             sketch.setBackgroundColor(10 * i, 20 * i, 200 / (i + 1));
@@ -111,55 +121,62 @@ public class MainCanvas extends PApplet {
         //sketches.add(EllipseSketch);
         sketches.add(areaTest3);*/
 
-
-        //funkt nicht
-        //RandomWalker randomWalkerSketch = new RandomWalker(this, sketchAreas.get(0), this.resultsToShow);
-        //sketches.add(randomWalkerSketch);
+        // FRONT
 
         Ellipse EllipseSketch = new Ellipse(this, sketchAreas.get(0), this.resultsToShow);
-        sketches.add(EllipseSketch);
+        sketchesFront.add(EllipseSketch);
 
         //Sterne funktionieren - jedoch noch nicht schön
         Sternanis SternanisSketch = new Sternanis(this, sketchAreas.get(1), this.resultsToShow);
-        sketches.add(SternanisSketch);
+        sketchesFront.add(SternanisSketch);
 
         //überlegen zu welchen es passen könnte, jedoch ist ein Fehler drinnen
-        RoundSquare RoundSquareSketch = new RoundSquare(this, sketchAreas.get(2), this.resultsToShow);
-        sketches.add(RoundSquareSketch);
+        //RoundSquare RoundSquareSketch = new RoundSquare(this, sketchAreas.get(2), this.resultsToShow);
+        //sketchesFront.add(RoundSquareSketch);
 
         //könnte wieder mehr wolkiger sein/heller
-        EllipseCotton EllipseCottonSketch = new EllipseCotton(this, sketchAreas.get(3), this.resultsToShow);
-        sketches.add(EllipseCottonSketch);
+        //EllipseCotton EllipseCottonSketch = new EllipseCotton(this, sketchAreas.get(3), this.resultsToShow);
+        //sketchesFront.add(EllipseCottonSketch);
 
         //optisch gut
-        Iceland_Moss Iceland_MossSketch = new Iceland_Moss(this, sketchAreas.get(4), this.resultsToShow);
-        sketches.add(Iceland_MossSketch);
+        //Iceland_Moss Iceland_MossSketch = new Iceland_Moss(this, sketchAreas.get(4), this.resultsToShow);
+        //sketchesFront.add(Iceland_MossSketch);
 
         //nicht fertig
-        WoodCircle WoodCircleSketch = new WoodCircle(this, sketchAreas.get(5), this.resultsToShow);
-        sketches.add(WoodCircleSketch);
+        //WoodCircle WoodCircleSketch = new WoodCircle(this, sketchAreas.get(5), this.resultsToShow);
+        //sketchesFront.add(WoodCircleSketch);
 
-        Cinnamon CinnamonSketch = new Cinnamon(this, sketchAreas.get(6), this.resultsToShow);
-        sketches.add(CinnamonSketch);
+        //Cinnamon CinnamonSketch = new Cinnamon(this, sketchAreas.get(6), this.resultsToShow);
+        //sketchesFront.add(CinnamonSketch);
 
         //Fehler klebt nur links am Rand,optisch noch nicht ganz ideal
-        Pepper PepperSketch = new Pepper(this, sketchAreas.get(7), this.resultsToShow);
-        sketches.add(PepperSketch);
+        //Pepper PepperSketch = new Pepper(this, sketchAreas.get(7), this.resultsToShow);
+        //sketchesFront.add(PepperSketch);
 
         //->irgendwo bei 4000 ein Fehler
-        Chili ChiliSketch = new Chili(this, sketchAreas.get(8), this.resultsToShow);
-        sketches.add(ChiliSketch);
+        //Chili ChiliSketch = new Chili(this, sketchAreas.get(8), this.resultsToShow);
+        //sketchesFront.add(ChiliSketch);
 
-        //Polstermoos PolstermoosSketch = new Polstermoos(this, sketchAreas.get(9), this.resultsToShow);
-        //sketches.add(PolstermoosSketch);
+        //CENTER
 
-        //test testSketch = new test(this, sketchAreas.get(0), this.resultsToShow);
-        //sketches.add(testSketch);
+        //Polstermoos PolstermoosSketch = new Polstermoos(this, sketchAreas.get(0), this.resultsToShow);
+        //sketchesCenter.add(PolstermoosSketch);
 
-        //Lavendel LavendelSketch = new Lavendel(this, sketchAreas.get(0), this.resultsToShow);
-        //sketches.add(LavendelSketch);
+        //test testSketch = new test(this, sketchAreas.get(1), this.resultsToShow);
+        //sketchesCenter.add(testSketch);
 
-        for (var sketch : sketches) {
+        Lavendel LavendelSketch = new Lavendel(this, sketchAreas.get(2), this.resultsToShow);
+        sketchesCenter.add(LavendelSketch);
+
+        //BACK
+
+        sketchesAll.addAll(sketchesFront);
+        sketchesAll.addAll(sketchesCenter);
+        sketchesAll.addAll(sketchesBack);
+
+        sketchesToShow = sketchesFront;
+
+        for (var sketch : sketchesToShow) {
             stroke(sketch.backgroundColor);
             fill(sketch.backgroundColor);
             rect(sketch.area.x, sketch.area.y, sketch.area.w, sketch.area.h);
@@ -214,12 +231,18 @@ public class MainCanvas extends PApplet {
         lastShownResultIndex = showResultsUpToIndex;
 
         //draw sketches
-        for (var sketch : sketches) {
+        for (var sketch : sketchesAll) {
             sketch.addNewDiceResults(resultsToShow);
-            pushMatrix();
-            translate(sketch.area.x, sketch.area.y);
+            sketch.canvas.beginDraw();
             sketch.draw();
-            popMatrix();
+            sketch.canvas.endDraw();
+        }
+        //TODO: switch sketches to show
+        if (frameCount > 1000) {
+            sketchesToShow = sketchesCenter;
+        }
+        for (var sketch : sketchesToShow) {
+            image(sketch.canvas, sketch.area.x, sketch.area.y);
         }
         //draw borders
         /*
