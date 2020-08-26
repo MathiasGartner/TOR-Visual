@@ -154,6 +154,9 @@ public class MainCanvas extends PApplet {
         //test testSketch = new test(this, sketchAreas.get(0), this.resultsToShow);
         //sketches.add(testSketch);
 
+        //Lavendel LavendelSketch = new Lavendel(this, sketchAreas.get(0), this.resultsToShow);
+        //sketches.add(LavendelSketch);
+
         for (var sketch : sketches) {
             stroke(sketch.backgroundColor);
             fill(sketch.backgroundColor);
@@ -166,9 +169,10 @@ public class MainCanvas extends PApplet {
 
     public void draw() {
         if (counter % SettingsVisual.LoadDataEveryNthFrame == 0) {
-            DBManager db = new DBManager();
+            //DBManager db = new DBManager();
             try {
-                nextDiceResults = db.getDiceResultAboveId(lastDiceResultId);
+                nextDiceResults = new ArrayList<DiceResult>();
+                //nextDiceResults = db.getDiceResultAboveId(lastDiceResultId);
                 resultsPerFrame = (double)nextDiceResults.size() / SettingsVisual.LoadDataEveryNthFrame;
                 lastShownResultIndex = 0;
                 if (nextDiceResults.size() > 0) {
@@ -176,7 +180,7 @@ public class MainCanvas extends PApplet {
                 }
                 resultCounter += nextDiceResults.size();
                 //System.out.println("results ids until: " + lastDiceResultId);
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             counter = 0;
