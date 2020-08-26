@@ -6,6 +6,7 @@ import TORVisual.Settings.SettingsVisual;
 import TORVisual.Sketches.AreaTest;
 import TORVisual.Sketches.PiMC;
 import TORVisual.Sketches.RandomWalks.*;
+import TORVisual.Utils.Utils;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 import processing.core.PApplet;
 import processing.core.PGraphics;
@@ -13,6 +14,7 @@ import processing.core.PShape;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 public class MainCanvas extends PApplet {
@@ -80,11 +82,11 @@ public class MainCanvas extends PApplet {
         int d = screenH / 3;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                //sketchAreas.add(new SketchArea(i * d, j * d, d, d));
+                sketchAreas.add(new SketchArea(i * d, j * d, d, d));
             }
         }
         //sketchAreas.add(new SketchArea(screenH + 1, 0, screenW - screenH, screenH));
-        sketchAreas.add(new SketchArea(0, 0, 900, 900));
+        //sketchAreas.add(new SketchArea(0, 0, 900, 900));
         //create sketches
         sketches = new ArrayList<EmbeddedSketch>();
         /*for (int i = 0; i < 9; i++) {
@@ -118,37 +120,37 @@ public class MainCanvas extends PApplet {
         sketches.add(EllipseSketch);
 
         //Sterne funktionieren - jedoch noch nicht schön
-        //Sternanis SternanisSketch = new Sternanis(this, sketchAreas.get(0), this.resultsToShow);
-        //sketches.add(SternanisSketch);
+        Sternanis SternanisSketch = new Sternanis(this, sketchAreas.get(1), this.resultsToShow);
+        sketches.add(SternanisSketch);
 
         //überlegen zu welchen es passen könnte, jedoch ist ein Fehler drinnen
-        //RoundSquare RoundSquareSketch = new RoundSquare(this, sketchAreas.get(0), this.resultsToShow);
-        //sketches.add(RoundSquareSketch);
+        RoundSquare RoundSquareSketch = new RoundSquare(this, sketchAreas.get(2), this.resultsToShow);
+        sketches.add(RoundSquareSketch);
 
         //könnte wieder mehr wolkiger sein/heller
-        //EllipseCotton EllipseCottonSketch = new EllipseCotton(this, sketchAreas.get(0), this.resultsToShow);
-        //sketches.add(EllipseCottonSketch);
+        EllipseCotton EllipseCottonSketch = new EllipseCotton(this, sketchAreas.get(3), this.resultsToShow);
+        sketches.add(EllipseCottonSketch);
 
         //optisch gut
-        //Iceland_Moss Iceland_MossSketch = new Iceland_Moss(this, sketchAreas.get(0), this.resultsToShow);
-        //sketches.add(Iceland_MossSketch);
+        Iceland_Moss Iceland_MossSketch = new Iceland_Moss(this, sketchAreas.get(4), this.resultsToShow);
+        sketches.add(Iceland_MossSketch);
 
         //nicht fertig
-        //WoodCircle WoodCircleSketch = new WoodCircle(this, sketchAreas.get(0), this.resultsToShow);
-        //sketches.add(WoodCircleSketch);
+        WoodCircle WoodCircleSketch = new WoodCircle(this, sketchAreas.get(5), this.resultsToShow);
+        sketches.add(WoodCircleSketch);
 
-        //Cinnamon CinnamonSketch = new Cinnamon(this, sketchAreas.get(0), this.resultsToShow);
-        //sketches.add(CinnamonSketch);
+        Cinnamon CinnamonSketch = new Cinnamon(this, sketchAreas.get(6), this.resultsToShow);
+        sketches.add(CinnamonSketch);
 
         //Fehler klebt nur links am Rand,optisch noch nicht ganz ideal
-        //Pepper PepperSketch = new Pepper(this, sketchAreas.get(0), this.resultsToShow);
-        //sketches.add(PepperSketch);
+        Pepper PepperSketch = new Pepper(this, sketchAreas.get(7), this.resultsToShow);
+        sketches.add(PepperSketch);
 
         //->irgendwo bei 4000 ein Fehler
-        //Chili ChiliSketch = new Chili(this, sketchAreas.get(0), this.resultsToShow);
-        //sketches.add(ChiliSketch);
+        Chili ChiliSketch = new Chili(this, sketchAreas.get(8), this.resultsToShow);
+        sketches.add(ChiliSketch);
 
-        //Polstermoos PolstermoosSketch = new Polstermoos(this, sketchAreas.get(0), this.resultsToShow);
+        //Polstermoos PolstermoosSketch = new Polstermoos(this, sketchAreas.get(9), this.resultsToShow);
         //sketches.add(PolstermoosSketch);
 
         //test testSketch = new test(this, sketchAreas.get(0), this.resultsToShow);
@@ -166,6 +168,7 @@ public class MainCanvas extends PApplet {
 
     double resultsPerFrame;
     double lastShownResultIndex;
+    int dummyId = 0;
 
     public void draw() {
         if (counter % SettingsVisual.LoadDataEveryNthFrame == 0) {
@@ -173,6 +176,16 @@ public class MainCanvas extends PApplet {
             try {
                 nextDiceResults = new ArrayList<DiceResult>();
                 //nextDiceResults = db.getDiceResultAboveId(lastDiceResultId);
+                for (int i = 0; i < 100; i++) {
+                    var dr = new DiceResult();
+                    dr.Id = dummyId;
+                    dr.Result = Utils.randDiceResult();
+                    dr.ClientId = Utils.randClientId();
+                    dr.Material = "";
+                    dr.Time = new Date();
+                    nextDiceResults.add(dr);
+                    dummyId++;
+                }
                 resultsPerFrame = (double)nextDiceResults.size() / SettingsVisual.LoadDataEveryNthFrame;
                 lastShownResultIndex = 0;
                 if (nextDiceResults.size() > 0) {

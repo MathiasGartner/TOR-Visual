@@ -2,6 +2,7 @@ package TORVisual.Sketches.RandomWalks;
 
 import TORVisual.Data.DiceResult;
 import TORVisual.SketchArea;
+import TORVisual.Utils.Utils;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ public class Chili extends RandomWalker{
     public void draw() {
 
        //for (var result : this.resultsToShow) {
-           int r = randInt();
+           int r = Utils.randDiceResult();
         //  int r = result.Result;
 
            switch (r) {

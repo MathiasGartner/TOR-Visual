@@ -101,6 +101,7 @@ public class Sternanis extends RandomWalker{
 
 
     }
+
     void star(float x, float y, float radius1, float radius2, int npoints)
     {
         float angle = (float) ((2*Math.PI) / npoints);

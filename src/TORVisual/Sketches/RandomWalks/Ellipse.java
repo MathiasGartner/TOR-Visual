@@ -2,6 +2,7 @@ package TORVisual.Sketches.RandomWalks;
 
 import TORVisual.Data.DiceResult;
 import TORVisual.SketchArea;
+import TORVisual.Utils.Utils;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
@@ -23,74 +24,59 @@ public class Ellipse extends RandomWalker
         w=3;
         h=3;
         size = 10;
+        dColor = 0.05f;
     }
 
     @Override
     public void draw() {
-        int r = randInt();
+        int r = Utils.randDiceResult();
         switch (r) {
             case 1:
-                if (x+dx < area.w)
-                    x += dx;
+                this.moveX(dx);
 
-                if (cg < 140)  //green + 1
-                    cg += 1;
+                if (colorPercent < 1) {
+                    colorPercent += dColor;
+                }
                 break;
             case 2:
-                if (y+dy < area.h)
-                    y += dy;
+                this.moveY(dy);
 
-                if (cg > 50 && cg <140)  //green -1
-                    cg -= 1;
+                if (colorPercent > 0) {
+                    colorPercent -= dColor;
+                }
                 break;
             case 3:
-                if (x > 1 & x < area.w)
-                    x -= dx;
+                this.moveX(-dx);
 
-                //  if (cb > 0)  //blue -1
-                //      cb -= 1;
                 if (h < size)
                     h += ds;
                 break;
-
             case 4:
-                if (y > 1 & y < area.h)
-                    y -= dy;
-
-                   //if (cb < 255)  //blue + 1
-                   //cb += 1;
+                this.moveY(-dy);
 
                 if (w < size)
                     w += ds;
-
-                if (cg > 50 && cg <140)  //green -1
-                    cg -= 1;
                 break;
-
-
-
             case 5:
-
-                if (w > ds)
+                if (w > ds) {
                     w -= ds;
-                //if (size > ds)
-                //    size -= ds;
-
-                if (alpha <= 100 & alpha >= 20)
+                }
+                if (alpha <= 100 & alpha >= 20) {
                     alpha -= 1;
+                }
                 break;
-
             case 6:
-                //size += ds;
-                if (h > ds)
+                if (h > ds) {
                     h -= ds;
-
-                if (alpha >= 20 & alpha <= 100)
+                }
+                if (alpha >= 20 & alpha <= 100) {
                     alpha += 1;
+                }
                 break;
         }
-        sketch.fill(cr/3, cg/3, cb/3, alpha/1.5f);
-        sketch.stroke(cr, cg, cb, alpha/1.7f);
+        var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
+        sketch.fill(c, alpha / 4.0f);
+        sketch.stroke(c, alpha);
         sketch.ellipse(x, y, w, h);
     }
 }

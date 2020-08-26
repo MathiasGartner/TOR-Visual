@@ -12,6 +12,8 @@ public class Program {
         int screen = 1;
         int w = 1000;
         int h = 600;
+        w = 1920;
+        h = 1080;
         MainCanvas mainCanvas;
         if (args.length == 1) {
             try {
@@ -35,7 +37,7 @@ public class Program {
             mainCanvas = new MainCanvas(screen, w, h);
         }
         else {
-            mainCanvas = new MainCanvas(screen, 1000, 600);
+            mainCanvas = new MainCanvas(screen, w, h);
             //mainCanvas = new MainCanvas(2);
         }
         //MainCanvas mainCanvas = new MainCanvas(2, 800, 600);
