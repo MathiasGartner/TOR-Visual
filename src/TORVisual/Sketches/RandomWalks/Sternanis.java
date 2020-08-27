@@ -31,7 +31,6 @@ public class Sternanis extends RandomWalker{
         npointsmax=10;
         float angle = (float) ((2*Math.PI) / npoints);
         float halfAngle = (float) (angle/2.0);
-
     }
 
     @Override
@@ -81,8 +80,8 @@ public class Sternanis extends RandomWalker{
                         break;
 
             }
-            sketch.fill(cr, cg, cb, alpha);
-            sketch.stroke(cr, cg, cb, alpha);
+            this.canvas.fill(cr, cg, cb, alpha);
+            this.canvas.stroke(cr, cg, cb, alpha);
             star(x,y,radius1,radius2,npoints);
             //sketch.triangle(x1, y1, x2, y2, x3, y3);
             /*sketch.beginShape();
@@ -101,21 +100,22 @@ public class Sternanis extends RandomWalker{
 
 
     }
+
     void star(float x, float y, float radius1, float radius2, int npoints)
     {
         float angle = (float) ((2*Math.PI) / npoints);
         float halfAngle = (float) (angle/2.0);
 
-        sketch.beginShape();
+        this.canvas.beginShape();
         for (float a = 0; a < (2*(Math.PI)); a += angle) {
             float sx = (float) (x + Math.cos(a) * radius2);
             float sy = (float) (y + Math.sin(a) * radius2);
-            sketch.vertex(sx, sy);
+            this.canvas.vertex(sx, sy);
             sx = (float) (x + Math.cos(a+halfAngle) * radius1);
             sy = (float) (y + Math.sin(a+halfAngle) * radius1);
-            sketch.vertex(sx, sy);
+            this.canvas.vertex(sx, sy);
         }
-        sketch.endShape();
+        this.canvas.endShape();
     }
 }
 

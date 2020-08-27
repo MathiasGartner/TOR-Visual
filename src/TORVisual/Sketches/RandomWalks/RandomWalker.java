@@ -4,6 +4,7 @@ import TORVisual.Data.DiceResult;
 import TORVisual.EmbeddedSketch;
 import TORVisual.SketchArea;
 import processing.core.PApplet;
+import processing.core.PGraphics;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -16,14 +17,31 @@ public class RandomWalker extends EmbeddedSketch {
     float startY;
     float x;
     float y;
-    float x1, y1, x2, y2, x3, y3;
+    float x1, y1, x2, y2, x3, y3; // x and y for eg. lines, polygon
     float size;
     float dx; //x change
     float dy; //y change
     float ds; //size change
-    int cr, cg, cb;
-    int alpha = 30;
     float w, h;
+
+    int cr, cg, cb; //color (red, green, blue)
+    int alpha = 30;
+    int colorStart;
+    int colorEnd;
+    float colorPercent; //for lerping (interpolating) between colorStart and colorEnd
+    float dColor; // colorPercent changes by dc
+
+    float border = 10;
+    float returnArea = 30;
+    float minX;
+    float maxX;
+    float minY;
+    float maxY;
+
+    boolean xMinOut = false;
+    boolean xMaxOut = false;
+    boolean yMinOut = false;
+    boolean yMaxOut = false;
 
 
     public RandomWalker(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
@@ -31,13 +49,11 @@ public class RandomWalker extends EmbeddedSketch {
 
         this.resultsToShow = resultsToShow;
 
-        startX = this.area.w / 2;
-        startY = this.area.h / 2;
+        startX = this.area.w / 2.0f;
+        startY = this.area.h / 2.0f;
         size = 5;
         x = startX;
         y = startY;
-
-
 
         x1= startX;
         y1= startY;
@@ -46,78 +62,68 @@ public class RandomWalker extends EmbeddedSketch {
         x3= startX+4;
         y3= startY+8;
 
+        minX = border;
+        maxX = this.area.w - border;
+        minY = border;
+        maxY = this.area.h - border;
+
+        colorStart = sketch.color(40, 139, 119);
+        colorEnd = sketch.color(90, 60, 119);
+        colorPercent = 0.0f;
+        dColor = 0.01f;
     }
 
-    public int randInt() {
-        int randomNum = ThreadLocalRandom.current().nextInt(1, 6+1);
-        return randomNum;
+    protected void moveX(float steps) {
+        if (steps > 0) { //move right
+            if (x < maxX && !xMaxOut) {
+                x += steps;
+            }
+            else {
+                xMaxOut = true;
+            }
+            if (xMinOut && x > returnArea) {
+                xMinOut = false;
+            }
+        }
+        else if (steps < 0) { //move left
+            if (x > minX && !xMinOut) {
+                x += steps;
+            }
+            else {
+                xMinOut = true;
+            }
+            if (xMaxOut && x < this.area.w - returnArea) {
+                xMaxOut = false;
+            }
+        }
+    }
+
+    protected void moveY(float steps) {
+        if (steps > 0) { //move down
+            if (y < maxY && !yMaxOut) {
+                y += steps;
+            }
+            else {
+                yMaxOut = true;
+            }
+            if (yMinOut && y > returnArea) {
+                yMinOut = false;
+            }
+        }
+        else if (steps < 0) { //move up
+            if (y > minY && !yMinOut) {
+                y += steps;
+            }
+            else {
+                yMinOut = true;
+            }
+            if (yMaxOut && y < this.area.h - returnArea) {
+                yMaxOut = false;
+            }
+        }
     }
 
     @Override
     public void draw() {
-        int r = randInt();
-        switch(r) {
-            case 1:
-                if (x <area.w)
-                    x += dx;
-
-                if (cg < 255)  //green + 1
-                    cg += 1;
-                break;
-            case 2:
-                if (y < area.h)
-                    y += dy;
-
-                if (cg > 0)  //green -1
-                    cg -= 1;
-
-                break;
-            case 3:
-                if (x >1 & x < area.w)
-                x -= dx;
-
-              //  if (cb > 0)  //blue -1
-              //      cb -= 1;
-                if (h<20)
-                    h += ds;
-
-                break;
-            case 4:
-                if (y >1 & y<area.h)
-                y -= dy;
-
-             //   if (cb < 255)  //blue + 1
-                //cb += 1;
-
-                if (w< 20)
-                    w += ds;
-                break;
-
-            case 5:
-
-                if (w>ds)
-                    w -= ds;
-                //if (size > ds)
-                //    size -= ds;
-
-                if (alpha <= 100 & alpha >=20)
-                    alpha -= 1;
-                break;
-            case 6:
-                //size += ds;
-                if (h>ds)
-                    h -= ds;
-
-                if (alpha >= 20 & alpha <= 100)
-                alpha += 1;
-                break;
-        }
-        sketch.fill(cr, cg, cb, alpha);
-        sketch.stroke(cr, cg, cb, alpha);
-        //sketch.triangle(x1, y1, x2, y2, x3, y3);
-        sketch.ellipse(x,y,w,h);
-
-
-
     }
 }

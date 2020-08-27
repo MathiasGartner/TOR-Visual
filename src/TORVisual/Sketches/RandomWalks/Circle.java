@@ -2,6 +2,7 @@ package TORVisual.Sketches.RandomWalks;
 
 import TORVisual.Data.DiceResult;
 import TORVisual.SketchArea;
+import TORVisual.Utils.Utils;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class Circle extends RandomWalker{
 
     @Override
     public void draw() {
-        int r = randInt();
+        int r = Utils.randDiceResult();
         switch (r) {
             case 1:
                 if (x < area.w)

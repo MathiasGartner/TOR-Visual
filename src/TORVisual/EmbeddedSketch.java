@@ -4,6 +4,7 @@ import TORVisual.Data.DiceResult;
 import TORVisual.Settings.SettingsVisual;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 import processing.core.PApplet;
+import processing.core.PGraphics;
 
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ public abstract class EmbeddedSketch {
     protected PApplet sketch;
     protected SketchArea area;
     protected int backgroundColor;
+    protected PGraphics canvas;
 
     protected CircularFifoQueue<DiceResult> recentDiceResults;
 
@@ -19,6 +21,7 @@ public abstract class EmbeddedSketch {
         this.area = area;
         this.backgroundColor = sketch.color(10, 10, 10);
         this.recentDiceResults = new CircularFifoQueue<>(SettingsVisual.StoreLastNDiceResults_Default);
+        canvas = sketch.createGraphics(area.w, area.h);
     }
 
     protected EmbeddedSketch(PApplet sketch, int x, int y, int w, int h) {
@@ -39,6 +42,11 @@ public abstract class EmbeddedSketch {
 
     public void setBackgroundColor(int r, int g, int b) {
         this.backgroundColor = sketch.color(r, g, b);
+    }
+
+    public void clear() {
+        this.canvas.fill(this.backgroundColor);
+        this.canvas.rect(0, 0, this.area.w, this.area.h);
     }
 
     public void setBackgroundColor(int r, int g, int b, int a) {

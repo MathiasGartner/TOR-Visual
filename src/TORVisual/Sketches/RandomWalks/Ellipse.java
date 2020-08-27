@@ -2,6 +2,7 @@ package TORVisual.Sketches.RandomWalks;
 
 import TORVisual.Data.DiceResult;
 import TORVisual.SketchArea;
+import TORVisual.Utils.Utils;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
@@ -23,74 +24,61 @@ public class Ellipse extends RandomWalker
         w=3;
         h=3;
         size = 10;
+        dColor = 0.05f;
     }
 
     @Override
     public void draw() {
-        int r = randInt();
-        switch (r) {
-            case 1:
-                if (x+dx < area.w)
-                    x += dx;
+        for (var result : this.resultsToShow) {
+            int r = result.Result;
+            switch (r) {
+                case 1:
+                    this.moveX(dx);
 
-                if (cg < 140)  //green + 1
-                    cg += 1;
-                break;
-            case 2:
-                if (y+dy < area.h)
-                    y += dy;
+                    if (colorPercent < 1) {
+                        colorPercent += dColor;
+                    }
+                    break;
+                case 2:
+                    this.moveY(dy);
 
-                if (cg > 50 && cg <140)  //green -1
-                    cg -= 1;
-                break;
-            case 3:
-                if (x > 1 & x < area.w)
-                    x -= dx;
+                    if (colorPercent > 0) {
+                        colorPercent -= dColor;
+                    }
+                    break;
+                case 3:
+                    this.moveX(-dx);
 
-                //  if (cb > 0)  //blue -1
-                //      cb -= 1;
-                if (h < size)
-                    h += ds;
-                break;
+                    if (h < size)
+                        h += ds;
+                    break;
+                case 4:
+                    this.moveY(-dy);
 
-            case 4:
-                if (y > 1 & y < area.h)
-                    y -= dy;
-
-                   //if (cb < 255)  //blue + 1
-                   //cb += 1;
-
-                if (w < size)
-                    w += ds;
-
-                if (cg > 50 && cg <140)  //green -1
-                    cg -= 1;
-                break;
-
-
-
-            case 5:
-
-                if (w > ds)
-                    w -= ds;
-                //if (size > ds)
-                //    size -= ds;
-
-                if (alpha <= 100 & alpha >= 20)
-                    alpha -= 1;
-                break;
-
-            case 6:
-                //size += ds;
-                if (h > ds)
-                    h -= ds;
-
-                if (alpha >= 20 & alpha <= 100)
-                    alpha += 1;
-                break;
+                    if (w < size)
+                        w += ds;
+                    break;
+                case 5:
+                    if (w > ds) {
+                        w -= ds;
+                    }
+                    if (alpha <= 100 & alpha >= 20) {
+                        alpha -= 1;
+                    }
+                    break;
+                case 6:
+                    if (h > ds) {
+                        h -= ds;
+                    }
+                    if (alpha >= 20 & alpha <= 100) {
+                        alpha += 1;
+                    }
+                    break;
+            }
+            var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
+            this.canvas.fill(c, alpha / 4.0f);
+            this.canvas.stroke(c, alpha);
+            this.canvas.ellipse(x, y, w, h);
         }
-        sketch.fill(cr/3, cg/3, cb/3, alpha/1.5f);
-        sketch.stroke(cr, cg, cb, alpha/1.7f);
-        sketch.ellipse(x, y, w, h);
     }
 }
