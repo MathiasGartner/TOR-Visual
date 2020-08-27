@@ -159,16 +159,18 @@ public class MainCanvas extends PApplet {
 
         //CENTER
 
-        //Polstermoos PolstermoosSketch = new Polstermoos(this, sketchAreas.get(0), this.resultsToShow);
-        //sketchesCenter.add(PolstermoosSketch);
+        Polstermoos PolstermoosSketch = new Polstermoos(this, sketchAreas.get(0), this.resultsToShow);
+        sketchesCenter.add(PolstermoosSketch);
 
-        //test testSketch = new test(this, sketchAreas.get(1), this.resultsToShow);
-        //sketchesCenter.add(testSketch);
+        test testSketch = new test(this, sketchAreas.get(1), this.resultsToShow);
+        sketchesCenter.add(testSketch);
 
         Lavendel LavendelSketch = new Lavendel(this, sketchAreas.get(2), this.resultsToShow);
         sketchesCenter.add(LavendelSketch);
 
         //BACK
+
+
 
         sketchesAll.addAll(sketchesFront);
         sketchesAll.addAll(sketchesCenter);
@@ -238,9 +240,9 @@ public class MainCanvas extends PApplet {
             sketch.canvas.endDraw();
         }
         //TODO: switch sketches to show
-        if (frameCount > 1000) {
-            sketchesToShow = sketchesCenter;
-        }
+        //if (frameCount > 1000) {
+        //    sketchesToShow = sketchesCenter;
+        //}
         for (var sketch : sketchesToShow) {
             image(sketch.canvas, sketch.area.x, sketch.area.y);
         }
