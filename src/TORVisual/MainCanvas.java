@@ -2,7 +2,7 @@ package TORVisual;
 
 import TORVisual.Data.DiceResult;
 import TORVisual.Settings.SettingsVisual;
-import TORVisual.Sketches.AreaTest;
+import TORVisual.Sketches.PiMC;
 import TORVisual.Sketches.RandomWalks.*;
 import TORVisual.Utils.Utils;
 import processing.core.PApplet;
@@ -25,10 +25,9 @@ public class MainCanvas extends PApplet {
     private int screenH;
     private boolean fullScreen;
     PGraphics info;
+    ArrayList<PGraphics> sketchesGroupIcon;
 
-    private AreaTest areaTest1;
-    private AreaTest areaTest2;
-    private AreaTest areaTest3;
+    PiMC piMCSketch;
     private ArrayList<EmbeddedSketch> sketchesFront;
     private ArrayList<EmbeddedSketch> sketchesCenter;
     private ArrayList<EmbeddedSketch> sketchesBack;
@@ -100,11 +99,13 @@ public class MainCanvas extends PApplet {
             }
         }
 
+        sketchAreas.add(new SketchArea(screenH + 1, 0, screenW - screenH, screenH));
+        sketchAreas.add(new SketchArea(0, 0, 900, 900));
 
-        //sketchAreas.add(new SketchArea(screenH + 1, 0, screenW - screenH, screenH));
-        //sketchAreas.add(new SketchArea(0, 0, 900, 900));
+        //create Pi sketch
+        piMCSketch = new PiMC(this, sketchAreas.get(9), this.resultsToShow);
 
-        //create sketches
+        //create Random Walker sketches
         sketchesFront = new ArrayList<EmbeddedSketch>();
         sketchesCenter = new ArrayList<EmbeddedSketch>();
         sketchesBack = new ArrayList<EmbeddedSketch>();
@@ -116,9 +117,7 @@ public class MainCanvas extends PApplet {
             var sketch = new AreaTest(this, sketchAreas.get(i));
             sketch.setBackgroundColor(10 * i, 20 * i, 200 / (i + 1));
             sketches.add(sketch);
-        }
-        PiMC piMCSketch = new PiMC(this, sketchAreas.get(9), this.resultsToShow);
-        sketches.add(piMCSketch);*/
+        }*/
 
 
 
@@ -306,17 +305,50 @@ public class MainCanvas extends PApplet {
             rect(sketch.area.x, sketch.area.y, sketch.area.w, sketch.area.h);
         }
 
+        sketchesGroupIcon = new ArrayList<PGraphics>();
+        int sketchesGroupIconSizeX = 100;
+        float iW = 5;
+        float iS = 1.5f;
+        float iB = 2;
+        float sUnit = sketchesGroupIconSizeX / (3 * iW + 2 * iS + 2 * iB);
+        int sketchesGroupIconSizeY = (int)((3 * iW + 3 * iS) * sUnit);
+        float iWidth = iW * sUnit;
+        float iSpacing = iS * sUnit;
+        float iBorder = iB * sUnit;
+        float sw = 1.0f;
+        float sw2 = sw / 2.0f;
+        for (int i = 0; i < 3; i++) {
+            PGraphics icon = createGraphics(sketchesGroupIconSizeX, sketchesGroupIconSizeY);
+            icon.beginDraw();
+            icon.background(Utils.Colors.BACKGROUND);
+            icon.fill(Utils.Colors.GRAY);
+            icon.noStroke();
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 3; k++) {
+                    icon.square(iBorder + j * (iSpacing + iWidth), k * (iSpacing + iWidth) + iSpacing / 2.0f, iWidth);
+                }
+            }
+            icon.noFill();
+            icon.stroke(Utils.Colors.WHITE);
+            icon.strokeWeight(sw);
+            icon.rect(sw2, sketchesGroupIconSizeY / 3.0f * i + sw2, sketchesGroupIconSizeX - sw, iSpacing + iWidth - sw);
+            icon.endDraw();
+            sketchesGroupIcon.add(icon);
+        }
+
         oldTimeStamp = this.minute();
         sketchGroupIndexToShow = 0;
+        sketchGroupIndexToShowNext = 0;
         sketchesToShowNext = null;
         inSketchSwitchMode = false;
     }
 
-    boolean enableSwitching = false;
+    boolean enableSwitching = true;
     boolean inSketchSwitchMode;
-    float alphaSketchSwitchMode;
+    float switchPercent;
     int oldTimeStamp;
     int sketchGroupIndexToShow;
+    int sketchGroupIndexToShowNext;
     double resultsPerFrame;
     double lastShownResultIndex;
     int dummyId = 0;
@@ -364,7 +396,13 @@ public class MainCanvas extends PApplet {
         //for (var dr : resultsToShow) System.out.println(dr.Id);
         lastShownResultIndex = showResultsUpToIndex;
 
-        this.background(10,11,12);
+        this.background(Utils.Colors.BACKGROUND);
+
+        //draw PiMC
+        piMCSketch.canvas.beginDraw();
+        piMCSketch.draw();
+        piMCSketch.canvas.endDraw();
+        image(piMCSketch.canvas, piMCSketch.area.x, piMCSketch.area.y);
 
         //draw sketches
         for (var sketch : sketchesAll) {
@@ -378,30 +416,36 @@ public class MainCanvas extends PApplet {
         if (enableSwitching) {
             if (oldTimeStamp != minute()) {
                 oldTimeStamp = minute();
-                sketchGroupIndexToShow = (sketchGroupIndexToShow + 1) % 3;
-                sketchesToShowNext = sketchesGroups.get(sketchGroupIndexToShow);
+                sketchGroupIndexToShowNext = (sketchGroupIndexToShowNext + 1) % 3;
+                sketchesToShowNext = sketchesGroups.get(sketchGroupIndexToShowNext);
                 inSketchSwitchMode = true;
-                alphaSketchSwitchMode = 0;
+                switchPercent = 0;
             }
-        }
-        for (var sketch : sketchesToShow) {
-            if (inSketchSwitchMode) {
-                tint(255, 255 - alphaSketchSwitchMode);
-            }
-            this.displayRandomWalkSketch((RandomWalker)sketch);
         }
         if (inSketchSwitchMode) {
+            tint(255, 255 * (1.0f - switchPercent));
+            fill(Utils.Colors.WHITE, 230 * (1.0f - switchPercent));
+        }
+        for (var sketch : sketchesToShow) {
+            this.displayRandomWalkSketch((RandomWalker)sketch);
+        }
+        image(sketchesGroupIcon.get(sketchGroupIndexToShow), 20, 20);
+        if (inSketchSwitchMode) {
+            tint(255, 255 * switchPercent);
+            fill(Utils.Colors.WHITE, 230 * switchPercent);
             for (var sketch: sketchesToShowNext) {
-                tint(255, alphaSketchSwitchMode);
                 this.displayRandomWalkSketch((RandomWalker)sketch);
             }
-            alphaSketchSwitchMode += 0.4;
+            image(sketchesGroupIcon.get(sketchGroupIndexToShowNext), 20, 20);
+            switchPercent += 0.008;
         }
-        if (inSketchSwitchMode && alphaSketchSwitchMode >= 255) {
+        if (inSketchSwitchMode && switchPercent >= 1.0f) {
             inSketchSwitchMode = false;
             sketchesToShow = sketchesToShowNext;
+            sketchGroupIndexToShow = sketchGroupIndexToShowNext;
         }
         noTint();
+        fill(Utils.Colors.WHITE);
 
         //draw borders
         /*
@@ -429,7 +473,6 @@ public class MainCanvas extends PApplet {
 
     public void displayRandomWalkSketch(RandomWalker rw) {
         image(rw.canvas, rw.area.x, rw.area.y);
-        fill(248 ,250,251,230);
         textAlign(CENTER);
         textFont(font);
         text(rw.nameLatin, rw.area.x + rw.area.w / 2.0f, rw.area.yh + 25);

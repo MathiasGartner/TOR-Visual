@@ -4,6 +4,7 @@ import TORVisual.Data.DiceResult;
 import TORVisual.Data.PiMCPoint;
 import TORVisual.EmbeddedSketch;
 import TORVisual.SketchArea;
+import TORVisual.Utils.Utils;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 
@@ -27,6 +28,10 @@ public class PiMC extends EmbeddedSketch {
     private float graphX;
     private float graphY;
 
+    int c1;
+    int c2;
+    int c3;
+
     private double pi;
     private int total;
     private int inCircle;
@@ -47,26 +52,32 @@ public class PiMC extends EmbeddedSketch {
         this.newResults = newResults;
         this.resultsToProcess = new ArrayList<Integer>();
 
-        this.squareL = (int)(this.area.w / 10.0 * 8);
+        float pB = 1.0f;
+        float pS = 6.0f;
+        float pUnit = this.area.w / (pB + pS + pB);
+        this.squareL = (int)(pS * pUnit);
         this.squareL2 = this.squareL / 2.0f;
-        this.graphX = this.area.w / 10.0f;
-        this.graphY = this.area.h / 10.0f;
+        this.graphX = pB * pUnit;
+        this.graphY = pB * pUnit;
 
         this.pi = 1.0;
         this.total = 0;
         this.inCircle = 0;
 
         this.piGraph = sketch.createGraphics(this.squareL, this.squareL);
-        this.piGraph.noStroke();
         piGraph.beginDraw();
-        piGraph.fill(100);
+        this.piGraph.noStroke();
+        piGraph.fill(Utils.Colors.GRAY);
         piGraph.rect(0, 0, this.squareL, this.squareL);
-        piGraph.fill(150);
+        piGraph.fill(Utils.Colors.GREEN);
         piGraph.circle(this.squareL2, this.squareL2, this.squareL);
-        piGraph.fill(255);
         piGraph.endDraw();
 
-        this.setBackgroundColor(0, 0, 0);
+        this.setBackgroundColor(Utils.Colors.BACKGROUND);
+
+        this.c1 = sketch.color(sketch.red(Utils.Colors.WHITE), sketch.green(Utils.Colors.WHITE), sketch.blue(Utils.Colors.WHITE), 255);
+        this.c2 = sketch.color(sketch.red(Utils.Colors.WHITE), sketch.green(Utils.Colors.WHITE), sketch.blue(Utils.Colors.WHITE), 180);
+        this.c3 = sketch.color(sketch.red(Utils.Colors.WHITE), sketch.green(Utils.Colors.WHITE), sketch.blue(Utils.Colors.WHITE), 60);
 
         r.setSeed(12345);
     }
@@ -80,15 +91,20 @@ public class PiMC extends EmbeddedSketch {
         }
 
         this.clear();
-        sketch.fill(255);
-        sketch.text("pi = " + this.pi, 5, 15);
+        this.canvas.fill(255);
+        this.canvas.text("pi = " + this.pi, 5, 15);
 
         piGraph.beginDraw();
         for (var p : this.pointsToProcess) {
-            piGraph.circle(p.drawAt.x, p.drawAt.y, 5);
+            piGraph.fill(c1);
+            piGraph.circle(p.drawAt.x, p.drawAt.y, 0.9f);
+            piGraph.fill(c2);
+            piGraph.circle(p.drawAt.x, p.drawAt.y, 1.5f);
+            piGraph.fill(c3);
+            piGraph.circle(p.drawAt.x, p.drawAt.y, 3.0f);
         }
         piGraph.endDraw();
-        sketch.image(piGraph, this.graphX, this.graphY);
+        this.canvas.image(piGraph, this.graphX, this.graphY);
     }
 
     private void createPosition() {
