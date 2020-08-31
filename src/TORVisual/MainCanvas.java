@@ -373,6 +373,7 @@ public class MainCanvas extends PApplet {
 
         //TODO: switch sketches to show
         if (oldTimeStamp != minute()) {
+            oldTimeStamp = minute();
             sketchGroupIndexToShow = (sketchGroupIndexToShow + 1) % 3;
             sketchesToShowNext = sketchesGroups.get(sketchGroupIndexToShow);
             inSketchSwitchMode = true;
@@ -381,19 +382,16 @@ public class MainCanvas extends PApplet {
         for (var sketch : sketchesToShow) {
             if (inSketchSwitchMode) {
                 tint(255, 255 - alphaSketchSwitchMode);
-                image(sketch.canvas, sketch.area.x, sketch.area.y);
             }
-            else {
-                image(sketch.canvas, sketch.area.x, sketch.area.y);
-            }
+            this.displayRandomWalkSketch((RandomWalker)sketch);
         }
         if (inSketchSwitchMode) {
             for (var sketch: sketchesToShowNext) {
                 tint(255, alphaSketchSwitchMode);
-                image(sketch.canvas, sketch.area.x, sketch.area.y);
+                this.displayRandomWalkSketch((RandomWalker)sketch);
             }
+            alphaSketchSwitchMode += 0.4;
         }
-        alphaSketchSwitchMode += 0.5;
         if (inSketchSwitchMode && alphaSketchSwitchMode >= 255) {
             inSketchSwitchMode = false;
             sketchesToShow = sketchesToShowNext;
@@ -422,5 +420,12 @@ public class MainCanvas extends PApplet {
         info.text("Frame rate: " + frameRate, 10, 40);
         info.endDraw();
         image(info, screenW - info.width, screenH - info.height);
+    }
+
+    public void displayRandomWalkSketch(RandomWalker rw) {
+        image(rw.canvas, rw.area.x, rw.area.y);
+        fill(255);
+        textAlign(CENTER);
+        text(rw.name, rw.area.x + rw.area.w / 2.0f, rw.area.yh + 10);
     }
 }
