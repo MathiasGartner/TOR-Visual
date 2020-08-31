@@ -307,11 +307,16 @@ public class MainCanvas extends PApplet {
 
         sketchesGroupIcon = new ArrayList<PGraphics>();
         int sketchesGroupIconSizeX = 100;
-        float sUnit = sketchesGroupIconSizeX / 21.0f;
-        int sketchesGroupIconSizeY = (int)(18 * sUnit);
-        float s = 5 * sUnit;
-        float iMargin = 1 * sUnit;
-        float iBorder = 2 * sUnit;
+        float iW = 5;
+        float iS = 1.5f;
+        float iB = 2;
+        float sUnit = sketchesGroupIconSizeX / (3 * iW + 2 * iS + 2 * iB);
+        int sketchesGroupIconSizeY = (int)((3 * iW + 3 * iS) * sUnit);
+        float iWidth = iW * sUnit;
+        float iSpacing = iS * sUnit;
+        float iBorder = iB * sUnit;
+        float sw = 1.0f;
+        float sw2 = sw / 2.0f;
         for (int i = 0; i < 3; i++) {
             PGraphics icon = createGraphics(sketchesGroupIconSizeX, sketchesGroupIconSizeY);
             icon.beginDraw();
@@ -320,15 +325,13 @@ public class MainCanvas extends PApplet {
             icon.noStroke();
             for (int j = 0; j < 3; j++) {
                 for (int k = 0; k < 3; k++) {
-                    icon.square(iBorder + j * (iMargin + s), k * (iMargin + s) + iMargin / 2.0f, s);
+                    icon.square(iBorder + j * (iSpacing + iWidth), k * (iSpacing + iWidth) + iSpacing / 2.0f, iWidth);
                 }
             }
             icon.noFill();
             icon.stroke(Utils.Colors.WHITE);
-            float sw = 2.0f;
-            float sw2 = sw / 2.0f;
             icon.strokeWeight(sw);
-            icon.rect(sw2, sketchesGroupIconSizeY / 3.0f * i + sw2, sketchesGroupIconSizeX - sw, iMargin + s - sw);
+            icon.rect(sw2, sketchesGroupIconSizeY / 3.0f * i + sw2, sketchesGroupIconSizeX - sw, iSpacing + iWidth - sw);
             icon.endDraw();
             sketchesGroupIcon.add(icon);
         }
