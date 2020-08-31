@@ -11,6 +11,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomWalker extends EmbeddedSketch {
 
+    public String name;
+    public String nameLatin;
+
     protected ArrayList<DiceResult> resultsToShow;
 
     float startX;
@@ -46,6 +49,9 @@ public class RandomWalker extends EmbeddedSketch {
 
     public RandomWalker(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area);
+
+        name = "unknown";
+        nameLatin = "unknown";
 
         this.resultsToShow = resultsToShow;
 

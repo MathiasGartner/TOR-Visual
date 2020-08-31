@@ -1,21 +1,15 @@
 package TORVisual;
 
-import TORVisual.Data.DBManager;
 import TORVisual.Data.DiceResult;
 import TORVisual.Settings.SettingsVisual;
 import TORVisual.Sketches.AreaTest;
-import TORVisual.Sketches.PiMC;
 import TORVisual.Sketches.RandomWalks.*;
 import TORVisual.Utils.Utils;
-import org.apache.commons.collections4.queue.CircularFifoQueue;
 import processing.core.PApplet;
 import processing.core.PGraphics;
-import processing.core.PShape;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 public class MainCanvas extends PApplet {
 
@@ -38,7 +32,9 @@ public class MainCanvas extends PApplet {
     private ArrayList<EmbeddedSketch> sketchesCenter;
     private ArrayList<EmbeddedSketch> sketchesBack;
     private ArrayList<EmbeddedSketch> sketchesToShow;
+    private ArrayList<EmbeddedSketch> sketchesToShowNext;
     private ArrayList<EmbeddedSketch> sketchesAll;
+    private ArrayList<ArrayList<EmbeddedSketch>> sketchesGroups;
     private ArrayList<SketchArea> sketchAreas;
     private int borderPx;
 
@@ -112,6 +108,7 @@ public class MainCanvas extends PApplet {
         sketchesBack = new ArrayList<EmbeddedSketch>();
         sketchesToShow = new ArrayList<EmbeddedSketch>();
         sketchesAll = new ArrayList<EmbeddedSketch>();
+        sketchesGroups = new ArrayList<ArrayList<EmbeddedSketch>>();
 
         /*for (int i = 0; i < 9; i++) {
             var sketch = new AreaTest(this, sketchAreas.get(i));
@@ -292,10 +289,12 @@ public class MainCanvas extends PApplet {
 
 
 
-
-        sketchesAll.addAll(sketchesFront);
-        sketchesAll.addAll(sketchesCenter);
-        sketchesAll.addAll(sketchesBack);
+        sketchesGroups.add(sketchesFront);
+        sketchesGroups.add(sketchesCenter);
+        sketchesGroups.add(sketchesBack);
+        for (var sg : sketchesGroups) {
+            sketchesAll.addAll(sg);
+        }
 
         sketchesToShow = sketchesBack;
 
@@ -304,8 +303,18 @@ public class MainCanvas extends PApplet {
             fill(sketch.backgroundColor);
             rect(sketch.area.x, sketch.area.y, sketch.area.w, sketch.area.h);
         }
+
+        oldTimeStamp = this.minute();
+        sketchGroupIndexToShow = 0;
+        sketchesToShowNext = null;
+        inSketchSwitchMode = false;
     }
 
+    boolean enableSwitching = false;
+    boolean inSketchSwitchMode;
+    float alphaSketchSwitchMode;
+    int oldTimeStamp;
+    int sketchGroupIndexToShow;
     double resultsPerFrame;
     double lastShownResultIndex;
     int dummyId = 0;
@@ -362,13 +371,36 @@ public class MainCanvas extends PApplet {
             sketch.draw();
             sketch.canvas.endDraw();
         }
+
         //TODO: switch sketches to show
-        //if (frameCount > 1000) {
-        //    sketchesToShow = sketchesCenter;
-        //}
-        for (var sketch : sketchesToShow) {
-            image(sketch.canvas, sketch.area.x, sketch.area.y);
+        if (enableSwitching) {
+            if (oldTimeStamp != minute()) {
+                oldTimeStamp = minute();
+                sketchGroupIndexToShow = (sketchGroupIndexToShow + 1) % 3;
+                sketchesToShowNext = sketchesGroups.get(sketchGroupIndexToShow);
+                inSketchSwitchMode = true;
+                alphaSketchSwitchMode = 0;
+            }
         }
+        for (var sketch : sketchesToShow) {
+            if (inSketchSwitchMode) {
+                tint(255, 255 - alphaSketchSwitchMode);
+            }
+            this.displayRandomWalkSketch((RandomWalker)sketch);
+        }
+        if (inSketchSwitchMode) {
+            for (var sketch: sketchesToShowNext) {
+                tint(255, alphaSketchSwitchMode);
+                this.displayRandomWalkSketch((RandomWalker)sketch);
+            }
+            alphaSketchSwitchMode += 0.4;
+        }
+        if (inSketchSwitchMode && alphaSketchSwitchMode >= 255) {
+            inSketchSwitchMode = false;
+            sketchesToShow = sketchesToShowNext;
+        }
+        noTint();
+
         //draw borders
         /*
         for (var area : sketchAreas) {
@@ -391,5 +423,12 @@ public class MainCanvas extends PApplet {
         info.text("Frame rate: " + frameRate, 10, 40);
         info.endDraw();
         image(info, screenW - info.width, screenH - info.height);
+    }
+
+    public void displayRandomWalkSketch(RandomWalker rw) {
+        image(rw.canvas, rw.area.x, rw.area.y);
+        fill(255);
+        textAlign(CENTER);
+        text(rw.name, rw.area.x + rw.area.w / 2.0f, rw.area.yh + 10);
     }
 }
