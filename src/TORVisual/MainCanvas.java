@@ -247,11 +247,11 @@ public class MainCanvas extends PApplet {
         sketchesBack.add(EucalyptusSketch);
 
         //8
-        Lavendel LavendelSketch = new Lavendel(this, sketchAreas.get(2), this.resultsToShow);
+        Lavendel LavendelSketch = new Lavendel(this, sketchAreas.get(7), this.resultsToShow);
         sketchesBack.add(LavendelSketch);
 
         //9
-        Sternanis SternanisSketch = new Sternanis(this, sketchAreas.get(1), this.resultsToShow);
+        Sternanis SternanisSketch = new Sternanis(this, sketchAreas.get(8), this.resultsToShow);
         sketchesBack.add(SternanisSketch);
 
 
@@ -296,7 +296,7 @@ public class MainCanvas extends PApplet {
             sketchesAll.addAll(sg);
         }
 
-        sketchesToShow = sketchesFront;
+        sketchesToShow = sketchesBack;
 
         for (var sketch : sketchesToShow) {
             stroke(sketch.backgroundColor);
