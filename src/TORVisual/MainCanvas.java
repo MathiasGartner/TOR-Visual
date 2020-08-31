@@ -310,6 +310,7 @@ public class MainCanvas extends PApplet {
         inSketchSwitchMode = false;
     }
 
+    boolean enableSwitching = false;
     boolean inSketchSwitchMode;
     float alphaSketchSwitchMode;
     int oldTimeStamp;
@@ -372,12 +373,14 @@ public class MainCanvas extends PApplet {
         }
 
         //TODO: switch sketches to show
-        if (oldTimeStamp != minute()) {
-            oldTimeStamp = minute();
-            sketchGroupIndexToShow = (sketchGroupIndexToShow + 1) % 3;
-            sketchesToShowNext = sketchesGroups.get(sketchGroupIndexToShow);
-            inSketchSwitchMode = true;
-            alphaSketchSwitchMode = 0;
+        if (enableSwitching) {
+            if (oldTimeStamp != minute()) {
+                oldTimeStamp = minute();
+                sketchGroupIndexToShow = (sketchGroupIndexToShow + 1) % 3;
+                sketchesToShowNext = sketchesGroups.get(sketchGroupIndexToShow);
+                inSketchSwitchMode = true;
+                alphaSketchSwitchMode = 0;
+            }
         }
         for (var sketch : sketchesToShow) {
             if (inSketchSwitchMode) {
