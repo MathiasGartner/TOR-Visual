@@ -9,25 +9,27 @@ import java.util.ArrayList;
 
 public class Kork extends RandomWalker
 {
-    float angle_rad, sw, swd, swmax, sizemax, sizemin, sd;
+    float angle_rad, sw, swd, swmax, sizemax, sizemin, sd, dangle;
     public Kork(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
         name="Kork";
         nameLatin="Quercus suber";
-        cr = 250; //rgb color value red
-        cg = 246; //rgb color value green
-        cb = 210;  //rgb color value blue
+
+        colorStart = sketch.color(199, 156, 127);
+        colorEnd = sketch.color(120, 80, 53);
+
         alpha =10;
-        dx = this.area.w/100.0f*0.6f; //difference x
-        dy = this.area.w/100.0f*0.6f; //difference y
-        angle_rad=5;
-        sw= this.area.w/100.0f*0.2f; //stroke weight
-        swd= this.area.w/100.0f*0.05f; //stroke weight difference
+        dx = this.area.w/100.0f*0.7f; //difference x
+        dy = this.area.w/100.0f*0.8f; //difference y
+        angle_rad=20;
+        dangle=0.4f;
+        sw= this.area.w/100.0f*0.3f; //stroke weight
+        swd= this.area.w/100.0f*0.04f; //stroke weight difference
         swmax=this.area.w/100.0f*1f; //stroke weight maximum
-        size =this.area.h/100.0f*1f; //circle size
-        sizemax=this.area.h/100.0f*1.6f; //circle size maximum
-        sizemin=this.area.h/100.0f*0.4f;
-        sd=this.area.h/100.0f*0.1f; //size difference
+        //size =this.area.h/100.0f*1f; //circle size
+        //sizemax=this.area.h/100.0f*1.6f; //circle size maximum
+        //sizemin=this.area.h/100.0f*0.4f;
+        //sd=this.area.h/100.0f*0.1f; //size difference
 
     }
 
@@ -38,7 +40,7 @@ public class Kork extends RandomWalker
 
             switch (r) {
                 case 1:
-                    moveY((float) Math.cos(angle_rad));
+
                     if (sw > swd & sw < swmax)
                         sw -= swd;  //stroke weight - stroke weight distance
 
@@ -48,13 +50,10 @@ public class Kork extends RandomWalker
                     if (alpha >= 5 & alpha <= 50)
                         alpha += 1;
 
-                    if (size > sizemin & size < sizemax)
-                        size -= sd;  //circle size - difference size
+                   // if (size > sizemin & size < sizemax)
+                   //     size -= sd;  //circle size - difference size
 
-                    if (angle_rad>1)
-                    {
-                        angle_rad = angle_rad - 1;
-                    }
+                    angle_rad = angle_rad - dangle;
 
                     break;
 
@@ -62,18 +61,17 @@ public class Kork extends RandomWalker
                 case 3:
                     if (alpha <= 50 & alpha >= 5)
                         alpha -= 1;  //alpha -1
-                    if (angle_rad<360)
-                    {
-                    angle_rad = angle_rad + 1;
-                    }
+
                     break;
 
                 case 4:
-                    moveY(-(float) Math.cos(angle_rad));
+
+                    angle_rad = angle_rad + dangle;
                     break;
 
                 case 5:
-                    moveX((float)(Math.sin(angle_rad)));
+                    moveY((float) Math.sin(angle_rad)*dy);
+                    moveX((float) Math.cos(angle_rad)*dx);
 
                     if (size + sd < sizemax)
                         size += sd; //+size difference
@@ -81,18 +79,21 @@ public class Kork extends RandomWalker
 
 
                 case 6:
-
-                    moveX(-(float)(Math.sin(angle_rad)));
+                    moveY(-(float) Math.sin(angle_rad)*dy);
+                    moveX(-(float) Math.cos(angle_rad)*dx);
 
                     if (sw + swd < swmax)
                         sw += swd; //stroke weight + stroke weight distance
 
                     break;
             }
-            this.canvas.fill(cr, cg, cb, 0);
+            var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
+
+            this.canvas.fill(c, alpha);
             this.canvas.strokeWeight((float) sw);
-            this.canvas.stroke(cr, cg, cb, alpha);
-            this.canvas.circle(x, y, (float) size);
+            this.canvas.stroke(c, alpha);
+            //this.canvas.circle(x, y, (float) size);
+            this.canvas.point(x,y);
         }
     }
 }

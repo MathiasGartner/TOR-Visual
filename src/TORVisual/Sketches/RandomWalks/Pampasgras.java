@@ -19,7 +19,7 @@ public class Pampasgras extends RandomWalker
         cg = 179;
         cb = 117;
         dx = this.area.w/100.0f*0.6f; //difference x
-        dy = this.area.w/100.0f*0.2f; //difference y
+        dy = this.area.w/100.0f*0.3f; //difference y
         ds = this.area.w/100.0f*0.02f;
         h=this.area.h/100*0.5f;
         hmax=this.area.h/100*1.5f;
@@ -84,8 +84,8 @@ public class Pampasgras extends RandomWalker
                     break;
             }
             var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
-            this.canvas.fill(c, alpha / 4.0f);
-            this.canvas.stroke(c, alpha*0.6f);
+            this.canvas.fill(c, alpha*0.2f);
+            this.canvas.stroke(c, alpha*0.3f);
             this.canvas.ellipse(x, y, w, h);
         }
 
