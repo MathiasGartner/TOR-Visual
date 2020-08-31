@@ -11,6 +11,7 @@ import processing.core.PGraphics;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 public class MainCanvas extends PApplet {
 
@@ -104,6 +105,7 @@ public class MainCanvas extends PApplet {
 
         //create Pi sketch
         piMCSketch = new PiMC(this, sketchAreas.get(9), this.resultsToShow);
+        piMCSketch.setRecentDiceResultsCount(150);
 
         //create Random Walker sketches
         sketchesFront = new ArrayList<EmbeddedSketch>();
@@ -296,6 +298,7 @@ public class MainCanvas extends PApplet {
         for (var sg : sketchesGroups) {
             sketchesAll.addAll(sg);
         }
+        sketchesAll.add(piMCSketch);
 
         sketchesToShow = sketchesFront;
 
@@ -306,7 +309,7 @@ public class MainCanvas extends PApplet {
         }
 
         sketchesGroupIcon = new ArrayList<PGraphics>();
-        int sketchesGroupIconSizeX = 100;
+        int sketchesGroupIconSizeX = 60;
         float iW = 5;
         float iS = 1.5f;
         float iB = 2;
@@ -359,7 +362,7 @@ public class MainCanvas extends PApplet {
             try {
                 nextDiceResults = new ArrayList<DiceResult>();
                 //nextDiceResults = db.getDiceResultAboveId(lastDiceResultId);
-                for (int i = 0; i < 100; i++) {
+                for (int i = 0; i < 1000; i++) {
                     var dr = new DiceResult();
                     dr.Id = dummyId;
                     dr.Result = Utils.randDiceResult();

@@ -28,15 +28,23 @@ public class PiMC extends EmbeddedSketch {
     private float graphX;
     private float graphY;
 
+    private int resultTableW;
+    private int resultTableH;
+    private float resultTableX;
+    private float resultTableY;
+
     int c1;
     int c2;
     int c3;
 
     private double pi;
+    private double variance;
+    private double error;
     private int total;
     private int inCircle;
 
     PGraphics piGraph;
+    PGraphics resultTable;
 
     Random r = new Random();
 
@@ -52,17 +60,19 @@ public class PiMC extends EmbeddedSketch {
         this.newResults = newResults;
         this.resultsToProcess = new ArrayList<Integer>();
 
-        float pB = 1.0f;
+        this.pi = 1.0;
+        this.variance = 1.0;
+        this.error = 1.0;
+        this.total = 0;
+        this.inCircle = 0;
+
+        float pB = 3.0f;
         float pS = 6.0f;
         float pUnit = this.area.w / (pB + pS + pB);
         this.squareL = (int)(pS * pUnit);
         this.squareL2 = this.squareL / 2.0f;
         this.graphX = pB * pUnit;
-        this.graphY = pB * pUnit;
-
-        this.pi = 1.0;
-        this.total = 0;
-        this.inCircle = 0;
+        this.graphY = (pB - 1) * pUnit;
 
         this.piGraph = sketch.createGraphics(this.squareL, this.squareL);
         piGraph.beginDraw();
@@ -72,6 +82,17 @@ public class PiMC extends EmbeddedSketch {
         piGraph.fill(Utils.Colors.GREEN);
         piGraph.circle(this.squareL2, this.squareL2, this.squareL);
         piGraph.endDraw();
+
+        float rB = 2.0f;
+        float rW = 6.0f;
+        float rH = 4.0f;
+        float rUnit = this.area.w / (rB + rW + rB);
+        this.resultTableW = (int)(rW * pUnit);
+        this.resultTableH = (int)(rH * pUnit);
+        this.resultTableX = rB * rUnit;
+        this.resultTableY = rB * rUnit + this.graphY + this.squareL;
+
+        this.resultTable = sketch.createGraphics(resultTableW, resultTableH);
 
         this.setBackgroundColor(Utils.Colors.BACKGROUND);
 
@@ -93,6 +114,8 @@ public class PiMC extends EmbeddedSketch {
         this.clear();
         this.canvas.fill(255);
         this.canvas.text("pi = " + this.pi, 5, 15);
+        this.canvas.text("var = " + this.variance, 5, 30);
+        this.canvas.text("err = " + this.error, 5, 45);
 
         piGraph.beginDraw();
         for (var p : this.pointsToProcess) {
@@ -105,6 +128,26 @@ public class PiMC extends EmbeddedSketch {
         }
         piGraph.endDraw();
         this.canvas.image(piGraph, this.graphX, this.graphY);
+
+        resultTable.beginDraw();
+        resultTable.background(100);
+        int row = 0;
+        int col = 0;
+        int maxCol = 15;
+        int s = 20;
+        int spacing = 5;
+        for(var r : recentDiceResults) {
+            //resultTable.image(piGraph, col * (s + spacing), row * (s + spacing), s, s);
+            resultTable.fill(255);
+            resultTable.text(r.Result, col * (s + spacing) , row * (s + spacing));
+            col++;
+            if (col == maxCol) {
+                col = 0;
+                row++;
+            }
+        }
+        resultTable.endDraw();
+        this.canvas.image(resultTable, this.resultTableX, this.resultTableY);
     }
 
     private void createPosition() {
@@ -122,6 +165,8 @@ public class PiMC extends EmbeddedSketch {
                 this.inCircle++;
             }
             this.pi = 4.0 * this.inCircle / (double)this.total;
+            this.variance = pi * (4.0 - pi);
+            this.error = Math.sqrt(this.variance) / Math.sqrt(this.total);
             for (int i = 0; i < this.resultsNeededForNewPosition; i++) {
                 resultsToProcess.remove(0);
             }
