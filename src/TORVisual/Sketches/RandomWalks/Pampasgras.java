@@ -84,8 +84,8 @@ public class Pampasgras extends RandomWalker
                     break;
             }
             var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
-            this.canvas.fill(c, alpha / 4.0f);
-            this.canvas.stroke(c, alpha*0.6f);
+            this.canvas.fill(c, alpha*0.2f);
+            this.canvas.stroke(c, alpha*0.3f);
             this.canvas.ellipse(x, y, w, h);
         }
 

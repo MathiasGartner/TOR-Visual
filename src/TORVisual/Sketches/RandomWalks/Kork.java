@@ -40,8 +40,7 @@ public class Kork extends RandomWalker
 
             switch (r) {
                 case 1:
-                    moveY((float) Math.sin(angle_rad)*dy);
-                    moveX((float) Math.cos(angle_rad)*dx);
+
                     if (sw > swd & sw < swmax)
                         sw -= swd;  //stroke weight - stroke weight distance
 
@@ -71,7 +70,8 @@ public class Kork extends RandomWalker
                     break;
 
                 case 5:
-
+                    moveY((float) Math.sin(angle_rad)*dy);
+                    moveX((float) Math.cos(angle_rad)*dx);
 
                     if (size + sd < sizemax)
                         size += sd; //+size difference

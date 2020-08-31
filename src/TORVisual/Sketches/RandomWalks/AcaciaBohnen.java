@@ -15,10 +15,10 @@ public class AcaciaBohnen extends RandomWalker
             name="Acacia Bohnen";
             nameLatin="Delonix regia";
 
-            colorStart = sketch.color(94, 51, 11);
+            colorStart = sketch.color(74, 48, 22);
             //colorEnd = sketch.color(74, 38, 5);
 
-            alpha =10;
+            alpha =30;
 
             sw= this.area.w/100.0f*0.2f; //stroke weight
 
@@ -50,7 +50,7 @@ public class AcaciaBohnen extends RandomWalker
                         break;
 
                     case 2:
-                        if (alpha >= 5 & alpha <= 50)
+                        if (alpha >= 5 & alpha <= 70)
                             alpha += 1;
 
                         if (w > sd)
@@ -66,7 +66,7 @@ public class AcaciaBohnen extends RandomWalker
 
 
                     case 3:
-                        if (alpha <= 50 & alpha >= 5)
+                        if (alpha <= 70 & alpha >= 5)
                             alpha -= 1;  //alpha -1
                         if (angle_rad<360)
                         {
@@ -107,7 +107,7 @@ public class AcaciaBohnen extends RandomWalker
                 }
 
                 //var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
-                this.canvas.fill(colorStart, 10);
+                this.canvas.fill(colorStart, alpha);
                 this.canvas.noStroke();
                 //this.canvas.strokeWeight((float) sw);
                 //this.canvas.stroke(colorStart, alpha/2);
