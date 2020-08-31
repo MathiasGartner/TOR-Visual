@@ -9,13 +9,27 @@ import java.util.ArrayList;
 
 public class Palmenblatt extends RandomWalker
 {
-    float angle_rad, sw, swd, swmax, sizemax, sizemin, sd, dangle;
+    float angle_rad, sw, swd, swmax, sizemax, sizemin, sd, dangle,  xdistance, ydistance, distancemax;
     public Palmenblatt(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
 
 
             colorStart = sketch.color(40, 64, 47);
             colorEnd = sketch.color(37, 77, 49);
+
+        x1 = startX;
+        y1 = startY;
+
+        dx = this.area.w/100.0f*0.8f; //difference x
+        dy = this.area.w/100.0f*0.8f; //difference y
+
+        xdistance = this.area.w/100.0f*0.5f;
+        ydistance = this.area.w/100.0f*0.5f;
+
+        distancemax = this.area.w/100.0f*2f;
+
+        x2 = x1+xdistance;
+        y2= y1+ydistance;
 
             alpha =10;
             sw= this.area.w/100.0f*0.2f; //stroke weight
@@ -56,10 +70,19 @@ public class Palmenblatt extends RandomWalker
 
                         angle_rad = angle_rad - dangle;
 
+                        if (x1+dx <= area.w && x2+dx <= area.w && (Math.abs((x2+dx)-x1)<distancemax)) {
+                            x1 +=  ((float) Math.sin(angle_rad)*dx);
+                            x2 += ((float) Math.sin(angle_rad)*dx);
+                        }
                         break;
 
 
                     case 3:
+                        if ((x1-dx >= 0) && (x2-dx >= 0))
+                        {
+                            x1 -=  ((float) Math.sin(angle_rad)*dx);
+                            x2 -= ((float) Math.sin(angle_rad)*dx);
+                        }
                         if (alpha > 0)
                             alpha -= 1;  //alpha -1
 
@@ -67,21 +90,28 @@ public class Palmenblatt extends RandomWalker
                         break;
 
                     case 4:
-                        //moveY(-(float) Math.sin(angle_rad)*dy);
-                        //moveX(-(float) Math.cos(angle_rad)*dx);
+                        if ((y1+dy <= area.h) && (y2+dy <= area.h) && Math.abs((y2+dy)-y1)<distancemax)
+                        {
+                            y1 -= ((float) Math.sin(angle_rad)*dy);
+                            y2 -= ((float) Math.sin(angle_rad)*dy);
+                        }
                         break;
 
                     case 5:
-                        moveY(-(float) Math.sin(angle_rad)*dy);
-                        moveX(+(float) Math.cos(angle_rad)*dx);
+
+                        if ((y1+dy <= area.h) && (y2+dy <= area.h) && Math.abs((y2+dy)-y1)<distancemax)
+                        {
+                            y1 += ((float) Math.sin(angle_rad)*dy);
+                            y2 += ((float) Math.sin(angle_rad)*dy);
+                        }
                         if (size + sd < sizemax)
                             size += sd; //+size difference
                         break;
 
 
                     case 6:
-                        moveY(+(float) Math.sin(angle_rad)*dy);
-                        moveX(-(float) Math.cos(angle_rad)*dx);
+
+
                         if (sw + swd < swmax)
                             sw += swd; //stroke weight + stroke weight distance
 
