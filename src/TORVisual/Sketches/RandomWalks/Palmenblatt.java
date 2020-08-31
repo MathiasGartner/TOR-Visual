@@ -12,7 +12,8 @@ public class Palmenblatt extends RandomWalker
     float angle_rad, sw, swd, swmax, sizemax, sizemin, sd, dangle,  xdistance, ydistance, distancemax;
     public Palmenblatt(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
-
+        name="Palmenblatt";
+        nameLatin="Dypsis lutescens";
 
             colorStart = sketch.color(40, 64, 47);
             colorEnd = sketch.color(37, 77, 49);

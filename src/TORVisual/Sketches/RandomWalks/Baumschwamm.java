@@ -13,6 +13,8 @@ public class Baumschwamm extends RandomWalker
     public Baumschwamm(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
 
+        name="Baumschwamm";
+        nameLatin="Fomitopsis pinicola";
     }
 
     @Override

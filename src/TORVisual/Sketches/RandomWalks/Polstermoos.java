@@ -13,7 +13,8 @@ public class Polstermoos extends RandomWalker{
     float swd;
     public Polstermoos(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
-
+        name="Polstermoos";
+        nameLatin="Leucobryum glaucum";
 
         x = startX;
         y = startY;

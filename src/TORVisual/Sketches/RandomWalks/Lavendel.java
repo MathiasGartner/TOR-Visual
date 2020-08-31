@@ -15,7 +15,8 @@ public class Lavendel extends RandomWalker
     float angle_rad, sw, swd, swmax, sizemax, sizemin, sd, dangle,hmax,hmin;
     public Lavendel(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
              super(sketch, area, resultsToShow);
-
+            name="Lavendel";
+            nameLatin="Lavandula";
             colorStart = sketch.color(71, 55, 119);
             colorEnd = sketch.color(63, 52, 94);
 

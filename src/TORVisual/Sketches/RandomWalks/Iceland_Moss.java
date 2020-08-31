@@ -15,6 +15,8 @@ public class Iceland_Moss extends RandomWalker{
     public Iceland_Moss(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
 
+        name="Islandmoos";
+        nameLatin="... Islandica";
 
         x = startX;
         y = startY;

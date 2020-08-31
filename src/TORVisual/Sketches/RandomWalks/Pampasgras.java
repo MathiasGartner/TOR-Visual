@@ -13,6 +13,8 @@ public class Pampasgras extends RandomWalker
     float hmax,hmin,wmax;
     public Pampasgras(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+        name="Pampasgras";
+        nameLatin="Cortaderia selloana";
         cr = 186;
         cg = 179;
         cb = 117;

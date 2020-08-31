@@ -13,8 +13,11 @@ public class Kirschkern extends RandomWalker
     public Kirschkern(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
 
-            colorStart = sketch.color(54, 87, 64);
-            colorEnd = sketch.color(75, 105, 84);
+            name="Kirschkerne";
+            nameLatin="Prunus avium";
+
+            colorStart = sketch.color(232, 205, 132);
+            colorEnd = sketch.color(130, 86, 56);
 
             alpha =10;
             sw= this.area.w/100.0f*0.2f; //stroke weight
@@ -39,8 +42,7 @@ public class Kirschkern extends RandomWalker
 
                 switch (r) {
                     case 1:
-                        //moveY((float) Math.sin(angle_rad)*dy);
-                        //moveX((float) Math.cos(angle_rad)*dx);
+
                         if (sw > swd & sw < swmax)
                             sw -= swd;  //stroke weight - stroke weight distance
 
@@ -59,6 +61,8 @@ public class Kirschkern extends RandomWalker
 
 
                     case 3:
+                        //moveY((float) Math.sin(angle_rad)*dy);
+                        //moveX((float) Math.cos(angle_rad)*dx);
                         if (alpha > 0)
                             alpha -= 1;  //alpha -1
 
@@ -66,21 +70,21 @@ public class Kirschkern extends RandomWalker
                         break;
 
                     case 4:
-                        //moveY(-(float) Math.sin(angle_rad)*dy);
-                        //moveX(-(float) Math.cos(angle_rad)*dx);
+                        moveY(-(float) Math.sin(angle_rad)*dy);
+                        moveX(-(float) Math.cos(angle_rad)*dx);
                         break;
 
                     case 5:
-                        moveY(-(float) Math.sin(angle_rad)*dy);
-                        moveX(+(float) Math.cos(angle_rad)*dx);
+                        moveY(+(float) Math.cos(angle_rad)*dy);
+                        moveX(-(float) Math.sin(angle_rad)*dx);
                         if (size + sd < sizemax)
                             size += sd; //+size difference
                         break;
 
 
                     case 6:
-                        moveY(+(float) Math.sin(angle_rad)*dy);
-                        moveX(-(float) Math.cos(angle_rad)*dx);
+                        moveY(-(float) Math.cos(angle_rad)*dy);
+                        moveX(+(float) Math.sin(angle_rad)*dx);
                         if (sw + swd < swmax)
                             sw += swd; //stroke weight + stroke weight distance
 

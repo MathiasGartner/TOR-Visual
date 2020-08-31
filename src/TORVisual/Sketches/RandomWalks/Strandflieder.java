@@ -12,6 +12,8 @@ public class Strandflieder extends RandomWalker
     float angle_rad, sw, swd, swmax, sizemax, sizemin, sd, dangle;
     public Strandflieder(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+        name="Strandflieder";
+        nameLatin="Limonium sinuatum";
 
         colorStart = sketch.color(99, 80, 117);
         colorEnd = sketch.color(87, 77, 97);

@@ -13,6 +13,8 @@ public class WoodCircle extends RandomWalker{
     float swd;
     public WoodCircle(PApplet sketch, SketchArea area,  ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+        name="Essigbaum";
+        nameLatin="Rhus typhina";
         x = startX;
         y = startY;
         cr = 52; //rgb color value red

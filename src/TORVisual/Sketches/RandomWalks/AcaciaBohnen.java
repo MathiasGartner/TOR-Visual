@@ -26,7 +26,8 @@ public class AcaciaBohnen extends RandomWalker
             swd= this.area.w/100.0f*0.05f; //stroke weight difference
             size =this.area.h/100.0f*1f; //circle size
             sd=this.area.h/100.0f*0.1f; //size difference
-
+        name="Acacia Bohnen";
+        nameLatin="Delonix regia";
         }
 
         @Override

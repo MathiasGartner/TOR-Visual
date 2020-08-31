@@ -10,7 +10,8 @@ public class EllipseCotton extends RandomWalker{
 
     public EllipseCotton(PApplet sketch, SketchArea area,  ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
-
+        name="Baumwolle";
+        nameLatin="Gossypium";
         cr = 255;
         cg = 255;
         cb = 255;

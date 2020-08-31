@@ -12,6 +12,8 @@ public class Kork extends RandomWalker
     float angle_rad, sw, swd, swmax, sizemax, sizemin, sd;
     public Kork(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+        name="Kork";
+        nameLatin="Quercus suber";
         cr = 250; //rgb color value red
         cg = 246; //rgb color value green
         cb = 210;  //rgb color value blue
