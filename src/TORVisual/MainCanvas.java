@@ -419,35 +419,30 @@ public class MainCanvas extends PApplet {
                 switchPercent = 0;
             }
         }
-        pushMatrix();
         if (inSketchSwitchMode) {
             tint(255, 255 * (1.0f - switchPercent));
             fill(Utils.Colors.WHITE, 230 * (1.0f - switchPercent));
         }
-        else {
-            fill(Utils.Colors.WHITE, 230);
-        }
         for (var sketch : sketchesToShow) {
-            this.displayRandomWalkSketch((RandomWalker)sketch, inSketchSwitchMode, switchPercent);
+            this.displayRandomWalkSketch((RandomWalker)sketch);
         }
         image(sketchesGroupIcon.get(sketchGroupIndexToShow), 20, 20);
-        popMatrix();
         if (inSketchSwitchMode) {
-            pushMatrix();
             tint(255, 255 * switchPercent);
             fill(Utils.Colors.WHITE, 230 * switchPercent);
             for (var sketch: sketchesToShowNext) {
-                this.displayRandomWalkSketch((RandomWalker)sketch, inSketchSwitchMode, switchPercent);
+                this.displayRandomWalkSketch((RandomWalker)sketch);
             }
             image(sketchesGroupIcon.get(sketchGroupIndexToShowNext), 20, 20);
-            popMatrix();
-            switchPercent += 0.02f;
+            switchPercent += 0.008;
         }
-        if (inSketchSwitchMode && switchPercent >= 1) {
+        if (inSketchSwitchMode && switchPercent >= 1.0f) {
             inSketchSwitchMode = false;
             sketchesToShow = sketchesToShowNext;
             sketchGroupIndexToShow = sketchGroupIndexToShowNext;
         }
+        noTint();
+        fill(Utils.Colors.WHITE);
 
         //draw borders
         /*
@@ -473,7 +468,7 @@ public class MainCanvas extends PApplet {
         image(info, screenW - info.width, screenH - info.height);
     }
 
-    public void displayRandomWalkSketch(RandomWalker rw, boolean inSketchSwitchMode, float switchPercent) {
+    public void displayRandomWalkSketch(RandomWalker rw) {
         image(rw.canvas, rw.area.x, rw.area.y);
         textAlign(CENTER);
         textFont(font);
