@@ -19,9 +19,12 @@ public abstract class EmbeddedSketch {
     protected EmbeddedSketch(PApplet sketch, SketchArea area) {
         this.sketch = sketch;
         this.area = area;
-        this.backgroundColor = sketch.color(10, 10, 10);
+        this.backgroundColor = sketch.color(12, 17, 17);
         this.recentDiceResults = new CircularFifoQueue<>(SettingsVisual.StoreLastNDiceResults_Default);
         canvas = sketch.createGraphics(area.w, area.h);
+        canvas.beginDraw();
+        canvas.background(backgroundColor);
+        canvas.endDraw();
     }
 
     protected EmbeddedSketch(PApplet sketch, int x, int y, int w, int h) {

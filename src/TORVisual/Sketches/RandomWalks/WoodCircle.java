@@ -38,11 +38,7 @@ public class WoodCircle extends RandomWalker{
 
            switch (r) {
             case 1:
-                if (y+dy >= area.h)
-                    y -= dy;
-
-                if (y+dy < area.h)
-                    y += dy;   //+ difference y
+                moveY(dy);
 
                 if (sw > swd & sw<swmax)
                     sw -= swd;  //stroke weight - stroke weight distance
@@ -66,13 +62,11 @@ public class WoodCircle extends RandomWalker{
                 break;
 
             case 4:
-                if (y > dy & y < area.h)
-                    y -= dy; //- difference y
+                moveY(-dy);
+                break;
 
             case 5:
-
-                if (x > dx & x < area.w)
-                    x -= dx; //- difference x
+                moveX(-dx);
 
                 if (size+sd < sizemax)
                     size += sd; //+size difference
@@ -81,11 +75,7 @@ public class WoodCircle extends RandomWalker{
 
             case 6:
 
-                if (x+dx >= area.w)
-                    x -= dx;
-
-                if (x < area.w)
-                    x += dx;   //+ difference x
+                moveX(dx);
 
                 if (sw+swd < swmax)
                     sw += swd; //stroke weight + stroke weight distance
@@ -96,11 +86,11 @@ public class WoodCircle extends RandomWalker{
 
         }
         //sketch.fill(cr, cg, cb, alpha);
-        sketch.fill(cr, cg, cb, 0);
+        this.canvas.fill(cr, cg, cb, 0);
       //     sketch.stroke(32,79,17,31);
-        sketch.strokeWeight((float) sw);
-        sketch.stroke(cr, cg, cb, alpha);
-        sketch.circle(x, y, (float) size);
+        this.canvas.strokeWeight((float) sw);
+        this.canvas.stroke(cr, cg, cb, alpha);
+        this.canvas.circle(x, y, (float) size);
     }
     }
 }

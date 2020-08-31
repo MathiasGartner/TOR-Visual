@@ -17,17 +17,11 @@ public class Polstermoos extends RandomWalker{
 
         x = startX;
         y = startY;
-        x2= (float) (x+(this.area.w/100.0f*2.5));
-        y2=y;
-        x3=(float) (x+(this.area.w/100.0f*1.5));
-        y3=(float) (y+(this.area.w/100.0f*1.5));
-        x4=(float) (x-(this.area.w/100.0f*1.5));
-        y4=y*1.5f;
-        w=this.area.w/100.0f*4;
-        h=this.area.w/100.0f*2;
-        sd=this.area.h/100.0f*0.2f; //size difference
-        sizemax=this.area.w/100.0f*4.5f;
-        sizemin=this.area.w/100.0f*1.5f;
+        w=this.area.w/100.0f*1.0f;
+        h=this.area.w/100.0f*0.6f;
+        sd=this.area.h/100.0f*0.1f; //size difference
+        sizemax=this.area.w/100.0f*1.5f;
+        sizemin=this.area.w/100.0f*0.15f;
         winkel= (float) 1.5f;
         multiply=0f;
         start=0;
@@ -35,8 +29,8 @@ public class Polstermoos extends RandomWalker{
         cr = 15; //rgb color value red
         cg = 80; //rgb color value green
         cb = 48;  //rgb color value blue
-        dx = this.area.w/100.0f*0.9f; //difference x
-        dy = this.area.w/100.0f*0.9f; //difference y
+        dx = this.area.w/100.0f*0.6f; //difference x
+        dy = this.area.w/100.0f*0.6f; //difference y
        // dh = this.area.w / 300;
        // dw = this.area.w / 300;
         //w=this.area.w/200;
@@ -53,17 +47,11 @@ public class Polstermoos extends RandomWalker{
     public void draw() {
 
        for (var result : this.resultsToShow) {
-           //int r = randInt();
-           int r = result.Result;
+            int r = result.Result;
 
            switch (r) {
             case 1:
-                if (y+dy >= area.h)
-                    y -= dy;
-
-                if (y+dy < area.h)
-                    y += dy;   //+ difference y
-
+                this.moveY(dy);
                 if (sw > swd & sw<swmax)
                     sw -= swd;  //stroke weight - stroke weight distance
 
@@ -74,12 +62,7 @@ public class Polstermoos extends RandomWalker{
                 break;
 
             case 2:
-                if (x+dx >= area.w)
-                    x -= dx;
-
-                if (x < area.w)
-                    x += dx;   //+ difference x
-
+                this.moveX(dx);
                 if (sw+swd < swmax)
                     sw += swd; //stroke weight + stroke weight distance
 
@@ -89,8 +72,7 @@ public class Polstermoos extends RandomWalker{
 
 
             case 3:
-                if (x > dx & x < area.w)
-                    x -= dx; //- difference x
+                this.moveX(-dx);
 
                 if (w+sd < sizemax)
                     w += sd; //+w difference
@@ -101,8 +83,7 @@ public class Polstermoos extends RandomWalker{
                 break;
 
             case 4:
-                if (y > dy & y < area.h)
-                    y -= dy; //- difference y
+                this.moveY(-dy);
 
                 if (cb > 0)
                     cb -= 1;   //blue - 1
@@ -147,14 +128,14 @@ public class Polstermoos extends RandomWalker{
 
          //sketch.fill(cr, cg, cb, alpha);
     //     sketch.strokeWeight((float) sw);
-           sketch.stroke(cr, cg, cb, alpha);
-           sketch.noFill();
+           this.canvas.stroke(cr, cg, cb, alpha);
+           this.canvas.noFill();
            /*sketch.beginShape();
            sketch.vertex(x, y);
            sketch.bezierVertex(x2, y2, x3, y3, x4, y4);
            sketch.endShape();
 */
-           sketch.arc(x, y, w, h, start, (float) ((float) multiply*Math.PI / winkel));
+           this.canvas.arc(x, y, w, h, start, (float) ((float) multiply*Math.PI / winkel));
 
        }
     }
