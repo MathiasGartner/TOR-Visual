@@ -2,23 +2,22 @@ package TORVisual.Sketches.RandomWalks;
 
 import TORVisual.Data.DiceResult;
 import TORVisual.SketchArea;
-import TORVisual.Utils.Utils;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
 
 
-// Lavendel: draw purple, blue Ellipse with strokes, fill /3
-
-public class Lavendel extends RandomWalker
+public class Airfarn extends RandomWalker
 {
     float angle_rad, sw, swd, swmax, sizemax, sizemin, sd, dangle,hmax,hmin;
-    public Lavendel(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
-             super(sketch, area, resultsToShow);
+    public Airfarn(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
+        super(sketch, area, resultsToShow);
 
-            colorStart = sketch.color(71, 55, 119);
-            colorEnd = sketch.color(63, 52, 94);
+            colorStart = sketch.color(52, 94, 92);
+            colorEnd = sketch.color(72, 112, 93);
 
+        x = startX;
+        y = startY;
             alpha =10;
             sw= this.area.w/100.0f*0.2f; //stroke weight
             swd= this.area.w/100.0f*0.05f; //stroke weight difference
@@ -30,8 +29,8 @@ public class Lavendel extends RandomWalker
             hmax=this.canvas.height/100*1.5f;
             hmin=this.canvas.height/100*0.4f;
             angle_rad=5;
-            dangle=0.2f;
-            //dangle=1;
+            //dangle=0.2f;
+            dangle=1;
             sw= this.area.w/100.0f*0.2f; //stroke weight
             swd= this.area.w/100.0f*0.05f; //stroke weight difference
             sd=this.area.h/100.0f*0.1f; //size difference
@@ -45,10 +44,8 @@ public class Lavendel extends RandomWalker
 
                 switch (r) {
                     case 1:
-                        moveY((float) Math.sin(angle_rad)*dy);
-                        moveX((float) Math.cos(angle_rad)*dx);
-                        if (sw > swd & sw < swmax)
-                            sw -= swd;  //stroke weight - stroke weight distance
+
+                        angle_rad = angle_rad - dangle;
 
                         break;
 
@@ -56,11 +53,14 @@ public class Lavendel extends RandomWalker
                         if (alpha < 30)
                             alpha += 1;
 
-                        if (size > sizemin & size < sizemax)
-                            size -= sd;  //circle size - difference size
 
-                        angle_rad = angle_rad - dangle;
 
+                        moveY((float) Math.sin(angle_rad)*dy);
+                        moveX((float) Math.cos(angle_rad)*dx);
+                        if (sw > swd & sw < swmax)
+                            sw -= swd;  //stroke weight - stroke weight distance
+
+                        angle_rad = angle_rad + dangle;
                         break;
 
 
@@ -71,14 +71,17 @@ public class Lavendel extends RandomWalker
                         if (alpha > 0)
                             alpha -= 1;  //alpha -1
 
-                        angle_rad = angle_rad + dangle;
+                        if (size > sizemin & size < sizemax)
+                            size -= sd;  //circle size - difference size
+
+
                         break;
 
                     case 4:
                         if (w < hmax)
                             w += sd;
-                        moveY(-(float) Math.sin(angle_rad)*dy);
-                        moveX(-(float) Math.cos(angle_rad)*dx);
+                        //moveY(-(float) Math.sin(angle_rad)*dy);
+                        //moveX(-(float) Math.cos(angle_rad)*dx);
                         break;
 
                     case 5:
@@ -94,8 +97,8 @@ public class Lavendel extends RandomWalker
                     case 6:
                         if (h>hmin)
                             h -= sd;
-                        moveY(+(float) Math.sin(angle_rad)*dy);
-                        moveX(-(float) Math.cos(angle_rad)*dx);
+                        //moveY(+(float) Math.sin(angle_rad)*dy);
+                        //moveX(-(float) Math.cos(angle_rad)*dx);
                         if (sw + swd < swmax)
                             sw += swd; //stroke weight + stroke weight distance
 
@@ -103,10 +106,12 @@ public class Lavendel extends RandomWalker
                 }
                 var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
 
-                this.canvas.fill(c, alpha/3);
+                this.canvas.fill(c, alpha);
                 this.canvas.strokeWeight((float) sw);
-                this.canvas.stroke(c, alpha/2);
-                this.canvas.ellipse(x, y, w, h);
+                this.canvas.stroke(c, alpha);
+                //sketch.arc(x, y, w, h, 0, (float) ((float) 3*Math.PI / (this.area.w/100*2f)));
+                this.canvas.point(x,y);
+                //this.canvas.ellipse(x, y, w, h);
             }
         }
     }

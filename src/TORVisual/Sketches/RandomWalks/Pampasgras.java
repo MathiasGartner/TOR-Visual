@@ -2,30 +2,33 @@ package TORVisual.Sketches.RandomWalks;
 
 import TORVisual.Data.DiceResult;
 import TORVisual.SketchArea;
-import TORVisual.Utils.Utils;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
 
 
-// Lavendel: draw purple, blue Ellipse with strokes, fill /3
-
-public class Ellipse extends RandomWalker
+public class Pampasgras extends RandomWalker
 {
 
-    public Ellipse(PApplet sketch, SketchArea area,  ArrayList<DiceResult> resultsToShow) {
+    float hmax,hmin,wmax;
+    public Pampasgras(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
-        cr = 40;
-        cg = 140;
-        cb = 119;
-        dx = this.area.w/100.0f*0.9f; //difference x
-        dy = this.area.w/100.0f*0.9f; //difference y
-        ds = (float) 2;
-        w=3;
-        h=3;
-        size =this.area.h/100.0f*2f; //circle size
+        cr = 186;
+        cg = 179;
+        cb = 117;
+        dx = this.area.w/100.0f*0.6f; //difference x
+        dy = this.area.w/100.0f*0.2f; //difference y
+        ds = this.area.w/100.0f*0.02f;
+        h=this.area.h/100*0.5f;
+        hmax=this.area.h/100*1.5f;
+        w=this.area.w/100*0.1f;
+        wmax=this.area.w/100*0.5f;
+      //  size =this.area.h/100.0f*2f;
         dColor = 0.05f;
-
+        colorStart = sketch.color(168, 179, 117);
+        colorEnd = sketch.color(245, 237, 169);
+        //sizemax=this.area.w/100.0f*1.5f;
+        //sizemin=this.area.w/100.0f*0.15f;
     }
 
     @Override
@@ -34,33 +37,35 @@ public class Ellipse extends RandomWalker
             int r = result.Result;
             switch (r) {
                 case 1:
-                    this.moveX(dx);
+                    this.moveY(dy);
 
                     if (colorPercent < 1) {
                         colorPercent += dColor;
                     }
                     break;
                 case 2:
-                    this.moveY(dy);
+                    this.moveX(dx);
+
 
                     if (colorPercent > 0) {
                         colorPercent -= dColor;
                     }
                     break;
                 case 3:
-                    this.moveX(-dx);
+                    this.moveY(-dy);
 
-                    if (h < size)
+                    if (h < hmax)
                         h += ds;
                     break;
                 case 4:
-                    this.moveY(-dy);
 
-                    if (w < size)
+                    this.moveX(-dx);
+
+                    if (w < wmax)
                         w += ds;
                     break;
                 case 5:
-                    if (w > ds) {
+                    if (w > ds && w<wmax) {
                         w -= ds;
                     }
                     if (alpha <= 100 & alpha >= 20) {
@@ -68,18 +73,19 @@ public class Ellipse extends RandomWalker
                     }
                     break;
                 case 6:
-                    if (h > ds) {
+                    if (h > ds && h<hmax) {
                         h -= ds;
                     }
-                    if (alpha >= 20 & alpha <= 100) {
+                    if (alpha >= 10 & alpha <= 50) {
                         alpha += 1;
                     }
                     break;
             }
             var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
             this.canvas.fill(c, alpha / 4.0f);
-            this.canvas.stroke(c, alpha);
+            this.canvas.stroke(c, alpha*0.6f);
             this.canvas.ellipse(x, y, w, h);
         }
+
     }
 }

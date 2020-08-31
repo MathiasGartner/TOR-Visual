@@ -14,47 +14,36 @@ public class EllipseCotton extends RandomWalker{
         cr = 255;
         cg = 255;
         cb = 255;
-        dx = this.sketch.width/330.0f;
-        dy = this.sketch.width/330.0f;
-        ds = this.sketch.width/170;
-        w=this.sketch.width/200;
-        h=this.sketch.height/200;
-        size = this.sketch.height/150;
+        alpha=10;
+        dx = this.canvas.width/100*0.9f;
+        dy = this.canvas.width/100*0.9f;
+        ds = this.canvas.width/100*0.2f;
+        w=this.canvas.width/100*1.2f;
+        h=this.canvas.height/100*1.2f;
     }
 
     @Override
     public void draw() {
 
         for (var result : this.resultsToShow) {
-            //int r = randInt();
             int r = result.Result;
 
             switch (r) {
             case 1:
-                if (x < area.w)
-                    x += dx;
-                if (x+dx == area.w)
-                    x -= dx;
+                moveX(-dx);
                 break;
             case 2:
-                if (y < area.h)
-                    y += dy;
+                moveY(-dy);
                 break;
             case 3:
-                if (x > 1)
-                    x -= dx;
-                if (x == 1)
-                    x += dx;
+                moveX(dx);
 
                 if (h < size)
                     h += ds;
 
                 break;
             case 4:
-                if (y > 1 )
-                    y -= dy;
-                if (y+1 == area.h)
-                    x += dy;
+                moveY(dy);
 
                 if (w < size)
                     w += ds;
@@ -65,22 +54,22 @@ public class EllipseCotton extends RandomWalker{
                 if (w > ds)
                     w -= ds;
 
-                if (alpha <= 20 & alpha >= 1)
-                    alpha -= 1;
+                if (alpha <= 20.0f & alpha >= 1f)
+                    alpha -= 0.5f;
                 break;
             case 6:
                 //size += ds;
                 if (h > ds)
                     h -= ds;
 
-                if (alpha >= 1 & alpha <= 20)
-                    alpha += 1;
+                if (alpha >= 1f & alpha <= 20.0f)
+                    alpha += 0.5f;
                 break;
         }
         }
-        sketch.fill(cr, cg, cb, alpha);
-        sketch.stroke(cr, cg, cb, alpha);
-        sketch.ellipse(x, y, w, h);
+        this.canvas.fill(cr, cg, cb, 5);
+        this.canvas.stroke(cr, cg, cb, 5);
+        this.canvas.ellipse(x, y, w, h);
     }
 }
 

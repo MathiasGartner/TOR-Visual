@@ -2,22 +2,20 @@ package TORVisual.Sketches.RandomWalks;
 
 import TORVisual.Data.DiceResult;
 import TORVisual.SketchArea;
-import TORVisual.Utils.Utils;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
 
 
-// Lavendel: draw purple, blue Ellipse with strokes, fill /3
-
-public class Lavendel extends RandomWalker
+public class Palmenblatt extends RandomWalker
 {
-    float angle_rad, sw, swd, swmax, sizemax, sizemin, sd, dangle,hmax,hmin;
-    public Lavendel(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
-             super(sketch, area, resultsToShow);
+    float angle_rad, sw, swd, swmax, sizemax, sizemin, sd, dangle;
+    public Palmenblatt(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
+        super(sketch, area, resultsToShow);
 
-            colorStart = sketch.color(71, 55, 119);
-            colorEnd = sketch.color(63, 52, 94);
+
+            colorStart = sketch.color(40, 64, 47);
+            colorEnd = sketch.color(37, 77, 49);
 
             alpha =10;
             sw= this.area.w/100.0f*0.2f; //stroke weight
@@ -25,15 +23,12 @@ public class Lavendel extends RandomWalker
             swmax=this.area.w/100.0f*1f; //stroke weight maximum
             dx = this.area.w/100.0f*0.6f; //difference x
             dy = this.area.w/100.0f*0.6f; //difference y
-            w=this.canvas.width/100*0.4f;
-            h=this.canvas.height/100*0.8f;
-            hmax=this.canvas.height/100*1.5f;
-            hmin=this.canvas.height/100*0.4f;
             angle_rad=5;
-            dangle=0.2f;
-            //dangle=1;
+            //dangle=0.1f;
+            dangle=1;
             sw= this.area.w/100.0f*0.2f; //stroke weight
             swd= this.area.w/100.0f*0.05f; //stroke weight difference
+            size =this.area.h/100.0f*1f; //circle size
             sd=this.area.h/100.0f*0.1f; //size difference
 
         }
@@ -45,8 +40,8 @@ public class Lavendel extends RandomWalker
 
                 switch (r) {
                     case 1:
-                        moveY((float) Math.sin(angle_rad)*dy);
-                        moveX((float) Math.cos(angle_rad)*dx);
+                        //moveY((float) Math.sin(angle_rad)*dy);
+                        //moveX((float) Math.cos(angle_rad)*dx);
                         if (sw > swd & sw < swmax)
                             sw -= swd;  //stroke weight - stroke weight distance
 
@@ -65,9 +60,6 @@ public class Lavendel extends RandomWalker
 
 
                     case 3:
-                        if (h < hmax)
-                            h += sd;
-
                         if (alpha > 0)
                             alpha -= 1;  //alpha -1
 
@@ -75,15 +67,11 @@ public class Lavendel extends RandomWalker
                         break;
 
                     case 4:
-                        if (w < hmax)
-                            w += sd;
-                        moveY(-(float) Math.sin(angle_rad)*dy);
-                        moveX(-(float) Math.cos(angle_rad)*dx);
+                        //moveY(-(float) Math.sin(angle_rad)*dy);
+                        //moveX(-(float) Math.cos(angle_rad)*dx);
                         break;
 
                     case 5:
-                        if (w > hmin)
-                            w -= sd;
                         moveY(-(float) Math.sin(angle_rad)*dy);
                         moveX(+(float) Math.cos(angle_rad)*dx);
                         if (size + sd < sizemax)
@@ -92,8 +80,6 @@ public class Lavendel extends RandomWalker
 
 
                     case 6:
-                        if (h>hmin)
-                            h -= sd;
                         moveY(+(float) Math.sin(angle_rad)*dy);
                         moveX(-(float) Math.cos(angle_rad)*dx);
                         if (sw + swd < swmax)
@@ -102,11 +88,11 @@ public class Lavendel extends RandomWalker
                         break;
                 }
                 var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
-
-                this.canvas.fill(c, alpha/3);
+                this.canvas.fill(c, alpha/2);
                 this.canvas.strokeWeight((float) sw);
-                this.canvas.stroke(c, alpha/2);
-                this.canvas.ellipse(x, y, w, h);
+                this.canvas.stroke(c, alpha);
+                //this.canvas.circle(x, y, (float) size);
+                this.canvas.line(x1, y1, x2, y2);
             }
         }
     }

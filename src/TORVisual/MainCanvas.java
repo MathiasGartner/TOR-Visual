@@ -77,14 +77,28 @@ public class MainCanvas extends PApplet {
         info = createGraphics(230, 60);
         info.noStroke();
 
+        int boxW, boxH, borderLeft, borderTop, borderBottom, borderRight, marginX,marginY;
+
+        borderLeft=120;
+        borderRight=100;
+        borderTop=100;
+        borderBottom=100;
+        marginX=40;
+        marginY=80;
+        boxW=(((1920/8)*5) - borderLeft - borderRight - (2*marginX))/3;
+        boxH=(1080 - borderTop - borderBottom - (2*marginY))/3;
+
+
         //define sketch areas
         sketchAreas = new ArrayList<SketchArea>();
-        int d = screenH / 3;
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                sketchAreas.add(new SketchArea(i * d, j * d, d, d));
+                sketchAreas.add(new SketchArea(borderLeft+i*(marginX+boxW), borderTop+j*(marginY+boxH), boxW, boxH));
             }
         }
+
+
         //sketchAreas.add(new SketchArea(screenH + 1, 0, screenW - screenH, screenH));
         //sketchAreas.add(new SketchArea(0, 0, 900, 900));
 
@@ -106,7 +120,6 @@ public class MainCanvas extends PApplet {
 
 
 
-        //Circle CircleSketch = new Circle(this, sketchAreas.get(0));
 
         /*
         SternanisSketch.setRecentDiceResultsCount(5);
@@ -118,54 +131,162 @@ public class MainCanvas extends PApplet {
         //sketches.add(EllipseSketch);
         sketches.add(areaTest3);*/
 
-        // FRONT
 
-        Ellipse EllipseSketch = new Ellipse(this, sketchAreas.get(0), this.resultsToShow);
-        sketchesFront.add(EllipseSketch);
 
-        //Sterne funktionieren - jedoch noch nicht schön
+
+        // FRONT ----------------------
+
+        //1
+        Orange  OrangeSketch = new Orange(this, sketchAreas.get(0), this.resultsToShow);
+        sketchesFront.add(OrangeSketch);
+
+        //2
+        Kork KorkSketch = new Kork(this, sketchAreas.get(1),this.resultsToShow);
+        sketchesFront.add(KorkSketch);
+
+        //3
+        Polstermoos PolstermoosSketch = new Polstermoos(this, sketchAreas.get(2), this.resultsToShow);
+        sketchesFront.add(PolstermoosSketch);
+
+        //4
+        Palmenblatt PalmenblattSketch = new Palmenblatt(this, sketchAreas.get(3), this.resultsToShow);
+        sketchesFront.add(PalmenblattSketch);
+
+        //5
+        Pepper PepperSketch = new Pepper(this, sketchAreas.get(4), this.resultsToShow);
+        sketchesFront.add(PepperSketch);
+
+        //6
+        AcaciaBohnen AcaciaBohnenSketch = new AcaciaBohnen(this, sketchAreas.get(5), this.resultsToShow);
+        sketchesFront.add(AcaciaBohnenSketch);
+
+        //7
+        Luffa LuffaSketch = new Luffa(this, sketchAreas.get(6), this.resultsToShow);
+        sketchesFront.add(LuffaSketch);
+
+        //8
+        Platanen PlatanenSketch = new Platanen(this, sketchAreas.get(7), this.resultsToShow);
+        sketchesFront.add(PlatanenSketch);
+
+        //9
+        Pampasgras PampasgrasSketch = new Pampasgras(this, sketchAreas.get(8), this.resultsToShow);
+        sketchesFront.add(PampasgrasSketch);
+
+
+
+
+
+        //CENTER ----------------------
+
+        //1
+        Strandflieder  StrandfliederSketch = new Strandflieder(this, sketchAreas.get(0), this.resultsToShow);
+        sketchesCenter.add(StrandfliederSketch);
+
+        //2
+        Schlitzahorn  SchlitzahornSketch = new Schlitzahorn(this, sketchAreas.get(1), this.resultsToShow);
+        sketchesCenter.add(SchlitzahornSketch);
+
+        //3
+        Palmringe  PalmingeSketch = new Palmringe(this, sketchAreas.get(2), this.resultsToShow);
+        sketchesCenter.add(PalmingeSketch);
+
+        //4
+        EllipseCotton EllipseCottonSketch = new EllipseCotton(this, sketchAreas.get(3), this.resultsToShow);
+        sketchesCenter.add(EllipseCottonSketch);
+
+        //5
+        Airfarn AirfarnSketch = new Airfarn(this, sketchAreas.get(4), this.resultsToShow);
+        sketchesCenter.add(AirfarnSketch);
+
+        //6
+        Samtgras SamtgrasSketch = new Samtgras(this, sketchAreas.get(5), this.resultsToShow);
+        sketchesCenter.add(SamtgrasSketch);
+
+        //7
+        Wachtelbohne WachtelbohneSketch = new Wachtelbohne(this, sketchAreas.get(6), this.resultsToShow);
+        sketchesCenter.add(WachtelbohneSketch);
+
+        //8 Essigbaum
+        WoodCircle WoodCircleSketch = new WoodCircle(this, sketchAreas.get(7), this.resultsToShow);
+        sketchesCenter.add(WoodCircleSketch);
+
+        //9
+        Chili ChiliSketch = new Chili(this, sketchAreas.get(8), this.resultsToShow);
+        sketchesCenter.add(ChiliSketch);
+
+
+
+        //BACK ----------------------
+
+        //1
+        Corn CornSketch = new Corn(this, sketchAreas.get(0), this.resultsToShow);
+        sketchesBack.add(CornSketch);
+
+        //2
+        Cinnamon CinnamonSketch = new Cinnamon(this, sketchAreas.get(1), this.resultsToShow);
+        sketchesBack.add(CinnamonSketch);
+
+        //3
+        Kirschkern KirschkernSketch = new Kirschkern(this, sketchAreas.get(2), this.resultsToShow);
+        sketchesBack.add(KirschkernSketch);
+
+        //4
+        Baumschwamm BaumschwammSketch = new Baumschwamm(this, sketchAreas.get(3), this.resultsToShow);
+        sketchesBack.add(BaumschwammSketch);
+
+        //5
+        Linsen LinsenSketch = new Linsen(this, sketchAreas.get(4), this.resultsToShow);
+        sketchesBack.add(LinsenSketch);
+
+        //6
+        Apfel ApfelSketch = new Apfel(this, sketchAreas.get(5), this.resultsToShow);
+        sketchesBack.add(ApfelSketch);
+
+        //7
+        Eucalyptus EucalyptusSketch = new Eucalyptus(this, sketchAreas.get(6), this.resultsToShow);
+        sketchesBack.add(EucalyptusSketch);
+
+        //8
+        Lavendel LavendelSketch = new Lavendel(this, sketchAreas.get(2), this.resultsToShow);
+        sketchesBack.add(LavendelSketch);
+
+        //9
         Sternanis SternanisSketch = new Sternanis(this, sketchAreas.get(1), this.resultsToShow);
-        sketchesFront.add(SternanisSketch);
+        sketchesBack.add(SternanisSketch);
+
+
+
+        //---------------------
+        // BACKUP CUBE
+        //Limetten LimettenSketch = new Ellipse(this, sketchAreas.get(0), this.resultsToShow);
+        //sketchesBack.add(LimettenSketch);
+
+        //---------------------
+        // BACKUP CUBE
+        //Iceland_Moss Iceland_MossSketch = new Iceland_Moss(this, sketchAreas.get(4), this.resultsToShow);
+        //sketchesFront.add(Iceland_MossSketch);
+
+        //---------------------
+        // BACKUP CUBE
+        //Coffee CoffeeSketch = new Coffee(this, sketchAreas.get(4), this.resultsToShow);
+        //sketchesFront.add(CoffeeSketch);
+
+
+
+
+        //-----------------------------
+        //Ellipse EllipseSketch = new Ellipse(this, sketchAreas.get(0), this.resultsToShow);
+        //sketchesBack.add(EllipseSketch);
 
         //überlegen zu welchen es passen könnte, jedoch ist ein Fehler drinnen
         //RoundSquare RoundSquareSketch = new RoundSquare(this, sketchAreas.get(2), this.resultsToShow);
         //sketchesFront.add(RoundSquareSketch);
 
-        //könnte wieder mehr wolkiger sein/heller
-        //EllipseCotton EllipseCottonSketch = new EllipseCotton(this, sketchAreas.get(3), this.resultsToShow);
-        //sketchesFront.add(EllipseCottonSketch);
+        //test testSketch = new test(this, sketchAreas.get(1), this.resultsToShow);
+        //sketchesCenter.add(testSketch);
+        //---------------------
 
-        //optisch gut
-        //Iceland_Moss Iceland_MossSketch = new Iceland_Moss(this, sketchAreas.get(4), this.resultsToShow);
-        //sketchesFront.add(Iceland_MossSketch);
 
-        //nicht fertig
-        //WoodCircle WoodCircleSketch = new WoodCircle(this, sketchAreas.get(5), this.resultsToShow);
-        //sketchesFront.add(WoodCircleSketch);
-
-        //Cinnamon CinnamonSketch = new Cinnamon(this, sketchAreas.get(6), this.resultsToShow);
-        //sketchesFront.add(CinnamonSketch);
-
-        //Fehler klebt nur links am Rand,optisch noch nicht ganz ideal
-        //Pepper PepperSketch = new Pepper(this, sketchAreas.get(7), this.resultsToShow);
-        //sketchesFront.add(PepperSketch);
-
-        //->irgendwo bei 4000 ein Fehler
-        //Chili ChiliSketch = new Chili(this, sketchAreas.get(8), this.resultsToShow);
-        //sketchesFront.add(ChiliSketch);
-
-        //CENTER
-
-        Polstermoos PolstermoosSketch = new Polstermoos(this, sketchAreas.get(0), this.resultsToShow);
-        sketchesCenter.add(PolstermoosSketch);
-
-        test testSketch = new test(this, sketchAreas.get(1), this.resultsToShow);
-        sketchesCenter.add(testSketch);
-
-        Lavendel LavendelSketch = new Lavendel(this, sketchAreas.get(2), this.resultsToShow);
-        sketchesCenter.add(LavendelSketch);
-
-        //BACK
 
 
         sketchesGroups.add(sketchesFront);
@@ -239,6 +360,8 @@ public class MainCanvas extends PApplet {
         //System.out.println("size: " + resultsToShow.size());
         //for (var dr : resultsToShow) System.out.println(dr.Id);
         lastShownResultIndex = showResultsUpToIndex;
+
+        this.background(10,11,12);
 
         //draw sketches
         for (var sketch : sketchesAll) {

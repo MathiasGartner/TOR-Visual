@@ -6,111 +6,89 @@ import processing.core.PApplet;
 
 import java.util.ArrayList;
 
-public class Orange extends RandomWalker{
 
-    float dh,dw,sizemax,sd,swmax;
+public class Orange extends RandomWalker
+{
+    float dh,dw,sizemax, sizemin, sd,swmax;
     float sw;
     float swd;
     public Orange(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
 
+        colorStart = sketch.color(255, 151, 33);
+        colorEnd = sketch.color(240, 77, 40);
 
-        x = startX;
-        y = startY;
-        cr = 126; //rgb color value red
-        cg = 133; //rgb color value green
-        cb = 83;  //rgb color value blue
-        dx = this.area.w/100.0f*0.9f; //difference x
-        dy = this.area.w/100.0f*0.9f; //difference y
-       // dh = this.area.w / 300;
-       // dw = this.area.w / 300;
-        //w=this.area.w/200;
-        //wmax=this.area.w/100;
-        //h=this.area.h/200;
-        sw= this.area.w/100.0f*0.15f; //stroke weight
-        swd= this.area.w/100.0f*0.01f; //stroke weight difference
-        swmax=this.area.w/100.0f*0.4f; //stroke weight maximum
-        size =this.area.h/100.0f*1.3f; //circle size
-        sizemax=this.area.h/100.0f*4f; //circle size maximum
-        sd=this.area.h/100.0f*0.4f; //size difference
+        alpha =10;
+        dx = this.area.w/100.0f*0.6f; //difference x
+        dy = this.area.w/100.0f*0.6f; //difference y
+
+        sw= this.area.w/100.0f*0.05f; //stroke weight
+        swd= this.area.w/100.0f*0.05f; //stroke weight difference
+        swmax=this.area.w/100.0f*0.5f; //stroke weight maximum
+        size =this.area.h/100.0f*0.7f; //circle size
+        sizemax=this.area.h/100.0f*1.8f; //circle size maximum
+        sizemin=this.area.h/100.0f*0.2f;
+        sd=this.area.h/100.0f*0.05f; //size difference
+
     }
 
     @Override
     public void draw() {
+        for (var result : this.resultsToShow) {
+            int r = result.Result;
 
-       for (var result : this.resultsToShow) {
-           //int r = randInt();
-           int r = result.Result;
+            switch (r) {
+                case 1:
 
-           switch (r) {
-            case 1:
-                if (y+dy >= area.h)
-                    y -= dy;
+                    if (colorPercent > 0) {
+                        colorPercent -= dColor;
+                    }
+                    if (sw > swd & sw < swmax) {
+                        sw -= swd;  //stroke weight - stroke weight distance
+                    }
+                    break;
 
-                if (y+dy < area.h)
-                    y += dy;   //+ difference y
-
-                if (sw > swd & sw<swmax)
-                    sw -= swd;  //stroke weight - stroke weight distance
-
-                if (cg > 134)
-                    cg -= 1;  //green -1
-                break;
-
-            case 2:
-                if (x+dx >= area.w)
-                    x -= dx;
-
-                if (x < area.w)
-                    x += dx;   //+ difference x
-
-                if (sw+swd < swmax)
-                    sw += swd; //stroke weight + stroke weight distance
-
-                if (cg < 255)
-                    cg += 1;   //green + 1
-                break;
+                case 2:
+                    moveX(-dx);
+                    if (size > sizemin & size < sizemax) {
+                        size -= sd;  //circle size - difference size
+                    }
+                    break;
 
 
-            case 3:
-                if (x > dx & x < area.w)
-                    x -= dx; //- difference x
+                case 3:
+                    moveX(dx);
 
-                if (size+sd < sizemax)
-                    size += sd; //+size difference
-                break;
+                case 4:
+                    moveY(-dy);
+                    if (colorPercent < 1) {
+                        colorPercent += dColor;
+                    }
+                    break;
 
-            case 4:
-                if (y > dy & y < area.h)
-                    y -= dy; //- difference y
+                case 5:
 
-            case 5:
 
-                if (alpha <= 100 & alpha >= 20)
-                    alpha -= 1;  //alpha -1
-                break;
+                    if (size + sd < sizemax) {
+                        size += sd; //+size difference
+                    }
+                    break;
 
-            case 6:
-                //if (size<(this.area.h/100.0*5))
-                //    size += ds;
-                //if (h > ds)
-                //    h -= ds;
 
-                if (alpha >= 20 & alpha <= 100)
-                    alpha += 1;
+                case 6:
+                    moveY(dy);
 
-                if (size > sd & size<sizemax)
-                    size -= sd;  //circle size - difference size
-                break;
+
+                    if (sw + swd < swmax) {
+                        sw += swd; //stroke weight + stroke weight distance
+                    }
+                    break;
+            }
+            var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
+            this.canvas.fill(c, 5);
+            this.canvas.strokeWeight((float) sw);
+            this.canvas.stroke(c, 30);
+            this.canvas.circle(x, y, (float) size);
         }
-
-        sketch.fill(cr, cg, cb, alpha);
-   //     sketch.strokeWeight((float) sw);
-     //   sketch.stroke(cr, cg, cb, alpha);
-         //  sketch.arc((479, 300, 280, 280, Math.PI, Math.TWO_PI);
-
-
-
-       }
     }
 }
