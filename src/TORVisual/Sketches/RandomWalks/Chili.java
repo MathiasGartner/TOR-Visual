@@ -14,7 +14,8 @@ public class Chili extends RandomWalker{
     float swd;
     public Chili(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
-
+        name="Chilis";
+        nameLatin="Capsicum annuum";
 
         x = startX;
         y = startY;

@@ -12,7 +12,8 @@ public class Linsen extends RandomWalker
 
     public Linsen(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
-
+        name="Linsen";
+        nameLatin="Lens culinaris";
     }
 
     @Override

@@ -6,6 +6,7 @@ import TORVisual.Sketches.PiMC;
 import TORVisual.Sketches.RandomWalks.*;
 import TORVisual.Utils.Utils;
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PGraphics;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class MainCanvas extends PApplet {
     private ArrayList<EmbeddedSketch> sketchesAll;
     private ArrayList<ArrayList<EmbeddedSketch>> sketchesGroups;
     private ArrayList<SketchArea> sketchAreas;
+    PFont font;
     private int borderPx;
 
     private MainCanvas() {
@@ -75,7 +77,7 @@ public class MainCanvas extends PApplet {
 
         info = createGraphics(230, 60);
         info.noStroke();
-
+        font = createFont("Ailerons-Regular.ttf", 17);
         int boxW, boxH, borderLeft, borderTop, borderBottom, borderRight, marginX,marginY;
 
         borderLeft=120;
@@ -465,8 +467,9 @@ public class MainCanvas extends PApplet {
 
     public void displayRandomWalkSketch(RandomWalker rw) {
         image(rw.canvas, rw.area.x, rw.area.y);
-        fill(255);
+        fill(248 ,250,251,230);
         textAlign(CENTER);
-        text(rw.name, rw.area.x + rw.area.w / 2.0f, rw.area.yh + 10);
+        textFont(font);
+        text(rw.nameLatin, rw.area.x + rw.area.w / 2.0f, rw.area.yh + 25);
     }
 }

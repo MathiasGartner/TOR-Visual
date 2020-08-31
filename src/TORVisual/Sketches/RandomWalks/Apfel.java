@@ -13,6 +13,8 @@ public class Apfel extends RandomWalker
     public Apfel(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
 
+        name="Apfelscheiben";
+        nameLatin="Malus domestica";
     }
 
     @Override

@@ -35,6 +35,9 @@ public class Airfarn extends RandomWalker
             swd= this.area.w/100.0f*0.05f; //stroke weight difference
             sd=this.area.h/100.0f*0.1f; //size difference
 
+        name="Air-Fern";
+        nameLatin="Sertularia argentea";
+
         }
 
         @Override

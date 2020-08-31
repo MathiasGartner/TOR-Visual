@@ -14,7 +14,8 @@ public class Orange extends RandomWalker
     float swd;
     public Orange(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
-
+        name="Orangenscheiben";
+        nameLatin="Citrus sinensis";
         colorStart = sketch.color(255, 151, 33);
         colorEnd = sketch.color(240, 77, 40);
 

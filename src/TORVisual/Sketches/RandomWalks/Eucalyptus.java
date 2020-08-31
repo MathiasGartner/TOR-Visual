@@ -12,7 +12,8 @@ public class Eucalyptus extends RandomWalker
 
     public Eucalyptus(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
-
+        name="Eucalyptus";
+        nameLatin="Eucalyptus ovata";
     }
 
     @Override

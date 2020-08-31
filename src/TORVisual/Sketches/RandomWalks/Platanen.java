@@ -11,7 +11,8 @@ public class Platanen extends RandomWalker
  float angle_rad, sw, swd, swmax, sizemax, sizemin, sd, dangle;
  public Platanen(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
-
+        name="Platanen";
+        nameLatin="Platanus hispanica";
 
         colorStart = sketch.color(54, 87, 64);
         colorEnd = sketch.color(75, 105, 84);

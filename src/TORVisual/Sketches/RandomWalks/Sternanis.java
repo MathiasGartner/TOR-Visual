@@ -15,7 +15,8 @@ public class Sternanis extends RandomWalker{
     int npoints;
     public Sternanis(PApplet sketch, SketchArea area,  ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
-
+        name="Sternanis";
+        nameLatin="Illicium verum";
         cr = 99;
         cg = 40;
         cb = 22;
