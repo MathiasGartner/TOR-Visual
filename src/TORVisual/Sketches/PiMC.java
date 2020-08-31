@@ -80,15 +80,15 @@ public class PiMC extends EmbeddedSketch {
         }
 
         this.clear();
-        sketch.fill(255);
-        sketch.text("pi = " + this.pi, 5, 15);
+        this.canvas.fill(255);
+        this.canvas.text("pi = " + this.pi, 5, 15);
 
         piGraph.beginDraw();
         for (var p : this.pointsToProcess) {
             piGraph.circle(p.drawAt.x, p.drawAt.y, 5);
         }
         piGraph.endDraw();
-        sketch.image(piGraph, this.graphX, this.graphY);
+        this.canvas.image(piGraph, this.graphX, this.graphY);
     }
 
     private void createPosition() {
