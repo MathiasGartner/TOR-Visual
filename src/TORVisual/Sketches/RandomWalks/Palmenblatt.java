@@ -20,17 +20,18 @@ public class Palmenblatt extends RandomWalker
 
         x1 = startX;
         y1 = startY;
+        x2 = x1+xdistance;
+        y2= y1+ydistance;
 
-        dx = this.area.w/100.0f*0.8f; //difference x
+        dx = this.area.w/100.0f*0.6f; //difference x
         dy = this.area.w/100.0f*0.8f; //difference y
 
-        xdistance = this.area.w/100.0f*0.5f;
-        ydistance = this.area.w/100.0f*0.5f;
+        xdistance = this.area.w/100.0f*0.8f;
+        ydistance = this.area.w/100.0f*0.4f;
 
         distancemax = this.area.w/100.0f*2f;
 
-        x2 = x1+xdistance;
-        y2= y1+ydistance;
+
 
             alpha =10;
             sw= this.area.w/100.0f*0.2f; //stroke weight
@@ -73,8 +74,15 @@ public class Palmenblatt extends RandomWalker
 
                         if (x1+dx <= area.w && x2+dx <= area.w && (Math.abs((x2+dx)-x1)<distancemax)) {
                             x1 +=  ((float) Math.sin(angle_rad)*dx);
+                            y1 +=((float) Math.cos(angle_rad)*dy);
+
                             x2 += ((float) Math.sin(angle_rad)*dx);
+                            y2 += ((float) Math.cos(angle_rad)*dx);
+                            //x1 += dx;
+                            //x2 += dx;
                         }
+
+
                         break;
 
 
@@ -82,7 +90,10 @@ public class Palmenblatt extends RandomWalker
                         if ((x1-dx >= 0) && (x2-dx >= 0))
                         {
                             x1 -=  ((float) Math.sin(angle_rad)*dx);
+                            y1 -=((float) Math.cos(angle_rad)*dy);
+
                             x2 -= ((float) Math.sin(angle_rad)*dx);
+                            y2 -= ((float) Math.cos(angle_rad)*dx);
                         }
                         if (alpha > 0)
                             alpha -= 1;  //alpha -1
@@ -91,35 +102,41 @@ public class Palmenblatt extends RandomWalker
                         break;
 
                     case 4:
-                        if ((y1+dy <= area.h) && (y2+dy <= area.h) && Math.abs((y2+dy)-y1)<distancemax)
-                        {
-                            y1 -= ((float) Math.sin(angle_rad)*dy);
-                            y2 -= ((float) Math.sin(angle_rad)*dy);
-                        }
+                    //    if ((y1+dy <= area.h) && (y2+dy <= area.h) && Math.abs((y2+dy)-y1)<distancemax)
+                        //{
+                            //y1 -= ((float) Math.sin(angle_rad)*dy);
+
+                            //y2 -= ((float) Math.sin(angle_rad)*dy);
+                      //  }
                         break;
 
                     case 5:
 
-                        if ((y1+dy <= area.h) && (y2+dy <= area.h) && Math.abs((y2+dy)-y1)<distancemax)
-                        {
-                            y1 += ((float) Math.sin(angle_rad)*dy);
-                            y2 += ((float) Math.sin(angle_rad)*dy);
-                        }
+                   //     if ((y1+dy <= area.h) && (y2+dy <= area.h) && Math.abs((y2+dy)-y1)<distancemax)
+                       // {
+                            //y1 += ((float) Math.sin(angle_rad)*dy);
+                            //y2 += ((float) Math.sin(angle_rad)*dy);
+                     //   }
                         if (size + sd < sizemax)
                             size += sd; //+size difference
                         break;
 
 
                     case 6:
+                        if ((y1+dy <= area.h) && (y2+dy <= area.h) && Math.abs((y2+dy)-y1)<distancemax) {
+                            x1 += ((float) Math.sin(angle_rad) * dx);
+                            y1 += ((float) Math.cos(angle_rad) * dy);
 
-
+                            x2 += ((float) Math.sin(angle_rad) * dx);
+                            y2 += ((float) Math.cos(angle_rad) * dx);
+                        }
                         if (sw + swd < swmax)
                             sw += swd; //stroke weight + stroke weight distance
 
                         break;
                 }
                 var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
-                this.canvas.fill(c, alpha/2);
+                this.canvas.fill(c, alpha);
                 this.canvas.strokeWeight((float) sw);
                 this.canvas.stroke(c, alpha);
                 //this.canvas.circle(x, y, (float) size);

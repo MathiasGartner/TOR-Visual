@@ -19,7 +19,7 @@ public class Pampasgras extends RandomWalker
         cg = 179;
         cb = 117;
         dx = this.area.w/100.0f*0.6f; //difference x
-        dy = this.area.w/100.0f*0.2f; //difference y
+        dy = this.area.w/100.0f*0.3f; //difference y
         ds = this.area.w/100.0f*0.02f;
         h=this.area.h/100*0.5f;
         hmax=this.area.h/100*1.5f;

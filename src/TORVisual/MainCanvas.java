@@ -298,7 +298,7 @@ public class MainCanvas extends PApplet {
             sketchesAll.addAll(sg);
         }
 
-        sketchesToShow = sketchesBack;
+        sketchesToShow = sketchesFront;
 
         for (var sketch : sketchesToShow) {
             stroke(sketch.backgroundColor);

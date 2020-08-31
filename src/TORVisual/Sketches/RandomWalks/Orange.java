@@ -16,20 +16,24 @@ public class Orange extends RandomWalker
         super(sketch, area, resultsToShow);
         name="Orangenscheiben";
         nameLatin="Citrus sinensis";
+
+        x1 = startX;
+        y1 = startY;
+
         colorStart = sketch.color(255, 151, 33);
         colorEnd = sketch.color(240, 77, 40);
 
         alpha =10;
         dx = this.area.w/100.0f*0.6f; //difference x
-        dy = this.area.w/100.0f*0.6f; //difference y
+        dy = this.area.w/100.0f*0.5f; //difference y
 
-        sw= this.area.w/100.0f*0.05f; //stroke weight
-        swd= this.area.w/100.0f*0.05f; //stroke weight difference
+        sw= this.area.w/100.0f*0.03f; //stroke weight
+        swd= this.area.w/100.0f*0.02f; //stroke weight difference
         swmax=this.area.w/100.0f*0.5f; //stroke weight maximum
-        size =this.area.h/100.0f*0.7f; //circle size
-        sizemax=this.area.h/100.0f*1.8f; //circle size maximum
+        size =this.area.h/100.0f*0.4f; //circle size
+        sizemax=this.area.h/100.0f*1.2f; //circle size maximum
         sizemin=this.area.h/100.0f*0.2f;
-        sd=this.area.h/100.0f*0.05f; //size difference
+        sd=this.area.h/100.0f*0.03f; //size difference
 
     }
 
@@ -59,6 +63,7 @@ public class Orange extends RandomWalker
 
                 case 3:
                     moveX(dx);
+                    break;
 
                 case 4:
                     moveY(-dy);
