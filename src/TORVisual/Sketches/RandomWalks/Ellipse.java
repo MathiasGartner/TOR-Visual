@@ -1,8 +1,7 @@
 package TORVisual.Sketches.RandomWalks;
 
-import TORVisual.Data.DiceResult;
+import TORVisual.Database.DiceResult;
 import TORVisual.SketchArea;
-import TORVisual.Utils.Utils;
 import processing.core.PApplet;
 
 import java.util.ArrayList;

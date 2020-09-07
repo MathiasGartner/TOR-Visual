@@ -1,4 +1,4 @@
-package TORVisual.Data;
+package TORVisual.Database;
 
 import java.util.Date;
 

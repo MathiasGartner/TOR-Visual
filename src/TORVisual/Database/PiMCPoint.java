@@ -1,4 +1,4 @@
-package TORVisual.Data;
+package TORVisual.Database;
 
 import java.awt.geom.Point2D;
 
