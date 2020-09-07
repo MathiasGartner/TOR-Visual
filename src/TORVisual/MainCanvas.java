@@ -297,7 +297,7 @@ public class MainCanvas extends PApplet {
             sketchesAll.addAll(sg);
         }
 
-        sketchesToShow = sketchesFront;
+        sketchesToShow = sketchesCenter;
 
         for (var sketch : sketchesToShow) {
             stroke(sketch.backgroundColor);
@@ -343,7 +343,7 @@ public class MainCanvas extends PApplet {
         inSketchSwitchMode = false;
     }
 
-    boolean enableSwitching = true;
+    boolean enableSwitching = false;
     boolean inSketchSwitchMode;
     float switchPercent;
     int oldTimeStamp;

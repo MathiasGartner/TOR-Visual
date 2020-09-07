@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class EllipseCotton extends RandomWalker{
 
+    float hmax, wmax;
     public EllipseCotton(PApplet sketch, SketchArea area,  ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
         name="Baumwolle";
@@ -16,11 +17,14 @@ public class EllipseCotton extends RandomWalker{
         cg = 255;
         cb = 255;
         alpha=10;
-        dx = this.canvas.width/100*0.9f;
-        dy = this.canvas.width/100*0.9f;
-        ds = this.canvas.width/100*0.2f;
-        w=this.canvas.width/100*1.2f;
-        h=this.canvas.height/100*1.2f;
+        dx = this.canvas.width/100*0.6f;
+        dy = this.canvas.width/100*0.6f;
+        ds = this.canvas.width/100*0.1f;
+        w=this.canvas.width/100*0.8f;
+        h=this.canvas.height/100*0.4f;
+        hmax=this.canvas.height/100*1.0f;
+        wmax=this.canvas.width/100*0.3f;
+
     }
 
     @Override
@@ -39,14 +43,14 @@ public class EllipseCotton extends RandomWalker{
             case 3:
                 moveX(dx);
 
-                if (h < size)
+                if (h < hmax)
                     h += ds;
 
                 break;
             case 4:
                 moveY(dy);
 
-                if (w < size)
+                if (w < wmax)
                     w += ds;
                 break;
 
