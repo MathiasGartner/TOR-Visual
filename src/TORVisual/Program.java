@@ -1,9 +1,6 @@
 package TORVisual;
 
-import TORVisual.Data.DBManager;
 import processing.core.PApplet;
-
-import java.sql.SQLException;
 
 public class Program {
     public static void main(String[] args){
@@ -17,7 +14,8 @@ public class Program {
         MainCanvas mainCanvas;
         if (args.length == 1) {
             try {
-                screen = Integer.parseInt(args[0]);
+                //screen = Integer.parseInt(args[0]);
+                screen = Integer.parseInt("2");
             }
             catch (NumberFormatException ex) {
                 System.out.println("First argument needs to be the screen number.");

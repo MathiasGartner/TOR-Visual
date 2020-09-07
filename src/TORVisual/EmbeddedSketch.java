@@ -1,6 +1,6 @@
 package TORVisual;
 
-import TORVisual.Data.DiceResult;
+import TORVisual.Database.DiceResult;
 import TORVisual.Settings.SettingsVisual;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 import processing.core.PApplet;

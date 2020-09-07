@@ -1,4 +1,4 @@
-package TORVisual.Data;
+package TORVisual.Database;
 
 import TORVisual.Settings.SettingsPrivate;
 

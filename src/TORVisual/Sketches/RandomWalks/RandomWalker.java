@@ -1,13 +1,11 @@
 package TORVisual.Sketches.RandomWalks;
 
-import TORVisual.Data.DiceResult;
+import TORVisual.Database.DiceResult;
 import TORVisual.EmbeddedSketch;
 import TORVisual.SketchArea;
 import processing.core.PApplet;
-import processing.core.PGraphics;
 
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomWalker extends EmbeddedSketch {
 

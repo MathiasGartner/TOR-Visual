@@ -1,12 +1,13 @@
 package TORVisual.Sketches;
 
-import TORVisual.Data.DiceResult;
-import TORVisual.Data.PiMCPoint;
+import TORVisual.Database.DiceResult;
+import TORVisual.Database.PiMCPoint;
 import TORVisual.EmbeddedSketch;
 import TORVisual.SketchArea;
 import TORVisual.Utils.Utils;
 import processing.core.PApplet;
 import processing.core.PGraphics;
+import processing.core.PImage;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -45,6 +46,7 @@ public class PiMC extends EmbeddedSketch {
 
     PGraphics piGraph;
     PGraphics resultTable;
+    ArrayList<PImage> resultImages;
 
     Random r = new Random();
 
@@ -76,11 +78,15 @@ public class PiMC extends EmbeddedSketch {
 
         this.piGraph = sketch.createGraphics(this.squareL, this.squareL);
         piGraph.beginDraw();
-        this.piGraph.noStroke();
-        piGraph.fill(Utils.Colors.GRAY);
-        piGraph.rect(0, 0, this.squareL, this.squareL);
-        piGraph.fill(Utils.Colors.GREEN);
-        piGraph.circle(this.squareL2, this.squareL2, this.squareL);
+        this.piGraph.noFill();
+        float sw = 5.0f;
+        float sw2 = sw / 2.0f;
+        piGraph.strokeWeight(sw);
+        piGraph.stroke(Utils.Colors.GRAY);
+        piGraph.rect(0 + sw2, 0 + sw2, this.squareL - sw, this.squareL - sw);
+        piGraph.stroke(Utils.Colors.WHITE);
+        piGraph.circle(this.squareL2, this.squareL2, this.squareL - sw);
+        piGraph.noStroke();
         piGraph.endDraw();
 
         float rB = 2.0f;
@@ -101,6 +107,11 @@ public class PiMC extends EmbeddedSketch {
         this.c3 = sketch.color(sketch.red(Utils.Colors.WHITE), sketch.green(Utils.Colors.WHITE), sketch.blue(Utils.Colors.WHITE), 60);
 
         r.setSeed(12345);
+
+        resultImages = new ArrayList<PImage>();
+        for (int i = 1; i <= 6; i++) {
+            resultImages.add(sketch.loadImage("images/result-" + i + ".png"));
+        }
     }
 
     @Override
@@ -137,9 +148,10 @@ public class PiMC extends EmbeddedSketch {
         int s = 20;
         int spacing = 5;
         for(var r : recentDiceResults) {
+            resultTable.image(resultImages.get(r.Result - 1), col * (s + spacing), row * (s + spacing), s, s);
             //resultTable.image(piGraph, col * (s + spacing), row * (s + spacing), s, s);
-            resultTable.fill(255);
-            resultTable.text(r.Result, col * (s + spacing) , row * (s + spacing));
+            //resultTable.fill(255);
+            //resultTable.text(r.Result, col * (s + spacing) , row * (s + spacing));
             col++;
             if (col == maxCol) {
                 col = 0;

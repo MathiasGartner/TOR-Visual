@@ -1,6 +1,6 @@
 package TORVisual;
 
-import TORVisual.Data.DiceResult;
+import TORVisual.Database.DiceResult;
 import TORVisual.Settings.SettingsVisual;
 import TORVisual.Sketches.PiMC;
 import TORVisual.Sketches.RandomWalks.*;
@@ -11,7 +11,6 @@ import processing.core.PGraphics;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 public class MainCanvas extends PApplet {
 
@@ -27,6 +26,8 @@ public class MainCanvas extends PApplet {
     private boolean fullScreen;
     PGraphics info;
     ArrayList<PGraphics> sketchesGroupIcon;
+    float sketchesGroupIconX;
+    float sketchesGroupIconY;
 
     PiMC piMCSketch;
     private ArrayList<EmbeddedSketch> sketchesFront;
@@ -62,7 +63,9 @@ public class MainCanvas extends PApplet {
 
     public void settings() {
         var renderer = JAVA2D;
+        //var renderer = P2D;
         if (this.fullScreen) {
+            //fullScreen(renderer, displayId);
             fullScreen(renderer, displayId);
         }
         else {
@@ -78,12 +81,12 @@ public class MainCanvas extends PApplet {
 
         info = createGraphics(230, 60);
         info.noStroke();
-        font = createFont("Ailerons-Regular.ttf", 17);
+        font = createFont("Ailerons-Regular.ttf", 20);
         int boxW, boxH, borderLeft, borderTop, borderBottom, borderRight, marginX,marginY;
 
         borderLeft=120;
         borderRight=100;
-        borderTop=100;
+        borderTop=200;
         borderBottom=100;
         marginX=40;
         marginY=80;
@@ -308,6 +311,8 @@ public class MainCanvas extends PApplet {
             rect(sketch.area.x, sketch.area.y, sketch.area.w, sketch.area.h);
         }
 
+        sketchesGroupIconX = 20.0f;
+        sketchesGroupIconY = 120.0f;
         sketchesGroupIcon = new ArrayList<PGraphics>();
         int sketchesGroupIconSizeX = 60;
         float iW = 5;
@@ -432,14 +437,14 @@ public class MainCanvas extends PApplet {
         for (var sketch : sketchesToShow) {
             this.displayRandomWalkSketch((RandomWalker)sketch);
         }
-        image(sketchesGroupIcon.get(sketchGroupIndexToShow), 20, 20);
+        image(sketchesGroupIcon.get(sketchGroupIndexToShow), sketchesGroupIconX, sketchesGroupIconY);
         if (inSketchSwitchMode) {
             tint(255, 255 * switchPercent);
             fill(Utils.Colors.WHITE, 230 * switchPercent);
             for (var sketch: sketchesToShowNext) {
                 this.displayRandomWalkSketch((RandomWalker)sketch);
             }
-            image(sketchesGroupIcon.get(sketchGroupIndexToShowNext), 20, 20);
+            image(sketchesGroupIcon.get(sketchGroupIndexToShowNext), sketchesGroupIconX, sketchesGroupIconY);
             switchPercent += 0.008;
         }
         if (inSketchSwitchMode && switchPercent >= 1.0f) {
