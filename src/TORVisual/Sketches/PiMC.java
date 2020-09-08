@@ -47,6 +47,7 @@ public class PiMC extends EmbeddedSketch {
     PGraphics piGraph;
     PGraphics resultTable;
     ArrayList<PImage> resultImages;
+    PImage icon;
 
     Random r = new Random();
 
@@ -112,6 +113,9 @@ public class PiMC extends EmbeddedSketch {
         for (int i = 1; i <= 6; i++) {
             resultImages.add(sketch.loadImage("images/result-" + i + ".png"));
         }
+
+        icon = sketch.loadImage("images/pi_circle_cube_illu-01.png");
+        canvas.image(icon, this.area.w - 30, 150);
     }
 
     @Override
@@ -124,9 +128,9 @@ public class PiMC extends EmbeddedSketch {
 
         this.clear();
         this.canvas.fill(255);
-        this.canvas.text("pi = " + this.pi, 5, 15);
-        this.canvas.text("var = " + this.variance, 5, 30);
-        this.canvas.text("err = " + this.error, 5, 45);
+        //this.canvas.text("pi = " + this.pi, 5, 15);
+        //this.canvas.text("var = " + this.variance, 5, 30);
+        //this.canvas.text("err = " + this.error, 5, 45);
 
         piGraph.beginDraw();
         for (var p : this.pointsToProcess) {
