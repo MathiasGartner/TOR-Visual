@@ -10,6 +10,7 @@ import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -56,6 +57,8 @@ public class PiMC extends EmbeddedSketch {
     ArrayList<PImage> resultImages;
     PImage icon;
     PImage piPoint;
+    PImage piGlyph;
+    PImage approx;
 
     Random r = new Random();
 
@@ -134,8 +137,11 @@ public class PiMC extends EmbeddedSketch {
         canvas.image(icon, this.area.w - 90, 40);
         canvas.endDraw();
 
-        piPoint = sketch.loadImage("images/point.png");
-        piPoint.resize(10, 0);
+        piPoint = sketch.loadImage("images/point_gradient.png");
+        piPoint.resize(4, 0);
+
+        piGlyph = sketch.loadImage("images/pi.png");
+        approx = sketch.loadImage("images/approx.png");
     }
 
     @Override
@@ -165,20 +171,21 @@ public class PiMC extends EmbeddedSketch {
         piPoints.endDraw();
         this.canvas.image(piPoints, this.graphX, this.graphY);
 
-        //this.canvas.image(piGraph, this.graphX, this.graphY);
+        this.canvas.image(piGraph, this.graphX, this.graphY);
 
         resultTable.beginDraw();
-        resultTable.background(100);
+        resultTable.background(Utils.Colors.BACKGROUND);
         int row = 0;
         int col = 0;
-        int maxCol = 40;
-        int s = 50;
+        int maxCol = 1;
+        int s = resultTable.width;
         int spacing = 5;
         for(var r : recentDiceResults) {
+            if (r.UserGenerated) {
+                resultTable.tint(Utils.Colors.GREEN);
+            }
             resultTable.image(resultImages.get(r.Result - 1), col * (s + spacing), row * (s + spacing), s, s);
-            //resultTable.image(piGraph, col * (s + spacing), row * (s + spacing), s, s);
-            //resultTable.fill(255);
-            //resultTable.text(r.Result, col * (s + spacing) , row * (s + spacing));
+            resultTable.noTint();
             col++;
             if (col == maxCol) {
                 col = 0;
@@ -187,6 +194,15 @@ public class PiMC extends EmbeddedSketch {
         }
         resultTable.endDraw();
         this.canvas.image(resultTable, this.resultTableX, this.resultTableY);
+
+        float resultTextX;
+        float resultTextY;
+        resultTextX = this.area.w / 2.0f - 50.0f;
+        resultTextY = this.graphY + this.squareL;
+        this.canvas.image(piGlyph, resultTextX, resultTextY);
+        this.canvas.image(approx, resultTextX + 25, resultTextY);
+        this.canvas.textSize(30);
+        this.canvas.text(new DecimalFormat("0.0000").format(pi) + " +/- " + new DecimalFormat("#.0000").format(error), resultTextX + 50, resultTextY);
     }
 
     private void createPosition() {

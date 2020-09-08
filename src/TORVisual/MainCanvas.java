@@ -108,7 +108,8 @@ public class MainCanvas extends PApplet {
 
         //create Pi sketch
         piMCSketch = new PiMC(this, sketchAreas.get(9), this.resultsToShow);
-        piMCSketch.setRecentDiceResultsCount(150);
+        piMCSketch.setRecentDiceResultsCount(9);
+        piMCSketch.canvas.textFont(font);
 
         //create Random Walker sketches
         sketchesFront = new ArrayList<EmbeddedSketch>();
@@ -367,13 +368,14 @@ public class MainCanvas extends PApplet {
             try {
                 nextDiceResults = new ArrayList<DiceResult>();
                 //nextDiceResults = db.getDiceResultAboveId(lastDiceResultId);
-                for (int i = 0; i < 1000; i++) {
+                for (int i = 0; i < 1; i++) {
                     var dr = new DiceResult();
                     dr.Id = dummyId;
                     dr.Result = Utils.randDiceResult();
                     dr.ClientId = Utils.randClientId();
                     dr.Material = "";
                     dr.Time = new Date();
+                    dr.UserGenerated = Utils.randClientId() > 15;
                     nextDiceResults.add(dr);
                     dummyId++;
                 }

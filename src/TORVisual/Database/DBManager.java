@@ -24,7 +24,7 @@ public class DBManager {
     private ArrayList<DiceResult> getDiceResults(ResultSet rs) throws SQLException {
         var diceResults = new ArrayList<DiceResult>();
         while (rs.next()) {
-            var dr = new DiceResult(rs.getInt("Id"), rs.getInt("ClientId"), rs.getString("Material"), rs.getInt("Result"), rs.getTime("Time"));
+            var dr = new DiceResult(rs.getInt("Id"), rs.getInt("ClientId"), rs.getString("Material"), rs.getInt("Result"), rs.getTime("Time"), rs.getBoolean("UserGenerated"));
             diceResults.add(dr);
         }
         return diceResults;
@@ -32,7 +32,7 @@ public class DBManager {
 
     public ArrayList<DiceResult> getDiceResultAboveId(int resultId) throws SQLException {
         var diceResults = new ArrayList<DiceResult>();
-        String sql = "SELECT d.Id, d.ClientId, c.Material, d.Result, d.Time FROM diceresult d LEFT JOIN client c ON d.ClientId = c.Id WHERE d.Id > ? LIMIT 5000";
+        String sql = "SELECT d.Id, d.ClientId, c.Material, d.Result, d.Time, d.UserGenerated FROM diceresult d LEFT JOIN client c ON d.ClientId = c.Id WHERE d.Id > ? LIMIT 5000";
         try (
             Connection conn = this.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -47,7 +47,7 @@ public class DBManager {
 
     public ArrayList<DiceResult> getDiceResultAboveIdByClientId(int resultId, int clientId) throws SQLException {
         var diceResults = new ArrayList<DiceResult>();
-        String sql = "SELECT d.Id, d.ClientId, c.Material, d.Result, d.Time FROM diceresult d LEFT JOIN client c ON d.ClientId = c.Id WHERE d.Id > ? AND d.ClientId = ?";
+        String sql = "SELECT d.Id, d.ClientId, c.Material, d.Result, d.Time, d.UserGenerated FROM diceresult d LEFT JOIN client c ON d.ClientId = c.Id WHERE d.Id > ? AND d.ClientId = ?";
         try (
                 Connection conn = this.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);
@@ -63,7 +63,7 @@ public class DBManager {
 
     public ArrayList<DiceResult> getDiceResultByClientId(int clientId) throws SQLException {
         var diceResults = new ArrayList<DiceResult>();
-        String sql = "SELECT d.Id, d.ClientId, c.Material, d.Result, d.Time FROM diceresult d LEFT JOIN client c ON d.ClientId = c.Id WHERE d.ClientId = ?";
+        String sql = "SELECT d.Id, d.ClientId, c.Material, d.Result, d.Time, d.UserGenerated FROM diceresult d LEFT JOIN client c ON d.ClientId = c.Id WHERE d.ClientId = ?";
         try (
                 Connection conn = this.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);
