@@ -8,6 +8,7 @@ import TORVisual.Utils.Utils;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PGraphics;
+import processing.core.PImage;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,6 +31,7 @@ public class MainCanvas extends PApplet {
     float sketchesGroupIconY;
 
     PiMC piMCSketch;
+    PImage piIcon;
     private ArrayList<EmbeddedSketch> sketchesFront;
     private ArrayList<EmbeddedSketch> sketchesCenter;
     private ArrayList<EmbeddedSketch> sketchesBack;
@@ -108,8 +110,9 @@ public class MainCanvas extends PApplet {
 
         //create Pi sketch
         piMCSketch = new PiMC(this, sketchAreas.get(9), this.resultsToShow);
-        piMCSketch.setRecentDiceResultsCount(9);
+        piMCSketch.setRecentDiceResultsCount(24);
         piMCSketch.canvas.textFont(font);
+        piIcon = this.loadImage("images/pi_circle_cube_illu-01.png");
 
         //create Random Walker sketches
         sketchesFront = new ArrayList<EmbeddedSketch>();
@@ -375,7 +378,7 @@ public class MainCanvas extends PApplet {
                     dr.ClientId = Utils.randClientId();
                     dr.Material = "";
                     dr.Time = new Date();
-                    dr.UserGenerated = Utils.randClientId() > 15;
+                    dr.UserGenerated = Utils.randClientId() == 15;
                     nextDiceResults.add(dr);
                     dummyId++;
                 }
@@ -394,6 +397,9 @@ public class MainCanvas extends PApplet {
         counter++;
         //TODO: make sure also the last result in nextDiceResults is shown
         double showResultsUpToIndex = lastShownResultIndex + resultsPerFrame;
+        if ((counter + 1) % SettingsVisual.LoadDataEveryNthFrame == 0) {
+            showResultsUpToIndex = nextDiceResults.size();
+        }
         resultsToShow.clear();
         for (int i = (int)lastShownResultIndex; i < (int)showResultsUpToIndex; i++) {
            resultsToShow.add(nextDiceResults.get(i));
@@ -419,6 +425,7 @@ public class MainCanvas extends PApplet {
         //draw PiMC
         this.noTint();
         image(piMCSketch.canvas, piMCSketch.area.x, piMCSketch.area.y);
+        this.image(piIcon, this.width - 90, sketchesGroupIconY);
 
         //TODO: switch sketches to show
         if (enableSwitching) {
@@ -473,7 +480,7 @@ public class MainCanvas extends PApplet {
         info.fill(255);
         //String recentResultsText = resultsToShow.stream().map(p -> Integer.toString(p.Result)).collect(Collectors.joining(" "));
         //info.text(recentResultsText, 10, 10);
-        info.text("Results shown: " + resultCounter, 10, 20);
+        info.text("Generated numbers: " + resultCounter, 10, 20);
         info.text("Frame rate: " + frameRate, 10, 40);
         info.endDraw();
         image(info, screenW - info.width, screenH - info.height);

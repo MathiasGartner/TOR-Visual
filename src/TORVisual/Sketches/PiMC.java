@@ -53,12 +53,13 @@ public class PiMC extends EmbeddedSketch {
     PGraphics piGraph;
     PGraphics piPoints;
     PGraphics resultTable;
-    PGraphics piResult;
     ArrayList<PImage> resultImages;
-    PImage icon;
     PImage piPoint;
     PImage piGlyph;
-    PImage approx;
+    PImage approxGlyph;
+    PImage plusMinusGlyph;
+
+    int piTextSize = 30;
 
     Random r = new Random();
 
@@ -80,7 +81,7 @@ public class PiMC extends EmbeddedSketch {
         this.total = 0;
         this.inCircle = 0;
 
-        float pB = 3.0f;
+        float pB = 2.0f;
         float pS = 6.0f;
         float pUnit = this.area.w / (pB + pS + pB);
         this.squareL = (int)(pS * pUnit);
@@ -91,11 +92,12 @@ public class PiMC extends EmbeddedSketch {
         this.piGraph = sketch.createGraphics(this.squareL, this.squareL);
         piGraph.beginDraw();
         this.piGraph.noFill();
-        float sw = 0.7f;
+        float sw = 1.0f;
         float sw2 = sw / 2.0f;
         piGraph.strokeWeight(sw);
         piGraph.stroke(Utils.Colors.GRAY);
         piGraph.rect(0 + sw2, 0 + sw2, this.squareL - sw, this.squareL - sw);
+        piGraph.strokeWeight(sw * 0.5f);
         piGraph.stroke(Utils.Colors.WHITE);
         piGraph.circle(this.squareL2, this.squareL2, this.squareL - sw);
         piGraph.noStroke();
@@ -105,7 +107,7 @@ public class PiMC extends EmbeddedSketch {
         piPoints.noStroke();
 
         float rBLeft = 0.0f;
-        float rBRight = 10.0f;
+        float rBRight = 25.0f;
         float rW = 1.0f;
         float rUnit = this.area.w / (rBLeft + rW + rBRight);
         this.resultTableW = (int)(rW * rUnit);
@@ -129,19 +131,19 @@ public class PiMC extends EmbeddedSketch {
 
         resultImages = new ArrayList<PImage>();
         for (int i = 1; i <= 6; i++) {
-            resultImages.add(sketch.loadImage("images/result-" + i + ".png"));
+            resultImages.add(sketch.loadImage("images/white_v0/result-" + i + " white.png"));
         }
-
-        icon = sketch.loadImage("images/pi_circle_cube_illu-01.png");
-        canvas.beginDraw();
-        canvas.image(icon, this.area.w - 90, 40);
-        canvas.endDraw();
 
         piPoint = sketch.loadImage("images/point_gradient.png");
         piPoint.resize(4, 0);
 
         piGlyph = sketch.loadImage("images/pi.png");
-        approx = sketch.loadImage("images/approx.png");
+        piGlyph.resize(20, 0);
+        approxGlyph = sketch.loadImage("images/approx.png");
+        approxGlyph.resize(20, 0);
+        plusMinusGlyph = sketch.loadImage("images/plusMinus.png");
+        plusMinusGlyph.resize(20, 0);
+
     }
 
     @Override
@@ -197,12 +199,14 @@ public class PiMC extends EmbeddedSketch {
 
         float resultTextX;
         float resultTextY;
-        resultTextX = this.area.w / 2.0f - 50.0f;
-        resultTextY = this.graphY + this.squareL;
-        this.canvas.image(piGlyph, resultTextX, resultTextY);
-        this.canvas.image(approx, resultTextX + 25, resultTextY);
-        this.canvas.textSize(30);
-        this.canvas.text(new DecimalFormat("0.0000").format(pi) + " +/- " + new DecimalFormat("#.0000").format(error), resultTextX + 50, resultTextY);
+        resultTextX = this.area.w / 2.0f - 175.0f;
+        resultTextY = this.graphY + this.squareL + 90;
+        this.canvas.image(piGlyph, resultTextX, resultTextY - 20);
+        this.canvas.image(approxGlyph, resultTextX + 40, resultTextY - 15);
+        this.canvas.textSize(piTextSize);
+        this.canvas.text(new DecimalFormat("0.0000").format(pi), resultTextX + 80, resultTextY);
+        this.canvas.image(plusMinusGlyph, resultTextX + 190, resultTextY - 15);
+        this.canvas.text(new DecimalFormat("0.0000").format(error), resultTextX + 230, resultTextY);
     }
 
     private void createPosition() {
