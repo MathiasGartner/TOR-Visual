@@ -54,10 +54,8 @@ public class Chili extends RandomWalker{
 
     @Override
     public void draw() {
-
-       //for (var result : this.resultsToShow) {
-           int r = Utils.randDiceResult();
-        //  int r = result.Result;
+        for (var result : this.resultsToShow) {
+            int r = result.Result;
 
            switch (r) {
             case 1:
