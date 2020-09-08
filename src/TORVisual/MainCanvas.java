@@ -62,10 +62,9 @@ public class MainCanvas extends PApplet {
     }
 
     public void settings() {
-        var renderer = JAVA2D;
-        //var renderer = P2D;
+        //var renderer = JAVA2D;
+        var renderer = P2D;
         if (this.fullScreen) {
-            //fullScreen(renderer, displayId);
             fullScreen(renderer, displayId);
         }
         else {
