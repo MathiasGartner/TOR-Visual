@@ -26,14 +26,14 @@ public class AcaciaBohnen extends RandomWalker
             angle_rad=5;
 
             size =this.area.h/100.0f*1f; //circle size
-            sd=this.area.h/100.0f*0.1f; //size difference
+            sd=this.area.h/100.0f*0.02f; //size difference
 
 
         dx = this.canvas.width/100*0.7f;
-        dy = this.canvas.width/100*0.5f;
-        ds = this.canvas.width/100*0.2f;
+        dy = this.canvas.width/100*0.4f;
+        ds = this.canvas.width/100*0.05f;
         w=this.canvas.width/100*0.2f;
-        h=this.canvas.height/100*1.5f;
+        h=this.canvas.height/100*1.2f;
         hmax=2.5f;
         wmax=0.6f;
 
