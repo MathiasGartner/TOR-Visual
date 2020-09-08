@@ -102,8 +102,9 @@ public class MainCanvas extends PApplet {
             }
         }
 
-        sketchAreas.add(new SketchArea(screenH + 1, 0, screenW - screenH, screenH));
-        sketchAreas.add(new SketchArea(0, 0, 900, 900));
+        int piMCX = borderLeft+3*(marginX+boxW) + marginX;
+        int piMCY = borderTop;
+        sketchAreas.add(new SketchArea(piMCX, piMCY, screenW - piMCX, screenH - piMCY));
 
         //create Pi sketch
         piMCSketch = new PiMC(this, sketchAreas.get(9), this.resultsToShow);
@@ -350,7 +351,7 @@ public class MainCanvas extends PApplet {
         inSketchSwitchMode = false;
     }
 
-    boolean enableSwitching = false;
+    boolean enableSwitching = true;
     boolean inSketchSwitchMode;
     float switchPercent;
     int oldTimeStamp;
@@ -405,12 +406,6 @@ public class MainCanvas extends PApplet {
 
         this.background(Utils.Colors.BACKGROUND);
 
-        //draw PiMC
-        piMCSketch.canvas.beginDraw();
-        piMCSketch.draw();
-        piMCSketch.canvas.endDraw();
-        image(piMCSketch.canvas, piMCSketch.area.x, piMCSketch.area.y);
-
         //draw sketches
         for (var sketch : sketchesAll) {
             sketch.addNewDiceResults(resultsToShow);
@@ -418,6 +413,10 @@ public class MainCanvas extends PApplet {
             sketch.draw();
             sketch.canvas.endDraw();
         }
+
+        //draw PiMC
+        this.noTint();
+        image(piMCSketch.canvas, piMCSketch.area.x, piMCSketch.area.y);
 
         //TODO: switch sketches to show
         if (enableSwitching) {
