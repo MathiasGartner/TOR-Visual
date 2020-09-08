@@ -44,31 +44,31 @@ public class Apfel extends RandomWalker
 
             switch (r) {
                 case 1:
-                    moveY(dy);
-
-                    if (sw > swd & sw<swmax)
-                        sw -= swd;  //stroke weight - stroke weight distance
-
-                    // if (cg > 134)
-                    //     cg -= 1;  //green -1
-                    break;
-
-                case 2:
                     if (alpha >= 20 & alpha <= 40)
                         alpha += 1;
 
                     if (size > sd & size<sizemax)
                         size -= sd;  //circle size - difference size
+
+                    moveY(dy);
+
+
+
+                    break;
+
+                case 2:
+                    if (sw > swd & sw<swmax)
+                        sw -= swd;  //stroke weight - stroke weight distance
                     break;
 
 
                 case 3:
-                    if (alpha <= 40 & alpha >= 20)
-                        alpha -= 1;  //alpha -1
+                    moveX(dx);
                     break;
 
                 case 4:
-                    moveY(-dy);
+                    if (alpha <= 40 & alpha >= 20)
+                        alpha -= 1;  //alpha -1
                     break;
 
                 case 5:
@@ -80,14 +80,12 @@ public class Apfel extends RandomWalker
 
 
                 case 6:
+                    moveY(-dy);
 
-                    moveX(dx);
 
                     if (sw+swd < swmax)
                         sw += swd; //stroke weight + stroke weight distance
 
-                    // if (cg < 255)
-                    //     cg += 1;   //green + 1
                     break;
 
             }
@@ -96,7 +94,7 @@ public class Apfel extends RandomWalker
             this.canvas.fill(c, 0);
             //     sketch.stroke(32,79,17,31);
             this.canvas.strokeWeight((float) sw);
-            this.canvas.stroke(c, alpha);
+            this.canvas.stroke(c, alpha/2);
             this.canvas.circle(x, y, (float) size);
         }
     }
