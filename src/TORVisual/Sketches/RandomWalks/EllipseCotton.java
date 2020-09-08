@@ -16,14 +16,14 @@ public class EllipseCotton extends RandomWalker{
         cr = 255;
         cg = 255;
         cb = 255;
-        alpha=10;
-        dx = this.canvas.width/100*0.6f;
-        dy = this.canvas.width/100*0.6f;
+        alpha=20;
+        dx = this.canvas.width/100*0.4f;
+        dy = this.canvas.width/100*0.4f;
         ds = this.canvas.width/100*0.1f;
-        w=this.canvas.width/100*0.8f;
+        w=this.canvas.width/100*0.5f;
         h=this.canvas.height/100*0.4f;
         hmax=this.canvas.height/100*1.0f;
-        wmax=this.canvas.width/100*0.3f;
+        wmax=this.canvas.width/100*1.0f;
 
     }
 
@@ -59,7 +59,7 @@ public class EllipseCotton extends RandomWalker{
                 if (w > ds)
                     w -= ds;
 
-                if (alpha <= 20.0f & alpha >= 1f)
+                if (alpha >= 10f)
                     alpha -= 0.5f;
                 break;
             case 6:
@@ -67,13 +67,13 @@ public class EllipseCotton extends RandomWalker{
                 if (h > ds)
                     h -= ds;
 
-                if (alpha >= 1f & alpha <= 20.0f)
+                if (alpha <= 40.0f)
                     alpha += 0.5f;
                 break;
         }
         }
-        this.canvas.fill(cr, cg, cb, 5);
-        this.canvas.stroke(cr, cg, cb, 5);
+        this.canvas.fill(cr, cg, cb, alpha);
+        this.canvas.stroke(cr, cg, cb, alpha);
         this.canvas.ellipse(x, y, w, h);
     }
 }

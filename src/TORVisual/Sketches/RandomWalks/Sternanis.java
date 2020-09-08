@@ -26,7 +26,7 @@ public class Sternanis extends RandomWalker{
         x = startX;
         y = startY;
         radius1=0.2f;
-        radius2=4.0f;
+        radius2=1.2f;
         npoints=4;
         npointsmax=10;
         float angle = (float) ((2*Math.PI) / npoints);

@@ -303,7 +303,7 @@ public class MainCanvas extends PApplet {
         }
         sketchesAll.add(piMCSketch);
 
-        sketchesToShow = sketchesCenter;
+        sketchesToShow = sketchesBack;
 
         for (var sketch : sketchesToShow) {
             stroke(sketch.backgroundColor);

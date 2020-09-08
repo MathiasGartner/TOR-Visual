@@ -17,29 +17,32 @@ public class Chili extends RandomWalker{
         name="Chilis";
         nameLatin="Capsicum annuum";
 
+        colorStart = sketch.color(133, 34, 34);
+        colorEnd = sketch.color(130, 86, 56);
+
         x = startX;
         y = startY;
-        x2= (float) (x+(this.area.w/100.0f*2.5));
+        x2= (float) (x+(this.area.w/100.0f*1));
         y2=y;
-        x3=(float) (x+(this.area.w/100.0f*1.5));
-        y3=(float) (y+(this.area.w/100.0f*1.5));
-        x4=(float) (x-(this.area.w/100.0f*1.5));
-        y4=y*1.5f;
-        w=this.area.w/100.0f*4;
-        h=this.area.w/100.0f*3;
-        sd=this.area.h/100.0f*0.2f; //size difference
-        sizemax=this.area.w/100.0f*4.5f;
-        sizemin=this.area.w/100.0f*1.5f;
-        winkel= (float) 1.5f;
+        x3=(float) (x+(this.area.w/100.0f*0.5));
+        y3=(float) (y+(this.area.w/100.0f*0.5));
+        x4=(float) (x-(this.area.w/100.0f*0.5));
+        y4=y*0.5f;
+        w=this.area.w/100.0f*0.4f;
+        h=this.area.w/100.0f*0.3f;
+        sd=this.area.h/100.0f*0.04f; //size difference
+        sizemax=this.area.w/100.0f*1f;
+        sizemin=this.area.w/100.0f*0.1f;
+        winkel= (float) 0.5f;
         multiply=0f;
         start=0;
 
         cr = 146; //rgb color value red
         cg = 0; //rgb color value green
         cb = 0;  //rgb color value blue
-        alpha=60;
-        dx = this.area.w/100.0f*1.5f; //difference x
-        dy = this.area.w/100.0f*1.5f; //difference y
+        alpha=20;
+        dx = this.area.w/100.0f*0.5f; //difference x
+        dy = this.area.w/100.0f*0.5f; //difference y
        // dh = this.area.w / 300;
        // dw = this.area.w / 300;
         //w=this.area.w/200;
@@ -121,7 +124,7 @@ public class Chili extends RandomWalker{
 
             case 5:
 
-                if (alpha >= 10 & alpha <= 100)
+                if (alpha <= 40)
                     alpha += 1;
 
                 if (w > sizemin & w<sizemax)
@@ -132,7 +135,7 @@ public class Chili extends RandomWalker{
 
 
             case 6:
-                if (alpha <= 100 & alpha >= 10)
+                if (alpha >= 5)
                     alpha -= 1;  //alpha -1
 
                 winkel= (float) 1.5f;
@@ -147,15 +150,17 @@ public class Chili extends RandomWalker{
 
          //sketch.fill(cr, cg, cb, alpha);
     //     sketch.strokeWeight((float) sw);
-           sketch.stroke(cr, cg, cb, alpha);
-           sketch.noFill();
+        var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
+
+        this.canvas.stroke(c, alpha);
+            this.canvas.noFill();
            /*sketch.beginShape();
            sketch.vertex(x, y);
            sketch.bezierVertex(x2, y2, x3, y3, x4, y4);
            sketch.endShape();
 */
            //sketch.arc(x, y, w, h, start, (float) ((float) multiply*Math.PI / winkel));
-           sketch.arc(x, y, w, h, 0, (float) ((float) 3*Math.PI / (this.area.w/100*2f)));
+           this.canvas.arc(x, y, w, h, 0, (float) ((float) 3*Math.PI / (this.area.w/100*2f)));
       // }
     }
 }
