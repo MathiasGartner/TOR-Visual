@@ -19,8 +19,8 @@ public class Wachtelbohne extends RandomWalker
             colorEnd = sketch.color(227, 159, 123);
 
             alpha =20;
-            dx = this.area.w/100.0f*0.7f; //difference x
-            dy = this.area.w/100.0f*0.8f; //difference y
+            dx = this.area.w/100.0f*0.4f; //difference x
+            dy = this.area.w/100.0f*0.5f; //difference y
             angle_rad=20;
             dangle=0.4f;
             sw= this.area.w/100.0f*0.4f; //stroke weight

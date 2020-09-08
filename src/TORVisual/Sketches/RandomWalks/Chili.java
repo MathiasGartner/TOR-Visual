@@ -32,17 +32,14 @@ public class Chili extends RandomWalker{
         h=this.area.w/100.0f*0.3f;
         sd=this.area.h/100.0f*0.04f; //size difference
         sizemax=this.area.w/100.0f*1f;
-        sizemin=this.area.w/100.0f*0.1f;
+        sizemin=this.area.w/100.0f*0.2f;
         winkel= (float) 0.5f;
         multiply=0f;
         start=0;
 
-        cr = 146; //rgb color value red
-        cg = 0; //rgb color value green
-        cb = 0;  //rgb color value blue
         alpha=20;
-        dx = this.area.w/100.0f*0.5f; //difference x
-        dy = this.area.w/100.0f*0.5f; //difference y
+        dx = this.area.w/100.0f*0.6f; //difference x
+        dy = this.area.w/100.0f*0.7f; //difference y
        // dh = this.area.w / 300;
        // dw = this.area.w / 300;
         //w=this.area.w/200;
@@ -73,8 +70,6 @@ public class Chili extends RandomWalker{
                 if (sw+swd < swmax)
                     sw += swd; //stroke weight + stroke weight distance
 
-                if (cr < 220)
-                    cr += 1;   //red + 1
                 break;
 
 
@@ -85,11 +80,9 @@ public class Chili extends RandomWalker{
                 if (y+dy < area.h)
                     y += dy;   //+ difference y
 
-                if (sw > swd & sw<swmax)
+                if (sw > swd)
                     sw -= swd;  //stroke weight - stroke weight distance
 
-                if (cr > 120)
-                    cr -= 1;  //red -1
 
                 //x=x+0.1f;
                 break;
@@ -116,8 +109,6 @@ public class Chili extends RandomWalker{
                 if (w+sd < sizemax)
                     w += sd; //+w difference
 
-                if (cg < 40)
-                    cg += 1;   //green + 1
                 start= (float) -(Math.PI);
                 break;
 
@@ -127,7 +118,7 @@ public class Chili extends RandomWalker{
                 if (alpha <= 40)
                     alpha += 1;
 
-                if (w > sizemin & w<sizemax)
+                if (w > sizemin)
                     w -= sd;  //halfmoon size - difference size
                 winkel= (float) 0f;
                 multiply=1.5f;
@@ -135,12 +126,12 @@ public class Chili extends RandomWalker{
 
 
             case 6:
-                if (alpha >= 5)
+                if (alpha >= 10)
                     alpha -= 1;  //alpha -1
 
                 winkel= (float) 1.5f;
 
-                if (h > sizemin & h<sizemax)
+                if (h > sizemin)
                     h -= sd;
 
                 break;
