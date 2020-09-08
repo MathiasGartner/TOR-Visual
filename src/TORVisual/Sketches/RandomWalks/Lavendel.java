@@ -20,15 +20,15 @@ public class Lavendel extends RandomWalker
             colorEnd = sketch.color(63, 52, 94);
 
             alpha =10;
-            sw= this.area.w/100.0f*0.2f; //stroke weight
+            sw= this.area.w/100.0f*0.1f; //stroke weight
             swd= this.area.w/100.0f*0.05f; //stroke weight difference
             swmax=this.area.w/100.0f*1f; //stroke weight maximum
             dx = this.area.w/100.0f*0.6f; //difference x
             dy = this.area.w/100.0f*0.6f; //difference y
-            w=this.canvas.width/100*0.4f;
-            h=this.canvas.height/100*0.8f;
-            hmax=this.canvas.height/100*1.5f;
-            hmin=this.canvas.height/100*0.4f;
+            w=this.canvas.width/100*0.2f;
+            h=this.canvas.height/100*0.6f;
+            hmax=this.canvas.height/100*1.1f;
+            hmin=this.canvas.height/100*0.1f;
             angle_rad=5;
             dangle=0.2f;
             //dangle=1;

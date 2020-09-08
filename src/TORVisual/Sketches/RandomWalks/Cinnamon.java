@@ -18,16 +18,19 @@ public class Cinnamon extends RandomWalker{
         x1 = startX;
         y1 = startY;
 
-        dx = this.area.w/100.0f*0.8f; //difference x
-        dy = this.area.w/100.0f*0.9f; //difference y
+        colorStart = sketch.color(110, 56, 23);
+        colorEnd = sketch.color(138, 85, 52);
 
-        dxrotate = this.area.w/100.0f*0.3f;
-        dyrotate = this.area.w/100.0f*0.3f;
+        dx = this.area.w/100.0f*0.5f; //difference x
+        dy = this.area.w/100.0f*0.6f; //difference y
 
-        xdistance = this.area.w/100.0f*0.1f;
-        ydistance = this.area.w/100.0f*0.1f;
+        dxrotate = this.area.w/100.0f*0.1f;
+        dyrotate = this.area.w/100.0f*0.1f;
 
-        distancemax = this.area.w/100.0f*1f;
+        xdistance = this.area.w/100.0f*0.02f;
+        ydistance = this.area.w/100.0f*0.02f;
+
+        distancemax = this.area.w/100.0f*0.2f;
 
         x2 = x1+xdistance;
         y2= y1+ydistance;
@@ -36,7 +39,7 @@ public class Cinnamon extends RandomWalker{
         cr = 110; //rgb color value red
         cg = 56; //rgb color value green
         cb = 23;  //rgb color value blue
-        alpha =120;
+        alpha =40;
         sw= this.area.w/100.0f*0.4f; //stroke weight
         swd= this.area.w/100.0f*0.05f; //stroke weight difference
         swmax=this.area.w/100.0f*1f; //stroke weight maximum
@@ -134,7 +137,8 @@ public class Cinnamon extends RandomWalker{
 
 
            this.canvas.strokeWeight(1);
-           this.canvas.stroke(cr, cg, cb, alpha);
+           var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
+           this.canvas.stroke(c, alpha);
 
         this.canvas.line(x1, y1, x2, y2);
         /*if (Math.abs(x1 - x2) > distancemax) {
