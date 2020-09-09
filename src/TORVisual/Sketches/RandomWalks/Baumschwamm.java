@@ -16,8 +16,8 @@ public class Baumschwamm extends RandomWalker
         name="Baumschwamm";
         nameLatin="Fomitopsis pinicola";
 
-            colorStart = sketch.color(94, 84, 42);
-            colorEnd = sketch.color(227, 190, 120);
+            colorStart = sketch.color(66, 42, 0);
+            colorEnd = sketch.color(90, 60, 12);
 
             alpha =10;
             sw= this.area.w/100.0f*0.1f; //stroke weight
