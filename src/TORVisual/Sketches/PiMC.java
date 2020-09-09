@@ -3,12 +3,14 @@ package TORVisual.Sketches;
 import TORVisual.Database.DiceResult;
 import TORVisual.Database.PiMCPoint;
 import TORVisual.EmbeddedSketch;
+import TORVisual.Settings.SettingsVisual;
 import TORVisual.SketchArea;
 import TORVisual.Utils.Utils;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -38,6 +40,10 @@ public class PiMC extends EmbeddedSketch {
     int c2;
     int c3;
 
+    int c1In;
+    int c2In;
+    int c3In;
+
     private double pi;
     private double variance;
     private double error;
@@ -45,15 +51,22 @@ public class PiMC extends EmbeddedSketch {
     private int inCircle;
 
     PGraphics piGraph;
+    PGraphics piPoints;
     PGraphics resultTable;
     ArrayList<PImage> resultImages;
+    PImage piPoint;
+    PImage piGlyph;
+    PImage approxGlyph;
+    PImage plusMinusGlyph;
+
+    int piTextSize = 30;
 
     Random r = new Random();
 
     public PiMC(PApplet sketch, SketchArea area, ArrayList<DiceResult> newResults) {
         super(sketch, area);
 
-        this.resultsNeededForOneCoordinate = 7;
+        this.resultsNeededForOneCoordinate = SettingsVisual.ResultsNeededForOneCoordinate;
         this.resultsNeededForNewPosition = resultsNeededForOneCoordinate * 2;
         this.boxSizeTotal = Integer.parseInt(new String(new char[resultsNeededForOneCoordinate]).replace('\0', '5'), 6); //base 6 numbers are from 0 to 5
         this.boxSize = this.boxSizeTotal / 2;
@@ -68,7 +81,7 @@ public class PiMC extends EmbeddedSketch {
         this.total = 0;
         this.inCircle = 0;
 
-        float pB = 3.0f;
+        float pB = 2.0f;
         float pS = 6.0f;
         float pUnit = this.area.w / (pB + pS + pB);
         this.squareL = (int)(pS * pUnit);
@@ -79,24 +92,28 @@ public class PiMC extends EmbeddedSketch {
         this.piGraph = sketch.createGraphics(this.squareL, this.squareL);
         piGraph.beginDraw();
         this.piGraph.noFill();
-        float sw = 5.0f;
+        float sw = 1.0f;
         float sw2 = sw / 2.0f;
         piGraph.strokeWeight(sw);
         piGraph.stroke(Utils.Colors.GRAY);
         piGraph.rect(0 + sw2, 0 + sw2, this.squareL - sw, this.squareL - sw);
+        piGraph.strokeWeight(sw * 0.5f);
         piGraph.stroke(Utils.Colors.WHITE);
         piGraph.circle(this.squareL2, this.squareL2, this.squareL - sw);
         piGraph.noStroke();
         piGraph.endDraw();
 
-        float rB = 2.0f;
-        float rW = 6.0f;
-        float rH = 4.0f;
-        float rUnit = this.area.w / (rB + rW + rB);
-        this.resultTableW = (int)(rW * pUnit);
-        this.resultTableH = (int)(rH * pUnit);
-        this.resultTableX = rB * rUnit;
-        this.resultTableY = rB * rUnit + this.graphY + this.squareL;
+        piPoints = sketch.createGraphics(this.squareL, this.squareL);
+        piPoints.noStroke();
+
+        float rBLeft = 0.0f;
+        float rBRight = 25.0f;
+        float rW = 1.0f;
+        float rUnit = this.area.w / (rBLeft + rW + rBRight);
+        this.resultTableW = (int)(rW * rUnit);
+        this.resultTableH = (int)(this.area.h);
+        this.resultTableX = rBLeft * rUnit;
+        this.resultTableY = 0;
 
         this.resultTable = sketch.createGraphics(resultTableW, resultTableH);
 
@@ -106,52 +123,71 @@ public class PiMC extends EmbeddedSketch {
         this.c2 = sketch.color(sketch.red(Utils.Colors.WHITE), sketch.green(Utils.Colors.WHITE), sketch.blue(Utils.Colors.WHITE), 180);
         this.c3 = sketch.color(sketch.red(Utils.Colors.WHITE), sketch.green(Utils.Colors.WHITE), sketch.blue(Utils.Colors.WHITE), 60);
 
+        this.c1In = sketch.color(sketch.red(Utils.Colors.GREEN), sketch.green(Utils.Colors.GREEN), sketch.blue(Utils.Colors.GREEN), 255);
+        this.c2In = sketch.color(sketch.red(Utils.Colors.GREEN), sketch.green(Utils.Colors.GREEN), sketch.blue(Utils.Colors.GREEN), 180);
+        this.c3In = sketch.color(sketch.red(Utils.Colors.GREEN), sketch.green(Utils.Colors.GREEN), sketch.blue(Utils.Colors.GREEN), 60);
+
         r.setSeed(12345);
 
         resultImages = new ArrayList<PImage>();
         for (int i = 1; i <= 6; i++) {
-            resultImages.add(sketch.loadImage("images/result-" + i + ".png"));
+            resultImages.add(sketch.loadImage("images/white_v0/result-" + i + " white.png"));
         }
+
+        piPoint = sketch.loadImage("images/point_gradient.png");
+        piPoint.resize(4, 0);
+
+        piGlyph = sketch.loadImage("images/pi.png");
+        piGlyph.resize(20, 0);
+        approxGlyph = sketch.loadImage("images/approx.png");
+        approxGlyph.resize(20, 0);
+        plusMinusGlyph = sketch.loadImage("images/plusMinus.png");
+        plusMinusGlyph.resize(20, 0);
+
     }
 
     @Override
     public void draw() {
+        this.clear();
+        this.canvas.fill(255);
+
         this.pointsToProcess.clear();
         for (var result : this.newResults) {
             this.resultsToProcess.add(result.Result);
             this.createPosition();
         }
 
-        this.clear();
-        this.canvas.fill(255);
-        this.canvas.text("pi = " + this.pi, 5, 15);
-        this.canvas.text("var = " + this.variance, 5, 30);
-        this.canvas.text("err = " + this.error, 5, 45);
+        //this.canvas.text("pi = " + this.pi, 5, 15);
+        //this.canvas.text("var = " + this.variance, 5, 30);
+        //this.canvas.text("err = " + this.error, 5, 45);
 
-        piGraph.beginDraw();
+        piPoints.beginDraw();
+        piPoints.noStroke();
         for (var p : this.pointsToProcess) {
-            piGraph.fill(c1);
-            piGraph.circle(p.drawAt.x, p.drawAt.y, 0.9f);
-            piGraph.fill(c2);
-            piGraph.circle(p.drawAt.x, p.drawAt.y, 1.5f);
-            piGraph.fill(c3);
-            piGraph.circle(p.drawAt.x, p.drawAt.y, 3.0f);
+            if (p.inCircle) {
+                piPoints.tint(Utils.Colors.GREEN);
+            }
+            piPoints.image(piPoint, p.drawAt.x, p.drawAt.y);
+            piPoints.noTint();
         }
-        piGraph.endDraw();
+        piPoints.endDraw();
+        this.canvas.image(piPoints, this.graphX, this.graphY);
+
         this.canvas.image(piGraph, this.graphX, this.graphY);
 
         resultTable.beginDraw();
-        resultTable.background(100);
+        resultTable.background(Utils.Colors.BACKGROUND);
         int row = 0;
         int col = 0;
-        int maxCol = 15;
-        int s = 20;
+        int maxCol = 1;
+        int s = resultTable.width;
         int spacing = 5;
         for(var r : recentDiceResults) {
+            if (r.UserGenerated) {
+                resultTable.tint(Utils.Colors.GREEN);
+            }
             resultTable.image(resultImages.get(r.Result - 1), col * (s + spacing), row * (s + spacing), s, s);
-            //resultTable.image(piGraph, col * (s + spacing), row * (s + spacing), s, s);
-            //resultTable.fill(255);
-            //resultTable.text(r.Result, col * (s + spacing) , row * (s + spacing));
+            resultTable.noTint();
             col++;
             if (col == maxCol) {
                 col = 0;
@@ -160,6 +196,17 @@ public class PiMC extends EmbeddedSketch {
         }
         resultTable.endDraw();
         this.canvas.image(resultTable, this.resultTableX, this.resultTableY);
+
+        float resultTextX;
+        float resultTextY;
+        resultTextX = this.area.w / 2.0f - 175.0f;
+        resultTextY = this.graphY + this.squareL + 90;
+        this.canvas.image(piGlyph, resultTextX, resultTextY - 20);
+        this.canvas.image(approxGlyph, resultTextX + 40, resultTextY - 15);
+        this.canvas.textSize(piTextSize);
+        this.canvas.text(new DecimalFormat("0.0000").format(pi), resultTextX + 80, resultTextY);
+        this.canvas.image(plusMinusGlyph, resultTextX + 190, resultTextY - 15);
+        this.canvas.text(new DecimalFormat("0.0000").format(error), resultTextX + 230, resultTextY);
     }
 
     private void createPosition() {
