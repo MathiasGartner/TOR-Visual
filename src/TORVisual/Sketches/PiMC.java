@@ -199,7 +199,7 @@ public class PiMC extends EmbeddedSketch {
 
         float resultTextX;
         float resultTextY;
-        resultTextX = this.area.w / 2.0f - 175.0f;
+        resultTextX = this.area.w / 2.0f - 170.0f;
         resultTextY = this.graphY + this.squareL + 90;
         this.canvas.image(piGlyph, resultTextX, resultTextY - 20);
         this.canvas.image(approxGlyph, resultTextX + 40, resultTextY - 15);

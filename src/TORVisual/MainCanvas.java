@@ -80,7 +80,6 @@ public class MainCanvas extends PApplet {
             this.screenW = this.width;
             this.screenH = this.height;
         }
-
         info = createGraphics(230, 60);
         info.noStroke();
         font = createFont("Ailerons-Regular.ttf", 20);
@@ -94,7 +93,6 @@ public class MainCanvas extends PApplet {
         marginY=80;
         boxW=(((1920/8)*5) - borderLeft - borderRight - (2*marginX))/3;
         boxH=(1080 - borderTop - borderBottom - (2*marginY))/3;
-
 
         //define sketch areas
         sketchAreas = new ArrayList<SketchArea>();
@@ -122,27 +120,6 @@ public class MainCanvas extends PApplet {
         sketchesToShow = new ArrayList<EmbeddedSketch>();
         sketchesAll = new ArrayList<EmbeddedSketch>();
         sketchesGroups = new ArrayList<ArrayList<EmbeddedSketch>>();
-
-        /*for (int i = 0; i < 9; i++) {
-            var sketch = new AreaTest(this, sketchAreas.get(i));
-            sketch.setBackgroundColor(10 * i, 20 * i, 200 / (i + 1));
-            sketches.add(sketch);
-        }*/
-
-
-
-
-        /*
-        SternanisSketch.setRecentDiceResultsCount(5);
-
-        //add sketches to sketch-list
-        sketches = new ArrayList<EmbeddedSketch>();
-        //sketches.add(CircleSketch);
-
-        //sketches.add(EllipseSketch);
-        sketches.add(areaTest3);*/
-
-
 
 
         // FRONT ----------------------
@@ -184,9 +161,6 @@ public class MainCanvas extends PApplet {
         sketchesFront.add(PampasgrasSketch);
 
 
-
-
-
         //CENTER ----------------------
 
         //1
@@ -224,7 +198,6 @@ public class MainCanvas extends PApplet {
         //9
         Chili ChiliSketch = new Chili(this, sketchAreas.get(8), this.resultsToShow);
         sketchesCenter.add(ChiliSketch);
-
 
 
         //BACK ----------------------
@@ -265,41 +238,6 @@ public class MainCanvas extends PApplet {
         Sternanis SternanisSketch = new Sternanis(this, sketchAreas.get(8), this.resultsToShow);
         sketchesBack.add(SternanisSketch);
 
-
-
-        //---------------------
-        // BACKUP CUBE
-        //Limetten LimettenSketch = new Ellipse(this, sketchAreas.get(0), this.resultsToShow);
-        //sketchesBack.add(LimettenSketch);
-
-        //---------------------
-        // BACKUP CUBE
-        //Iceland_Moss Iceland_MossSketch = new Iceland_Moss(this, sketchAreas.get(4), this.resultsToShow);
-        //sketchesFront.add(Iceland_MossSketch);
-
-        //---------------------
-        // BACKUP CUBE
-        //Coffee CoffeeSketch = new Coffee(this, sketchAreas.get(4), this.resultsToShow);
-        //sketchesFront.add(CoffeeSketch);
-
-
-
-
-        //-----------------------------
-        //Ellipse EllipseSketch = new Ellipse(this, sketchAreas.get(0), this.resultsToShow);
-        //sketchesBack.add(EllipseSketch);
-
-        //überlegen zu welchen es passen könnte, jedoch ist ein Fehler drinnen
-        //RoundSquare RoundSquareSketch = new RoundSquare(this, sketchAreas.get(2), this.resultsToShow);
-        //sketchesFront.add(RoundSquareSketch);
-
-        //test testSketch = new test(this, sketchAreas.get(1), this.resultsToShow);
-        //sketchesCenter.add(testSketch);
-        //---------------------
-
-
-
-
         sketchesGroups.add(sketchesFront);
         sketchesGroups.add(sketchesCenter);
         sketchesGroups.add(sketchesBack);
@@ -308,7 +246,7 @@ public class MainCanvas extends PApplet {
         }
         sketchesAll.add(piMCSketch);
 
-        sketchesToShow = sketchesCenter;
+        sketchesToShow = sketchesFront;
 
         for (var sketch : sketchesToShow) {
             stroke(sketch.backgroundColor);
