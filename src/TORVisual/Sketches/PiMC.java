@@ -106,8 +106,8 @@ public class PiMC extends EmbeddedSketch {
         piPoints = sketch.createGraphics(this.squareL, this.squareL);
         piPoints.noStroke();
 
-        float rBLeft = 0.0f;
-        float rBRight = 25.0f;
+        float rBLeft = 1.0f;
+        float rBRight = 24.0f;
         float rW = 1.0f;
         float rUnit = this.area.w / (rBLeft + rW + rBRight);
         this.resultTableW = (int)(rW * rUnit);
@@ -142,7 +142,7 @@ public class PiMC extends EmbeddedSketch {
         approxGlyph = sketch.loadImage("images/approx.png");
         approxGlyph.resize(20, 0);
         plusMinusGlyph = sketch.loadImage("images/plusMinus.png");
-        plusMinusGlyph.resize(20, 0);
+        plusMinusGlyph.resize(16, 0);
 
     }
 
@@ -205,7 +205,7 @@ public class PiMC extends EmbeddedSketch {
         this.canvas.image(approxGlyph, resultTextX + 40, resultTextY - 15);
         this.canvas.textSize(piTextSize);
         this.canvas.text(new DecimalFormat("0.0000").format(pi), resultTextX + 80, resultTextY);
-        this.canvas.image(plusMinusGlyph, resultTextX + 190, resultTextY - 15);
+        this.canvas.image(plusMinusGlyph, resultTextX + 200, resultTextY - 22);
         this.canvas.text(new DecimalFormat("0.0000").format(error), resultTextX + 230, resultTextY);
     }
 

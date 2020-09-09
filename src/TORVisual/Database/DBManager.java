@@ -32,7 +32,7 @@ public class DBManager {
 
     public ArrayList<DiceResult> getDiceResultAboveId(int resultId) throws SQLException {
         var diceResults = new ArrayList<DiceResult>();
-        String sql = "SELECT d.Id, d.ClientId, c.Material, d.Result, d.Time, d.UserGenerated FROM diceresult d LEFT JOIN client c ON d.ClientId = c.Id WHERE d.Id > ? LIMIT 5000";
+        String sql = "SELECT d.Id, d.ClientId, c.Material, d.Result, d.Time, d.UserGenerated FROM diceresult d LEFT JOIN client c ON d.ClientId = c.Id WHERE d.Id > ? LIMIT 300";
         try (
             Connection conn = this.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);

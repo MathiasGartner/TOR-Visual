@@ -1,5 +1,6 @@
 package TORVisual;
 
+import TORVisual.Database.DBManager;
 import TORVisual.Database.DiceResult;
 import TORVisual.Settings.SettingsVisual;
 import TORVisual.Sketches.PiMC;
@@ -110,7 +111,7 @@ public class MainCanvas extends PApplet {
 
         //create Pi sketch
         piMCSketch = new PiMC(this, sketchAreas.get(9), this.resultsToShow);
-        piMCSketch.setRecentDiceResultsCount(24);
+        piMCSketch.setRecentDiceResultsCount(26);
         piMCSketch.canvas.textFont(font);
         piIcon = this.loadImage("images/pi_circle_cube_illu-01.png");
 
@@ -355,6 +356,7 @@ public class MainCanvas extends PApplet {
         inSketchSwitchMode = false;
     }
 
+    boolean useDataFromDB = true;
     boolean enableSwitching = true;
     boolean inSketchSwitchMode;
     float switchPercent;
@@ -367,20 +369,24 @@ public class MainCanvas extends PApplet {
 
     public void draw() {
         if (counter % SettingsVisual.LoadDataEveryNthFrame == 0) {
-            //DBManager db = new DBManager();
+            DBManager db = new DBManager();
             try {
-                nextDiceResults = new ArrayList<DiceResult>();
-                //nextDiceResults = db.getDiceResultAboveId(lastDiceResultId);
-                for (int i = 0; i < 1; i++) {
-                    var dr = new DiceResult();
-                    dr.Id = dummyId;
-                    dr.Result = Utils.randDiceResult();
-                    dr.ClientId = Utils.randClientId();
-                    dr.Material = "";
-                    dr.Time = new Date();
-                    dr.UserGenerated = Utils.randClientId() == 15;
-                    nextDiceResults.add(dr);
-                    dummyId++;
+                if (useDataFromDB) {
+                    nextDiceResults = db.getDiceResultAboveId(lastDiceResultId);
+                }
+                else {
+                    nextDiceResults = new ArrayList<DiceResult>();
+                    for (int i = 0; i < 1; i++) {
+                        var dr = new DiceResult();
+                        dr.Id = dummyId;
+                        dr.Result = Utils.randDiceResult();
+                        dr.ClientId = Utils.randClientId();
+                        dr.Material = "";
+                        dr.Time = new Date();
+                        dr.UserGenerated = Utils.randClientId() == 15;
+                        nextDiceResults.add(dr);
+                        dummyId++;
+                    }
                 }
                 resultsPerFrame = (double)nextDiceResults.size() / SettingsVisual.LoadDataEveryNthFrame;
                 lastShownResultIndex = 0;
@@ -398,6 +404,9 @@ public class MainCanvas extends PApplet {
         //TODO: make sure also the last result in nextDiceResults is shown
         double showResultsUpToIndex = lastShownResultIndex + resultsPerFrame;
         if ((counter + 1) % SettingsVisual.LoadDataEveryNthFrame == 0) {
+            showResultsUpToIndex = nextDiceResults.size();
+        }
+        if (showResultsUpToIndex > nextDiceResults.size()) {
             showResultsUpToIndex = nextDiceResults.size();
         }
         resultsToShow.clear();
