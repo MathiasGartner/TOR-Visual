@@ -151,5 +151,5 @@ public class Chili extends RandomWalker{
            //sketch.arc(x, y, w, h, start, (float) ((float) multiply*Math.PI / winkel));
            this.canvas.arc(x, y, w, h, 0, (float) ((float) 3*Math.PI / (this.area.w/100*2f)));
       // }
-    }
-}
+    }}}
+
