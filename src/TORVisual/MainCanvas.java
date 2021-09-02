@@ -168,11 +168,8 @@ public class MainCanvas extends PApplet {
         //CENTER ----------------------
 
         //1
-        Orange  OrangeSketch = new Orange(this, sketchAreas.get(0), this.resultsToShow);
-        sketchesFront.add(OrangeSketch);
-        //INFO: coffee not implemented yet
-        //Coffee CoffeeSketch = new Coffee(this, sketchAreas.get(4), this.resultsToShow);
-        //sketchesFront.add(CoffeeSketch);
+        Coffee CoffeeSketch = new Coffee(this, sketchAreas.get(4), this.resultsToShow);
+        sketchesFront.add(CoffeeSketch);
 
         //2
         Schlitzahorn  SchlitzahornSketch = new Schlitzahorn(this, sketchAreas.get(1), this.resultsToShow);

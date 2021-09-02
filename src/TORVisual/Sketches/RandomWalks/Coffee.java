@@ -2,24 +2,23 @@ package TORVisual.Sketches.RandomWalks;
 
 import TORVisual.Database.DiceResult;
 import TORVisual.SketchArea;
-import TORVisual.Utils.Utils;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
 
-public class Chili extends RandomWalker{
+public class Coffee extends RandomWalker{
 
     float dh,dw,sizemax,sizemin, sd,swmax, x4, y4, winkel, multiply,start;
     float sw;
     float swd;
-    public Chili(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
+    public Coffee(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
 
-        name="Chilis";
-        nameLatin="Capsicum annuum";
+        name="Kaffee";
+        nameLatin="Coffea arabica";
 
-        colorStart = sketch.color(133, 34, 34);
-        colorEnd = sketch.color(130, 86, 56);
+        colorStart = sketch.color(227, 159, 123);
+        colorEnd = sketch.color(200, 150, 123);
 
         x = startX;
         y = startY;
