@@ -81,7 +81,7 @@ public class MainCanvas extends PApplet {
             this.screenW = this.width;
             this.screenH = this.height;
         }
-        info = createGraphics(230, 60);
+        info = createGraphics(260, 70);
         info.noStroke();
         font = createFont("Ailerons-Regular.ttf", 20);
         int boxW, boxH, borderLeft, borderTop, borderBottom, borderRight, marginX,marginY;
@@ -471,8 +471,9 @@ public class MainCanvas extends PApplet {
         info.fill(255);
         //String recentResultsText = resultsToShow.stream().map(p -> Integer.toString(p.Result)).collect(Collectors.joining(" "));
         //info.text(recentResultsText, 10, 10);
-        info.text("Generated numbers: " + resultCounter, 10, 20);
-        info.text("Frame rate: " + frameRate, 10, 40);
+        info.textSize(16);
+        info.text("Generated numbers: " + resultCounter, 10, 15);
+        //info.text("Frame rate: " + frameRate, 10, 40);
         info.endDraw();
         image(info, screenW - info.width, screenH - info.height);
     }

@@ -50,7 +50,7 @@ public class AcaciaBohnen extends RandomWalker
                         break;
 
                     case 2:
-                        if (alpha >= 5 & alpha <= 70)
+                        if (alpha <= 70)
                             alpha += 1;
 
                         if (w > sd)
@@ -66,7 +66,7 @@ public class AcaciaBohnen extends RandomWalker
 
 
                     case 3:
-                        if (alpha <= 70 & alpha >= 5)
+                        if (alpha >= 5)
                             alpha -= 1;  //alpha -1
                         if (angle_rad<360)
                         {

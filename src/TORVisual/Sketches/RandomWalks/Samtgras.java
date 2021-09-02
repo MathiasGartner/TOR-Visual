@@ -46,7 +46,7 @@ public class Samtgras extends RandomWalker
 
                 switch (r) {
                     case 1:
-                        if (alpha <= 70 & alpha >= 5)
+                        if (alpha >= 5)
                             alpha -= 1;  //alpha -1
                     break;
 
@@ -66,7 +66,7 @@ public class Samtgras extends RandomWalker
 
                     case 3:
 
-                        if (alpha >= 5 & alpha <= 70)
+                        if (alpha <= 70)
                             alpha += 1;
 
                         if (angle_rad<360)
