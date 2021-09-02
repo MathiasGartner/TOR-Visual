@@ -6,7 +6,7 @@ public class Program {
     public static void main(String[] args){
         String[] processingArgs = {"Test"};
         //MainCanvas mainCanvas = new MainCanvas(1, 1920, 1080);
-        int screen = 1;
+        int screen = 2;
         int w = 1000;
         int h = 600;
         w = 1920;

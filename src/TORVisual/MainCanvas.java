@@ -33,6 +33,7 @@ public class MainCanvas extends PApplet {
 
     PiMC piMCSketch;
     PImage piIcon;
+    PImage jkuIcon;
     private ArrayList<EmbeddedSketch> sketchesFront;
     private ArrayList<EmbeddedSketch> sketchesCenter;
     private ArrayList<EmbeddedSketch> sketchesBack;
@@ -61,7 +62,7 @@ public class MainCanvas extends PApplet {
         this.displayId = displayId;
         this.screenW = w;
         this.screenH = h;
-        fullScreen = false;
+        fullScreen = true;
     }
 
     public void settings() {
@@ -88,7 +89,7 @@ public class MainCanvas extends PApplet {
 
         borderLeft=120;
         borderRight=100;
-        borderTop=200;
+        borderTop=100;
         borderBottom=100;
         marginX=40;
         marginY=80;
@@ -114,6 +115,9 @@ public class MainCanvas extends PApplet {
         piMCSketch.setRecentDiceResultsCount(26);
         piMCSketch.canvas.textFont(font);
         piIcon = this.loadImage("images/pi_circle_cube_illu-01.png");
+
+        //JKU Logo
+        jkuIcon = this.loadImage("images/jkuwhite_en.png");
 
         //create Random Walker sketches
         sketchesFront = new ArrayList<EmbeddedSketch>();
@@ -317,7 +321,7 @@ public class MainCanvas extends PApplet {
         }
 
         sketchesGroupIconX = 20.0f;
-        sketchesGroupIconY = 120.0f;
+        sketchesGroupIconY = 40.0f;
         sketchesGroupIcon = new ArrayList<PGraphics>();
         int sketchesGroupIconSizeX = 60;
         float iW = 5;
@@ -354,6 +358,21 @@ public class MainCanvas extends PApplet {
         sketchGroupIndexToShowNext = 0;
         sketchesToShowNext = null;
         inSketchSwitchMode = false;
+
+        //Load initial data for Pi sketch (from previous events)
+        if (SettingsVisual.UseAllDiceResultEventSourcesForPi) {
+            DBManager db = new DBManager();
+            try {
+                ArrayList<DiceResult> previousResults = db.getDiceResultByEventSource("ArsElectronica2020");
+                piMCSketch.addNewDiceResults(resultsToShow);
+                piMCSketch.canvas.beginDraw();
+                piMCSketch.draw();
+                piMCSketch.canvas.endDraw();
+                resultCounter += previousResults.size();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     boolean useDataFromDB = true;
@@ -436,6 +455,12 @@ public class MainCanvas extends PApplet {
         image(piMCSketch.canvas, piMCSketch.area.x, piMCSketch.area.y);
         this.image(piIcon, this.width - 90, sketchesGroupIconY);
 
+        //draw JKU logo
+        int jkuX = 1308;
+        int jkuY = 625;
+        int jkuFactor = 10;
+        this.image(jkuIcon, this.width - 240, 950, jkuX/jkuFactor, jkuY/jkuFactor);
+
         //TODO: switch sketches to show
         if (enableSwitching) {
             if (oldTimeStamp != minute()) {
@@ -484,7 +509,8 @@ public class MainCanvas extends PApplet {
         */
 
         info.beginDraw();
-        info.fill(0);
+        //info.fill(0);
+        info.fill(Utils.Colors.BACKGROUND);
         info.rect(0, 0, info.width, info.height);
         info.fill(255);
         //String recentResultsText = resultsToShow.stream().map(p -> Integer.toString(p.Result)).collect(Collectors.joining(" "));

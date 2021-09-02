@@ -1,6 +1,7 @@
 package TORVisual.Database;
 
 import TORVisual.Settings.SettingsPrivate;
+import TORVisual.Settings.SettingsVisual;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -30,9 +31,24 @@ public class DBManager {
         return diceResults;
     }
 
+    public ArrayList<DiceResult> getDiceResultByEventSource(String eventSource) throws SQLException {
+        var diceResults = new ArrayList<DiceResult>();
+        String sql = "SELECT d.Id, d.ClientId, c.Material, d.Result, d.Time, d.UserGenerated FROM diceresult d LEFT JOIN client c ON d.ClientId = c.Id WHERE d.Source = ?";
+        try (
+                Connection conn = this.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+        ){
+            ps.setString(1, eventSource);
+            try (ResultSet rs = ps.executeQuery()) {
+                diceResults = getDiceResults(rs);
+            }
+        }
+        return diceResults;
+    }
+
     public ArrayList<DiceResult> getDiceResultAboveId(int resultId) throws SQLException {
         var diceResults = new ArrayList<DiceResult>();
-        String sql = "SELECT d.Id, d.ClientId, c.Material, d.Result, d.Time, d.UserGenerated FROM diceresult d LEFT JOIN client c ON d.ClientId = c.Id WHERE d.Id > ? LIMIT 300";
+        String sql = "SELECT d.Id, d.ClientId, c.Material, d.Result, d.Time, d.UserGenerated FROM diceresult d LEFT JOIN client c ON d.ClientId = c.Id WHERE d.Id > ? AND d.Source = '" + SettingsVisual.DiceResultEventSource + "' LIMIT 300";
         try (
             Connection conn = this.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -47,7 +63,7 @@ public class DBManager {
 
     public ArrayList<DiceResult> getDiceResultAboveIdByClientId(int resultId, int clientId) throws SQLException {
         var diceResults = new ArrayList<DiceResult>();
-        String sql = "SELECT d.Id, d.ClientId, c.Material, d.Result, d.Time, d.UserGenerated FROM diceresult d LEFT JOIN client c ON d.ClientId = c.Id WHERE d.Id > ? AND d.ClientId = ?";
+        String sql = "SELECT d.Id, d.ClientId, c.Material, d.Result, d.Time, d.UserGenerated FROM diceresult d LEFT JOIN client c ON d.ClientId = c.Id WHERE d.Id > ? AND d.ClientId = ? AND d.Source = '" + SettingsVisual.DiceResultEventSource + "'";
         try (
                 Connection conn = this.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);
@@ -63,7 +79,7 @@ public class DBManager {
 
     public ArrayList<DiceResult> getDiceResultByClientId(int clientId) throws SQLException {
         var diceResults = new ArrayList<DiceResult>();
-        String sql = "SELECT d.Id, d.ClientId, c.Material, d.Result, d.Time, d.UserGenerated FROM diceresult d LEFT JOIN client c ON d.ClientId = c.Id WHERE d.ClientId = ?";
+        String sql = "SELECT d.Id, d.ClientId, c.Material, d.Result, d.Time, d.UserGenerated FROM diceresult d LEFT JOIN client c ON d.ClientId = c.Id WHERE d.ClientId = ? AND d.Source = '" + SettingsVisual.DiceResultEventSource + "'";
         try (
                 Connection conn = this.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);
