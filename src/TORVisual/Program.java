@@ -12,7 +12,7 @@ public class Program {
         w = 1920;
         h = 1080;
         MainCanvas mainCanvas;
-        if (args.length == 1) {
+        if (args.length == 1 || true) {
             try {
                 //screen = Integer.parseInt(args[0]);
                 screen = Integer.parseInt("2");
