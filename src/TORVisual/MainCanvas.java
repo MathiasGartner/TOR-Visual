@@ -129,8 +129,8 @@ public class MainCanvas extends PApplet {
         // FRONT ----------------------
 
         //1
-        Orange  OrangeSketch = new Orange(this, sketchAreas.get(0), this.resultsToShow);
-        sketchesFront.add(OrangeSketch);
+        Strandflieder  StrandfliederSketch = new Strandflieder(this, sketchAreas.get(0), this.resultsToShow);
+        sketchesCenter.add(StrandfliederSketch);
 
         //2
         Kork KorkSketch = new Kork(this, sketchAreas.get(1),this.resultsToShow);
@@ -157,8 +157,8 @@ public class MainCanvas extends PApplet {
         sketchesFront.add(LuffaSketch);
 
         //8
-        Platanen PlatanenSketch = new Platanen(this, sketchAreas.get(7), this.resultsToShow);
-        sketchesFront.add(PlatanenSketch);
+        Eucalyptus EucalyptusSketch = new Eucalyptus(this, sketchAreas.get(6), this.resultsToShow);
+        sketchesBack.add(EucalyptusSketch);
 
         //9
         Pampasgras PampasgrasSketch = new Pampasgras(this, sketchAreas.get(8), this.resultsToShow);
@@ -168,8 +168,11 @@ public class MainCanvas extends PApplet {
         //CENTER ----------------------
 
         //1
-        Strandflieder  StrandfliederSketch = new Strandflieder(this, sketchAreas.get(0), this.resultsToShow);
-        sketchesCenter.add(StrandfliederSketch);
+        Orange  OrangeSketch = new Orange(this, sketchAreas.get(0), this.resultsToShow);
+        sketchesFront.add(OrangeSketch);
+        //INFO: coffee not implemented yet
+        //Coffee CoffeeSketch = new Coffee(this, sketchAreas.get(4), this.resultsToShow);
+        //sketchesFront.add(CoffeeSketch);
 
         //2
         Schlitzahorn  SchlitzahornSketch = new Schlitzahorn(this, sketchAreas.get(1), this.resultsToShow);
@@ -215,8 +218,8 @@ public class MainCanvas extends PApplet {
         sketchesBack.add(CinnamonSketch);
 
         //3
-        Kirschkern KirschkernSketch = new Kirschkern(this, sketchAreas.get(2), this.resultsToShow);
-        sketchesBack.add(KirschkernSketch);
+        Platanen PlatanenSketch = new Platanen(this, sketchAreas.get(7), this.resultsToShow);
+        sketchesFront.add(PlatanenSketch);
 
         //4
         Baumschwamm BaumschwammSketch = new Baumschwamm(this, sketchAreas.get(3), this.resultsToShow);
@@ -231,8 +234,8 @@ public class MainCanvas extends PApplet {
         sketchesBack.add(ApfelSketch);
 
         //7
-        Eucalyptus EucalyptusSketch = new Eucalyptus(this, sketchAreas.get(6), this.resultsToShow);
-        sketchesBack.add(EucalyptusSketch);
+        Kirschkern KirschkernSketch = new Kirschkern(this, sketchAreas.get(2), this.resultsToShow);
+        sketchesBack.add(KirschkernSketch);
 
         //8
         Lavendel LavendelSketch = new Lavendel(this, sketchAreas.get(7), this.resultsToShow);
@@ -241,6 +244,21 @@ public class MainCanvas extends PApplet {
         //9
         Sternanis SternanisSketch = new Sternanis(this, sketchAreas.get(8), this.resultsToShow);
         sketchesBack.add(SternanisSketch);
+
+        //---------------------
+        // BACKUP CUBE
+        //Limetten LimettenSketch = new Ellipse(this, sketchAreas.get(0), this.resultsToShow);
+        //sketchesBack.add(LimettenSketch);
+
+        //---------------------
+        // BACKUP CUBE
+        //Iceland_Moss Iceland_MossSketch = new Iceland_Moss(this, sketchAreas.get(4), this.resultsToShow);
+        //sketchesFront.add(Iceland_MossSketch);
+
+        //---------------------
+        // BACKUP CUBE
+        //Orange  OrangeSketch = new Orange(this, sketchAreas.get(0), this.resultsToShow);
+        //sketchesFront.add(OrangeSketch);
 
         sketchesGroups.add(sketchesFront);
         sketchesGroups.add(sketchesCenter);
