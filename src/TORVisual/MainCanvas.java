@@ -129,8 +129,8 @@ public class MainCanvas extends PApplet {
         // FRONT ----------------------
 
         //1
-        Strandflieder  StrandfliederSketch = new Strandflieder(this, sketchAreas.get(0), this.resultsToShow);
-        sketchesCenter.add(StrandfliederSketch);
+        Strandflieder StrandfliederSketch = new Strandflieder(this, sketchAreas.get(0), this.resultsToShow);
+        sketchesFront.add(StrandfliederSketch);
 
         //2
         Kork KorkSketch = new Kork(this, sketchAreas.get(1),this.resultsToShow);
@@ -157,8 +157,8 @@ public class MainCanvas extends PApplet {
         sketchesFront.add(LuffaSketch);
 
         //8
-        Eucalyptus EucalyptusSketch = new Eucalyptus(this, sketchAreas.get(6), this.resultsToShow);
-        sketchesBack.add(EucalyptusSketch);
+        Eucalyptus EucalyptusSketch = new Eucalyptus(this, sketchAreas.get(7), this.resultsToShow);
+        sketchesFront.add(EucalyptusSketch);
 
         //9
         Pampasgras PampasgrasSketch = new Pampasgras(this, sketchAreas.get(8), this.resultsToShow);
@@ -168,8 +168,8 @@ public class MainCanvas extends PApplet {
         //CENTER ----------------------
 
         //1
-        Coffee CoffeeSketch = new Coffee(this, sketchAreas.get(4), this.resultsToShow);
-        sketchesFront.add(CoffeeSketch);
+        Coffee CoffeeSketch = new Coffee(this, sketchAreas.get(0), this.resultsToShow);
+        sketchesCenter.add(CoffeeSketch);
 
         //2
         Schlitzahorn  SchlitzahornSketch = new Schlitzahorn(this, sketchAreas.get(1), this.resultsToShow);
@@ -215,8 +215,8 @@ public class MainCanvas extends PApplet {
         sketchesBack.add(CinnamonSketch);
 
         //3
-        Platanen PlatanenSketch = new Platanen(this, sketchAreas.get(7), this.resultsToShow);
-        sketchesFront.add(PlatanenSketch);
+        Platanen PlatanenSketch = new Platanen(this, sketchAreas.get(2), this.resultsToShow);
+        sketchesBack.add(PlatanenSketch);
 
         //4
         Baumschwamm BaumschwammSketch = new Baumschwamm(this, sketchAreas.get(3), this.resultsToShow);
@@ -231,7 +231,7 @@ public class MainCanvas extends PApplet {
         sketchesBack.add(ApfelSketch);
 
         //7
-        Kirschkern KirschkernSketch = new Kirschkern(this, sketchAreas.get(2), this.resultsToShow);
+        Kirschkern KirschkernSketch = new Kirschkern(this, sketchAreas.get(6), this.resultsToShow);
         sketchesBack.add(KirschkernSketch);
 
         //8
@@ -317,7 +317,7 @@ public class MainCanvas extends PApplet {
             DBManager db = new DBManager();
             try {
                 ArrayList<DiceResult> previousResults = db.getDiceResultByEventSource("ArsElectronica2020");
-                piMCSketch.addNewDiceResults(resultsToShow);
+                piMCSketch.addNewDiceResults(previousResults);
                 piMCSketch.canvas.beginDraw();
                 piMCSketch.draw();
                 piMCSketch.canvas.endDraw();
