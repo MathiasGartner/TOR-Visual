@@ -81,7 +81,9 @@ public class MainCanvas extends PApplet {
             this.screenW = this.width;
             this.screenH = this.height;
         }
-        info = createGraphics(260, 70);
+        int infoWidth = 260;
+        int infoHeight = 50+50;
+        info = createGraphics(infoWidth, infoHeight);
         info.noStroke();
         font = createFont("Ailerons-Regular.ttf", 20);
         int boxW, boxH, borderLeft, borderTop, borderBottom, borderRight, marginX,marginY;
@@ -110,7 +112,7 @@ public class MainCanvas extends PApplet {
 
         //create Pi sketch
         piMCSketch = new PiMC(this, sketchAreas.get(9), this.resultsToShow);
-        piMCSketch.setRecentDiceResultsCount(26);
+        piMCSketch.setRecentDiceResultsCount(27);
         piMCSketch.canvas.textFont(font);
         piIcon = this.loadImage("images/pi_circle_cube_illu-01.png");
 
@@ -412,7 +414,9 @@ public class MainCanvas extends PApplet {
         int jkuX = 1308;
         int jkuY = 625;
         int jkuFactor = 10;
-        this.image(jkuIcon, this.width - 240, 950, jkuX/jkuFactor, jkuY/jkuFactor);
+        this.tint(Utils.Colors.WHITE);
+        this.image(jkuIcon, this.width - 180, 950, jkuX/jkuFactor, jkuY/jkuFactor);
+        this.noTint();
 
         //TODO: switch sketches to show
         if (enableSwitching) {
@@ -465,14 +469,23 @@ public class MainCanvas extends PApplet {
         //info.fill(0);
         info.fill(Utils.Colors.BACKGROUND);
         info.rect(0, 0, info.width, info.height);
-        info.fill(255);
+        info.fill(Utils.Colors.WHITE);
         //String recentResultsText = resultsToShow.stream().map(p -> Integer.toString(p.Result)).collect(Collectors.joining(" "));
         //info.text(recentResultsText, 10, 10);
-        info.textSize(16);
-        info.text("Generated numbers: " + resultCounter, 10, 15);
+        info.textAlign(CENTER);
+        info.textFont(font);
+        info.textSize(30);
+        info.text("#" + resultCounter, info.width / 2, 25);
+        info.textSize(14);
+        info.text("generated numbers", info.width / 2, 55);
+        //info.textSize(16);
+        //info.text("Ars Electronica 2020: 50342", 10, 40);
+        //info.text("Cyber Arts 2021: " + resultCounter, 10, 65);
         //info.text("Frame rate: " + frameRate, 10, 40);
         info.endDraw();
-        image(info, screenW - info.width, screenH - info.height);
+        int infoPosX = 497;
+        int infoPosY = 260;
+        image(info, screenW - infoPosX, screenH - infoPosY);
     }
 
     public void displayRandomWalkSketch(RandomWalker rw) {
