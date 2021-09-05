@@ -63,6 +63,8 @@ public class PiMC extends EmbeddedSketch {
 
     Random r = new Random();
 
+    boolean initialPositionsHandled = false;
+
     public PiMC(PApplet sketch, SketchArea area, ArrayList<DiceResult> newResults) {
         super(sketch, area);
 
@@ -146,12 +148,25 @@ public class PiMC extends EmbeddedSketch {
 
     }
 
+    public void generateInitialPositions(ArrayList<DiceResult> initialResults) {
+        for (var result : initialResults) {
+            this.resultsToProcess.add(result.Result);
+            this.createPosition();
+        }
+        this.initialPositionsHandled = false;
+    }
+
     @Override
     public void draw() {
         this.clear();
         this.canvas.fill(255);
 
-        this.pointsToProcess.clear();
+        if (this.initialPositionsHandled) {
+            this.pointsToProcess.clear();
+        }
+        else {
+            this.initialPositionsHandled = true;
+        }
         for (var result : this.newResults) {
             this.resultsToProcess.add(result.Result);
             this.createPosition();

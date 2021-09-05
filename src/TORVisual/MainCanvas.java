@@ -319,10 +319,7 @@ public class MainCanvas extends PApplet {
             DBManager db = new DBManager();
             try {
                 ArrayList<DiceResult> previousResults = db.getDiceResultByEventSource("ArsElectronica2020");
-                piMCSketch.addNewDiceResults(previousResults);
-                piMCSketch.canvas.beginDraw();
-                piMCSketch.draw();
-                piMCSketch.canvas.endDraw();
+                piMCSketch.generateInitialPositions(previousResults);
                 resultCounter += previousResults.size();
             } catch (Exception e) {
                 e.printStackTrace();
