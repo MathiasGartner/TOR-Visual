@@ -316,13 +316,19 @@ public class MainCanvas extends PApplet {
 
         //Load initial data for Pi sketch (from previous events)
         if (SettingsVisual.UseAllDiceResultEventSourcesForPi) {
+            var eventSources = new ArrayList<String>();
+            eventSources.add("ArsElectronica2020");
+            eventSources.add("CyberArts2021");
+            eventSources.add("Test2022");
             DBManager db = new DBManager();
-            try {
-                ArrayList<DiceResult> previousResults = db.getDiceResultByEventSource("ArsElectronica2020");
-                piMCSketch.generateInitialPositions(previousResults);
-                resultCounter += previousResults.size();
-            } catch (Exception e) {
-                e.printStackTrace();
+            for (var src : eventSources) {
+                try {
+                    ArrayList<DiceResult> previousResults = db.getDiceResultByEventSource(src);
+                    piMCSketch.generateInitialPositions(previousResults);
+                    resultCounter += previousResults.size();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

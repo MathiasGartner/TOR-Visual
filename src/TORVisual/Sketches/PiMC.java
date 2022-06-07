@@ -13,6 +13,7 @@ import processing.core.PImage;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public class PiMC extends EmbeddedSketch {
@@ -150,7 +151,8 @@ public class PiMC extends EmbeddedSketch {
 
     public void generateInitialPositions(ArrayList<DiceResult> initialResults) {
         for (var result : initialResults) {
-            this.resultsToProcess.add(result.Result);
+            this.resultsToProcess.add(ThreadLocalRandom.current().nextInt(1, 6+1));
+            //this.resultsToProcess.add(result.Result);
             this.createPosition();
         }
         this.initialPositionsHandled = false;

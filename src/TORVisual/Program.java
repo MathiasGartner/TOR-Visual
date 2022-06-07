@@ -6,12 +6,14 @@ public class Program {
     public static void main(String[] args){
         String[] processingArgs = {"Test"};
         //MainCanvas mainCanvas = new MainCanvas(1, 1920, 1080);
-        int screen = 2;
+        int screen = 0;
         int w = 1000;
         int h = 600;
         w = 1920;
         h = 1080;
         MainCanvas mainCanvas;
+        System.out.println("Start...");
+        System.out.println("w:" + w + ", h:" + h);
         if (args.length == 1 || true) {
             try {
                 //screen = Integer.parseInt(args[0]);
