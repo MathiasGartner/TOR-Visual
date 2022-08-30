@@ -37,7 +37,7 @@ public class DBManager {
         try (
                 Connection conn = this.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);
-        ){
+        ) {
             ps.setString(1, eventSource);
             try (ResultSet rs = ps.executeQuery()) {
                 diceResults = getDiceResults(rs);
@@ -51,9 +51,9 @@ public class DBManager {
         String sql = "SELECT d.Id, d.ClientId, c.Material, d.Result, d.Time, d.UserGenerated FROM diceresult d LEFT JOIN client c ON d.ClientId = c.Id WHERE d.Id > ? AND d.Source = '" + SettingsVisual.DiceResultEventSource + "' LIMIT 30000";
         //String sql = "SELECT d.Id, d.ClientId, c.Material, d.Result, d.Time, d.UserGenerated FROM diceresult d LEFT JOIN client c ON d.ClientId = c.Id WHERE d.Id > ? LIMIT 11000";
         try (
-            Connection conn = this.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-        ){
+                Connection conn = this.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+        ) {
             ps.setInt(1, resultId);
             try (ResultSet rs = ps.executeQuery()) {
                 diceResults = getDiceResults(rs);
@@ -68,7 +68,7 @@ public class DBManager {
         try (
                 Connection conn = this.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);
-        ){
+        ) {
             ps.setInt(1, resultId);
             ps.setInt(2, clientId);
             try (ResultSet rs = ps.executeQuery()) {
@@ -84,7 +84,7 @@ public class DBManager {
         try (
                 Connection conn = this.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);
-        ){
+        ) {
             ps.setInt(1, clientId);
             try (ResultSet rs = ps.executeQuery()) {
                 diceResults = getDiceResults(rs);
@@ -98,9 +98,9 @@ public class DBManager {
         try (
                 Connection conn = this.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);
-        ){
+        ) {
             for (int i = 0; i < count; i++) {
-                int randomNum = ThreadLocalRandom.current().nextInt(1, 6+1);
+                int randomNum = ThreadLocalRandom.current().nextInt(1, 6 + 1);
                 ps.setInt(2, randomNum);
                 randomNum = ThreadLocalRandom.current().nextInt(1, 25);
                 ps.setInt(1, randomNum);

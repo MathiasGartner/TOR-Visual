@@ -7,25 +7,25 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 
 
-public class Pampasgras extends RandomWalker
-{
+public class Pampasgras extends RandomWalker {
 
-    float hmax,hmin,wmax;
+    float hmax, hmin, wmax;
+
     public Pampasgras(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
-        name="Pampasgras";
-        nameLatin="Cortaderia selloana";
+        name = "Pampasgras";
+        nameLatin = "Cortaderia selloana";
         cr = 186;
         cg = 179;
         cb = 117;
-        dx = this.area.w/100.0f*0.6f; //difference x
-        dy = this.area.w/100.0f*0.3f; //difference y
-        ds = this.area.w/100.0f*0.02f;
-        h=this.area.h/100*0.5f;
-        hmax=this.area.h/100*1.5f;
-        w=this.area.w/100*0.1f;
-        wmax=this.area.w/100*0.5f;
-      //  size =this.area.h/100.0f*2f;
+        dx = this.area.w / 100.0f * 0.6f; //difference x
+        dy = this.area.w / 100.0f * 0.3f; //difference y
+        ds = this.area.w / 100.0f * 0.02f;
+        h = this.area.h / 100 * 0.5f;
+        hmax = this.area.h / 100 * 1.5f;
+        w = this.area.w / 100 * 0.1f;
+        wmax = this.area.w / 100 * 0.5f;
+        //  size =this.area.h/100.0f*2f;
         dColor = 0.05f;
         colorStart = sketch.color(168, 179, 117);
         colorEnd = sketch.color(245, 237, 169);
@@ -67,7 +67,7 @@ public class Pampasgras extends RandomWalker
                         w += ds;
                     break;
                 case 5:
-                    if (w > ds && w<wmax) {
+                    if (w > ds && w < wmax) {
                         w -= ds;
                     }
                     if (alpha <= 100 & alpha >= 20) {
@@ -75,7 +75,7 @@ public class Pampasgras extends RandomWalker
                     }
                     break;
                 case 6:
-                    if (h > ds && h<hmax) {
+                    if (h > ds && h < hmax) {
                         h -= ds;
                     }
                     if (alpha >= 10 & alpha <= 50) {
@@ -84,8 +84,8 @@ public class Pampasgras extends RandomWalker
                     break;
             }
             var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
-            this.canvas.fill(c, alpha*0.2f);
-            this.canvas.stroke(c, alpha*0.3f);
+            this.canvas.fill(c, alpha * 0.2f);
+            this.canvas.stroke(c, alpha * 0.3f);
             this.canvas.ellipse(x, y, w, h);
         }
 

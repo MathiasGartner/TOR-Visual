@@ -3,7 +3,7 @@ package TORVisual;
 import processing.core.PApplet;
 
 public class Program {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         String[] processingArgs = {"Test"};
         //MainCanvas mainCanvas = new MainCanvas(1, 1920, 1080);
         int screen = 0;
@@ -17,7 +17,7 @@ public class Program {
         if (args.length == 1 || true) {
             try {
                 //screen = Integer.parseInt(args[0]);
-                screen = Integer.parseInt("2");
+                screen = Integer.parseInt("1");
             }
             catch (NumberFormatException ex) {
                 System.out.println("First argument needs to be the screen number.");

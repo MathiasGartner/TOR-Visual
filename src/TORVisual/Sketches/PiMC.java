@@ -87,7 +87,7 @@ public class PiMC extends EmbeddedSketch {
         float pB = 2.0f;
         float pS = 6.0f;
         float pUnit = this.area.w / (pB + pS + pB);
-        this.squareL = (int)(pS * pUnit);
+        this.squareL = (int) (pS * pUnit);
         this.squareL2 = this.squareL / 2.0f;
         this.graphX = pB * pUnit;
         this.graphY = (pB - 1) * pUnit;
@@ -113,8 +113,8 @@ public class PiMC extends EmbeddedSketch {
         float rBRight = 24.0f;
         float rW = 1.0f;
         float rUnit = this.area.w / (rBLeft + rW + rBRight);
-        this.resultTableW = (int)(rW * rUnit);
-        this.resultTableH = (int)(this.area.h);
+        this.resultTableW = (int) (rW * rUnit);
+        this.resultTableH = (int) (this.area.h);
         this.resultTableX = rBLeft * rUnit;
         this.resultTableY = 0;
 
@@ -151,7 +151,7 @@ public class PiMC extends EmbeddedSketch {
 
     public void generateInitialPositions(ArrayList<DiceResult> initialResults) {
         for (var result : initialResults) {
-            this.resultsToProcess.add(ThreadLocalRandom.current().nextInt(1, 6+1));
+            this.resultsToProcess.add(ThreadLocalRandom.current().nextInt(1, 6 + 1));
             //this.resultsToProcess.add(result.Result);
             this.createPosition();
         }
@@ -199,7 +199,7 @@ public class PiMC extends EmbeddedSketch {
         int maxCol = 1;
         int s = resultTable.width;
         int spacing = 5;
-        for(var r : recentDiceResults) {
+        for (var r : recentDiceResults) {
             if (r.UserGenerated) {
                 resultTable.tint(Utils.Colors.GREEN);
             }
@@ -240,7 +240,7 @@ public class PiMC extends EmbeddedSketch {
             if (p.inCircle) {
                 this.inCircle++;
             }
-            this.pi = 4.0 * this.inCircle / (double)this.total;
+            this.pi = 4.0 * this.inCircle / (double) this.total;
             this.variance = pi * (4.0 - pi);
             this.error = Math.sqrt(this.variance) / Math.sqrt(this.total);
             for (int i = 0; i < this.resultsNeededForNewPosition; i++) {

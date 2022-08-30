@@ -9,20 +9,19 @@ import java.util.ArrayList;
 
 // Lavendel: draw purple, blue Ellipse with strokes, fill /3
 
-public class Ellipse extends RandomWalker
-{
+public class Ellipse extends RandomWalker {
 
-    public Ellipse(PApplet sketch, SketchArea area,  ArrayList<DiceResult> resultsToShow) {
+    public Ellipse(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
         cr = 40;
         cg = 140;
         cb = 119;
-        dx = this.area.w/100.0f*0.9f; //difference x
-        dy = this.area.w/100.0f*0.9f; //difference y
+        dx = this.area.w / 100.0f * 0.9f; //difference x
+        dy = this.area.w / 100.0f * 0.9f; //difference y
         ds = (float) 2;
-        w=3;
-        h=3;
-        size =this.area.h/100.0f*2f; //circle size
+        w = 3;
+        h = 3;
+        size = this.area.h / 100.0f * 2f; //circle size
         dColor = 0.05f;
 
     }

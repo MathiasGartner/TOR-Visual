@@ -82,31 +82,31 @@ public class MainCanvas extends PApplet {
             this.screenH = this.height;
         }
         int infoWidth = 260;
-        int infoHeight = 50+50;
+        int infoHeight = 50 + 50;
         info = createGraphics(infoWidth, infoHeight);
         info.noStroke();
         font = createFont("Ailerons-Regular.ttf", 20);
-        int boxW, boxH, borderLeft, borderTop, borderBottom, borderRight, marginX,marginY;
+        int boxW, boxH, borderLeft, borderTop, borderBottom, borderRight, marginX, marginY;
 
-        borderLeft=120;
-        borderRight=100;
-        borderTop=100;
-        borderBottom=100;
-        marginX=40;
-        marginY=80;
-        boxW=(((1920/8)*5) - borderLeft - borderRight - (2*marginX))/3;
-        boxH=(1080 - borderTop - borderBottom - (2*marginY))/3;
+        borderLeft = 120;
+        borderRight = 100;
+        borderTop = 100;
+        borderBottom = 100;
+        marginX = 40;
+        marginY = 80;
+        boxW = (((1920 / 8) * 5) - borderLeft - borderRight - (2 * marginX)) / 3;
+        boxH = (1080 - borderTop - borderBottom - (2 * marginY)) / 3;
 
         //define sketch areas
         sketchAreas = new ArrayList<SketchArea>();
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                sketchAreas.add(new SketchArea(borderLeft+i*(marginX+boxW), borderTop+j*(marginY+boxH), boxW, boxH));
+                sketchAreas.add(new SketchArea(borderLeft + i * (marginX + boxW), borderTop + j * (marginY + boxH), boxW, boxH));
             }
         }
 
-        int piMCX = borderLeft+3*(marginX+boxW) + marginX;
+        int piMCX = borderLeft + 3 * (marginX + boxW) + marginX;
         int piMCY = borderTop;
         sketchAreas.add(new SketchArea(piMCX, piMCY, screenW - piMCX, screenH - piMCY));
 
@@ -135,7 +135,7 @@ public class MainCanvas extends PApplet {
         sketchesFront.add(StrandfliederSketch);
 
         //2
-        Kork KorkSketch = new Kork(this, sketchAreas.get(1),this.resultsToShow);
+        Kork KorkSketch = new Kork(this, sketchAreas.get(1), this.resultsToShow);
         sketchesFront.add(KorkSketch);
 
         //3
@@ -174,11 +174,11 @@ public class MainCanvas extends PApplet {
         sketchesCenter.add(CoffeeSketch);
 
         //2
-        Schlitzahorn  SchlitzahornSketch = new Schlitzahorn(this, sketchAreas.get(1), this.resultsToShow);
+        Schlitzahorn SchlitzahornSketch = new Schlitzahorn(this, sketchAreas.get(1), this.resultsToShow);
         sketchesCenter.add(SchlitzahornSketch);
 
         //3
-        Palmringe  PalmingeSketch = new Palmringe(this, sketchAreas.get(2), this.resultsToShow);
+        Palmringe PalmingeSketch = new Palmringe(this, sketchAreas.get(2), this.resultsToShow);
         sketchesCenter.add(PalmingeSketch);
 
         //4
@@ -283,7 +283,7 @@ public class MainCanvas extends PApplet {
         float iS = 1.5f;
         float iB = 2;
         float sUnit = sketchesGroupIconSizeX / (3 * iW + 2 * iS + 2 * iB);
-        int sketchesGroupIconSizeY = (int)((3 * iW + 3 * iS) * sUnit);
+        int sketchesGroupIconSizeY = (int) ((3 * iW + 3 * iS) * sUnit);
         float iWidth = iW * sUnit;
         float iSpacing = iS * sUnit;
         float iBorder = iB * sUnit;
@@ -326,14 +326,15 @@ public class MainCanvas extends PApplet {
                     ArrayList<DiceResult> previousResults = db.getDiceResultByEventSource(src);
                     piMCSketch.generateInitialPositions(previousResults);
                     resultCounter += previousResults.size();
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
     }
 
-    boolean useDataFromDB = true;
+    boolean useDataFromDB = false;
     boolean enableSwitching = true;
     boolean inSketchSwitchMode;
     float switchPercent;
@@ -353,7 +354,7 @@ public class MainCanvas extends PApplet {
                 }
                 else {
                     nextDiceResults = new ArrayList<DiceResult>();
-                    for (int i = 0; i < 1; i++) {
+                    for (int i = 0; i < 50000; i++) {
                         var dr = new DiceResult();
                         dr.Id = dummyId;
                         dr.Result = Utils.randDiceResult();
@@ -365,14 +366,15 @@ public class MainCanvas extends PApplet {
                         dummyId++;
                     }
                 }
-                resultsPerFrame = (double)nextDiceResults.size() / SettingsVisual.LoadDataEveryNthFrame;
+                resultsPerFrame = (double) nextDiceResults.size() / SettingsVisual.LoadDataEveryNthFrame;
                 lastShownResultIndex = 0;
                 if (nextDiceResults.size() > 0) {
                     lastDiceResultId = nextDiceResults.get(nextDiceResults.size() - 1).Id;
                 }
                 resultCounter += nextDiceResults.size();
                 //System.out.println("results ids until: " + lastDiceResultId);
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
             counter = 0;
@@ -387,8 +389,8 @@ public class MainCanvas extends PApplet {
             showResultsUpToIndex = nextDiceResults.size();
         }
         resultsToShow.clear();
-        for (int i = (int)lastShownResultIndex; i < (int)showResultsUpToIndex; i++) {
-           resultsToShow.add(nextDiceResults.get(i));
+        for (int i = (int) lastShownResultIndex; i < (int) showResultsUpToIndex; i++) {
+            resultsToShow.add(nextDiceResults.get(i));
         }
         if (resultsToShow.size() > 0) {
             //System.out.println("frame: " + frameCount);
@@ -418,7 +420,7 @@ public class MainCanvas extends PApplet {
         int jkuY = 625;
         int jkuFactor = 10;
         this.tint(Utils.Colors.WHITE);
-        this.image(jkuIcon, this.width - 180, 950, jkuX/jkuFactor, jkuY/jkuFactor);
+        this.image(jkuIcon, this.width - 180, 950, jkuX / jkuFactor, jkuY / jkuFactor);
         this.noTint();
 
         //TODO: switch sketches to show
@@ -436,14 +438,14 @@ public class MainCanvas extends PApplet {
             fill(Utils.Colors.WHITE, 230 * (1.0f - switchPercent));
         }
         for (var sketch : sketchesToShow) {
-            this.displayRandomWalkSketch((RandomWalker)sketch);
+            this.displayRandomWalkSketch((RandomWalker) sketch);
         }
         image(sketchesGroupIcon.get(sketchGroupIndexToShow), sketchesGroupIconX, sketchesGroupIconY);
         if (inSketchSwitchMode) {
             tint(255, 255 * switchPercent);
             fill(Utils.Colors.WHITE, 230 * switchPercent);
-            for (var sketch: sketchesToShowNext) {
-                this.displayRandomWalkSketch((RandomWalker)sketch);
+            for (var sketch : sketchesToShowNext) {
+                this.displayRandomWalkSketch((RandomWalker) sketch);
             }
             image(sketchesGroupIcon.get(sketchGroupIndexToShowNext), sketchesGroupIconX, sketchesGroupIconY);
             switchPercent += 0.008;

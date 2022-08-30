@@ -6,9 +6,9 @@ import processing.core.PApplet;
 
 import java.util.ArrayList;
 
-public class RoundSquare extends RandomWalker{
+public class RoundSquare extends RandomWalker {
 
-    public RoundSquare(PApplet sketch, SketchArea area,  ArrayList<DiceResult> resultsToShow) {
+    public RoundSquare(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
 
         cr = 163;
@@ -17,18 +17,18 @@ public class RoundSquare extends RandomWalker{
         dx = (float) 4;
         dy = (float) 4;
         ds = (float) 2;
-        h=this.sketch.height/100;
-        w=this.sketch.width/100;
+        h = this.sketch.height / 100;
+        w = this.sketch.width / 100;
         size = 10;
 
     }
 
     @Override
     public void draw() {
-        float tl=1;
-        float tr=1;
-        float bl=1;
-        float br=1;
+        float tl = 1;
+        float tr = 1;
+        float bl = 1;
+        float br = 1;
         //this.recentDiceResults();
         for (var result : this.resultsToShow) {
             //int r = randInt();

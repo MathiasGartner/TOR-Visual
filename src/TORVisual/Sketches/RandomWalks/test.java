@@ -7,7 +7,7 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 
 
-public class test extends RandomWalker{
+public class test extends RandomWalker {
 
 
     public test(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
@@ -16,10 +16,10 @@ public class test extends RandomWalker{
 
         x = startX;
         y = startY;
-        dx = this.area.w/100.0f*0.9f; //difference x
-        dy = this.area.w/100.0f*0.9f; //difference y
+        dx = this.area.w / 100.0f * 0.9f; //difference x
+        dy = this.area.w / 100.0f * 0.9f; //difference y
 
-        size = this.area.h/100.0f*4f; //circle size
+        size = this.area.h / 100.0f * 4f; //circle size
 
     }
 

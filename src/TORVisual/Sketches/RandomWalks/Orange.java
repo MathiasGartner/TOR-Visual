@@ -7,15 +7,15 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 
 
-public class Orange extends RandomWalker
-{
-    float dh,dw,sizemax, sizemin, sd,swmax;
+public class Orange extends RandomWalker {
+    float dh, dw, sizemax, sizemin, sd, swmax;
     float sw;
     float swd;
+
     public Orange(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
-        name="Orangenscheiben";
-        nameLatin="Citrus sinensis";
+        name = "Orangenscheiben";
+        nameLatin = "Citrus sinensis";
 
         x1 = startX;
         y1 = startY;
@@ -23,17 +23,17 @@ public class Orange extends RandomWalker
         colorStart = sketch.color(255, 151, 33);
         colorEnd = sketch.color(240, 77, 40);
 
-        alpha =10;
-        dx = this.area.w/100.0f*0.6f; //difference x
-        dy = this.area.w/100.0f*0.5f; //difference y
+        alpha = 10;
+        dx = this.area.w / 100.0f * 0.6f; //difference x
+        dy = this.area.w / 100.0f * 0.5f; //difference y
 
-        sw= this.area.w/100.0f*0.02f; //stroke weight
-        swd= this.area.w/100.0f*0.02f; //stroke weight difference
-        swmax=this.area.w/100.0f*0.4f; //stroke weight maximum
-        size =this.area.h/100.0f*0.2f; //circle size
-        sizemax=this.area.h/100.0f*1.2f; //circle size maximum
-        sizemin=this.area.h/100.0f*0.1f;
-        sd=this.area.h/100.0f*0.03f; //size difference
+        sw = this.area.w / 100.0f * 0.02f; //stroke weight
+        swd = this.area.w / 100.0f * 0.02f; //stroke weight difference
+        swmax = this.area.w / 100.0f * 0.4f; //stroke weight maximum
+        size = this.area.h / 100.0f * 0.2f; //circle size
+        sizemax = this.area.h / 100.0f * 1.2f; //circle size maximum
+        sizemin = this.area.h / 100.0f * 0.1f;
+        sd = this.area.h / 100.0f * 0.03f; //size difference
 
     }
 
@@ -91,9 +91,9 @@ public class Orange extends RandomWalker
                     break;
             }
             var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
-            this.canvas.fill(c, alpha*0.5f);
+            this.canvas.fill(c, alpha * 0.5f);
             this.canvas.strokeWeight((float) sw);
-            this.canvas.stroke(c, alpha*0.7f);
+            this.canvas.stroke(c, alpha * 0.7f);
             this.canvas.circle(x, y, (float) size);
         }
     }

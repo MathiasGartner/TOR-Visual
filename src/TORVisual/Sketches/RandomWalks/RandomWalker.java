@@ -59,12 +59,12 @@ public class RandomWalker extends EmbeddedSketch {
         x = startX;
         y = startY;
 
-        x1= startX;
-        y1= startY;
-        x2= startX+2;
-        y2= startY+2;
-        x3= startX+4;
-        y3= startY+8;
+        x1 = startX;
+        y1 = startY;
+        x2 = startX + 2;
+        y2 = startY + 2;
+        x3 = startX + 4;
+        y3 = startY + 8;
 
         minX = border;
         maxX = this.area.w - border;

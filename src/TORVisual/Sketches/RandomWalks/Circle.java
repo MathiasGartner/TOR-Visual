@@ -7,9 +7,9 @@ import processing.core.PApplet;
 
 import java.util.ArrayList;
 
-public class Circle extends RandomWalker{
+public class Circle extends RandomWalker {
 
-    public Circle(PApplet sketch, SketchArea area,  ArrayList<DiceResult> resultsToShow) {
+    public Circle(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
     }
 

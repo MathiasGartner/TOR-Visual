@@ -26,7 +26,7 @@ public class Utils {
     }
 
     public static int randInt(int from, int to) {
-        int randomNum = ThreadLocalRandom.current().nextInt(from, to+1);
+        int randomNum = ThreadLocalRandom.current().nextInt(from, to + 1);
         return randomNum;
     }
 
