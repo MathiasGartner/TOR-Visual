@@ -61,16 +61,16 @@ public class EllipseCotton extends RandomWalker {
                     if (w > ds)
                         w -= ds;
 
-                    if (alpha >= 10.0f)
-                        alpha -= 0.5f;
+                    if (alpha >= 10)
+                        alpha -= 1;
                     break;
                 case 6:
                     //size += ds;
                     if (h > ds)
                         h -= ds;
 
-                    if (alpha <= 40.0f)
-                        alpha += 0.5f;
+                    if (alpha <= 40)
+                        alpha += 1;
                     break;
             }
         }
