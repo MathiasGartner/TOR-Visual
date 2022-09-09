@@ -354,7 +354,7 @@ public class MainCanvas extends PApplet {
                 }
                 else {
                     nextDiceResults = new ArrayList<DiceResult>();
-                    for (int i = 0; i < 50000; i++) {
+                    for (int i = 0; i < 1000; i++) {
                         var dr = new DiceResult();
                         dr.Id = dummyId;
                         dr.Result = Utils.randDiceResult();

@@ -77,7 +77,27 @@ public class RandomWalker extends EmbeddedSketch {
         dColor = 0.01f;
     }
 
-    protected void moveX(float steps) {
+    protected void moveXPeriodic(float steps) {
+        x += steps;
+        if (x > this.area.w) {
+            x = x - this.area.w;
+        }
+        if (x < 0) {
+            x = this.area.w - x;
+        }
+    }
+
+    protected void moveYPeriodic(float steps) {
+        y += steps;
+        if (y > this.area.h) {
+            y = y - this.area.h;
+        }
+        if (y < 0) {
+            y = this.area.h - y;
+        }
+    }
+
+    protected void moveXWithReturnArea(float steps) {
         if (steps > 0) { //move right
             if (x < maxX && !xMaxOut) {
                 x += steps;
@@ -102,7 +122,7 @@ public class RandomWalker extends EmbeddedSketch {
         }
     }
 
-    protected void moveY(float steps) {
+    protected void moveYWithReturnArea(float steps) {
         if (steps > 0) { //move down
             if (y < maxY && !yMaxOut) {
                 y += steps;
@@ -126,6 +146,17 @@ public class RandomWalker extends EmbeddedSketch {
             }
         }
     }
+
+    protected void moveX(float steps) {
+        //this.moveXPeriodic(steps);
+        this.moveXWithReturnArea(steps);
+    }
+
+    protected void moveY(float steps) {
+        //this.moveYPeriodic(steps);
+        this.moveYWithReturnArea(steps);
+    }
+
 
     @Override
     public void draw() {

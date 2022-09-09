@@ -49,109 +49,70 @@ public class Coffee extends RandomWalker {
         sw = this.area.w / 100.0f * 0.15f; //stroke weight
         swd = this.area.w / 100.0f * 0.01f; //stroke weight difference
         swmax = this.area.w / 100.0f * 0.4f; //stroke weight maximum
-
-
     }
 
     @Override
     public void draw() {
         for (var result : this.resultsToShow) {
             int r = result.Result;
-
             switch (r) {
                 case 1:
-                    if (x + dx >= area.w)
-                        x -= dx;
-
-                    if (x < area.w)
-                        x += dx;   //+ difference x
-
-                    if (sw + swd < swmax)
+                    moveX(-dx);
+                    if (sw + swd < swmax) {
                         sw += swd; //stroke weight + stroke weight distance
-
+                    }
                     break;
-
-
                 case 2:
-                    if (y + dy >= area.h)
-                        y -= dy;
-
-                    if (y + dy < area.h)
-                        y += dy;   //+ difference y
-
-                    if (sw > swd)
+                    moveY(-dy);
+                    if (sw > swd) {
                         sw -= swd;  //stroke weight - stroke weight distance
-
-
-                    //x=x+0.1f;
+                    }
                     break;
-
-
                 case 3:
-                    if (y > dy & y < area.h)
-                        y -= dy; //- difference y
-
-                    if (cg > 0)
+                    moveY(dy);
+                    if (cg > 0) {
                         cg -= 1;   //green - 1
-                    multiply = 2.5f;
-
-                    if (h + sd < sizemax)
+                    }
+                    if (h + sd < sizemax) {
                         h += sd; //+w difference
-
+                    }
+                    multiply = 2.5f;
                     start = (float) Math.PI;
                     break;
-
                 case 4:
-                    if (x > dx & x < area.w)
-                        x -= dx; //- difference x
-
-                    if (w + sd < sizemax)
+                    moveX(dx);
+                    if (w + sd < sizemax) {
                         w += sd; //+w difference
-
+                    }
                     start = (float) -(Math.PI);
                     break;
-
-
                 case 5:
-
-                    if (alpha <= 40)
+                    if (alpha <= 40) {
                         alpha += 1;
-
-                    if (w > sizemin)
+                    }
+                    if (w > sizemin) {
                         w -= sd;  //halfmoon size - difference size
+                    }
                     winkel = (float) 0f;
                     multiply = 1.5f;
                     break;
-
-
                 case 6:
-                    if (alpha >= 10)
+                    if (alpha >= 10) {
                         alpha -= 1;  //alpha -1
-
-                    winkel = (float) 1.5f;
-
-                    if (h > sizemin)
+                    }
+                    if (h > sizemin) {
                         h -= sd;
-
+                    }
+                    winkel = (float) 1.5f;
                     break;
-
-
             }
-
-            //sketch.fill(cr, cg, cb, alpha);
-            //     sketch.strokeWeight((float) sw);
             var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
 
             this.canvas.stroke(c, alpha);
             this.canvas.noFill();
-           /*sketch.beginShape();
-           sketch.vertex(x, y);
-           sketch.bezierVertex(x2, y2, x3, y3, x4, y4);
-           sketch.endShape();
-*/
-            //sketch.arc(x, y, w, h, start, (float) ((float) multiply*Math.PI / winkel));
-            this.canvas.arc(x, y, w, h, 0, (float) ((float) 3 * Math.PI / (this.area.w / 100 * 2f)));
-            // }
+            float hEffective = h*1.4f;
+            this.canvas.ellipse(x, y, w, hEffective);
+            this.canvas.line(x+w/2.f, y, x+w/2.f, y+hEffective);
         }
     }
 }
