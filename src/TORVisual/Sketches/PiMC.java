@@ -242,7 +242,7 @@ public class PiMC extends EmbeddedSketch {
             }
             this.pi = 4.0 * this.inCircle / (double) this.total;
             this.variance = pi * (4.0 - pi);
-            this.error = Math.sqrt(this.variance) / Math.sqrt(this.total);
+            this.error = Math.sqrt(this.variance) / Math.sqrt(this.total) * 1.0;
             for (int i = 0; i < this.resultsNeededForNewPosition; i++) {
                 resultsToProcess.remove(0);
             }

@@ -17,7 +17,7 @@ public class Program {
         if (args.length == 1 || true) {
             try {
                 //screen = Integer.parseInt(args[0]);
-                screen = Integer.parseInt("1");
+                screen = Integer.parseInt("0");
             }
             catch (NumberFormatException ex) {
                 System.out.println("First argument needs to be the screen number.");

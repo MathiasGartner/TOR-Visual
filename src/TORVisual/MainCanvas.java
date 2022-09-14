@@ -131,8 +131,8 @@ public class MainCanvas extends PApplet {
         // FRONT ----------------------
 
         //1
-        Strandflieder StrandfliederSketch = new Strandflieder(this, sketchAreas.get(0), this.resultsToShow);
-        sketchesFront.add(StrandfliederSketch);
+        Orange OrangeSketch = new Orange(this, sketchAreas.get(1), this.resultsToShow);
+        sketchesFront.add(OrangeSketch);
 
         //2
         Kork KorkSketch = new Kork(this, sketchAreas.get(1), this.resultsToShow);
@@ -159,8 +159,8 @@ public class MainCanvas extends PApplet {
         sketchesFront.add(LuffaSketch);
 
         //8
-        Eucalyptus EucalyptusSketch = new Eucalyptus(this, sketchAreas.get(7), this.resultsToShow);
-        sketchesFront.add(EucalyptusSketch);
+        Platanen PlatanenSketch = new Platanen(this, sketchAreas.get(2), this.resultsToShow);
+        sketchesFront.add(PlatanenSketch);
 
         //9
         Pampasgras PampasgrasSketch = new Pampasgras(this, sketchAreas.get(8), this.resultsToShow);
@@ -170,8 +170,8 @@ public class MainCanvas extends PApplet {
         //CENTER ----------------------
 
         //1
-        Coffee CoffeeSketch = new Coffee(this, sketchAreas.get(0), this.resultsToShow);
-        sketchesCenter.add(CoffeeSketch);
+        Strandflieder StrandfliederSketch = new Strandflieder(this, sketchAreas.get(0), this.resultsToShow);
+        sketchesCenter.add(StrandfliederSketch);
 
         //2
         Schlitzahorn SchlitzahornSketch = new Schlitzahorn(this, sketchAreas.get(1), this.resultsToShow);
@@ -217,12 +217,12 @@ public class MainCanvas extends PApplet {
         sketchesBack.add(CinnamonSketch);
 
         //3
-        Platanen PlatanenSketch = new Platanen(this, sketchAreas.get(2), this.resultsToShow);
-        sketchesBack.add(PlatanenSketch);
+        Coffee CoffeeSketch = new Coffee(this, sketchAreas.get(0), this.resultsToShow);
+        sketchesBack.add(CoffeeSketch);
 
         //4
-        Baumschwamm BaumschwammSketch = new Baumschwamm(this, sketchAreas.get(3), this.resultsToShow);
-        sketchesBack.add(BaumschwammSketch);
+        Kirschkern KirschkernSketch = new Kirschkern(this, sketchAreas.get(6), this.resultsToShow);
+        sketchesBack.add(KirschkernSketch);
 
         //5
         Linsen LinsenSketch = new Linsen(this, sketchAreas.get(4), this.resultsToShow);
@@ -233,8 +233,8 @@ public class MainCanvas extends PApplet {
         sketchesBack.add(ApfelSketch);
 
         //7
-        Kirschkern KirschkernSketch = new Kirschkern(this, sketchAreas.get(6), this.resultsToShow);
-        sketchesBack.add(KirschkernSketch);
+        Eucalyptus EucalyptusSketch = new Eucalyptus(this, sketchAreas.get(7), this.resultsToShow);
+        sketchesBack.add(EucalyptusSketch);
 
         //8
         Lavendel LavendelSketch = new Lavendel(this, sketchAreas.get(7), this.resultsToShow);
@@ -320,6 +320,7 @@ public class MainCanvas extends PApplet {
             eventSources.add("ArsElectronica2020");
             eventSources.add("CyberArts2021");
             eventSources.add("Test2022");
+            eventSources.add("Kapelica2022");
             DBManager db = new DBManager();
             for (var src : eventSources) {
                 try {
@@ -334,7 +335,7 @@ public class MainCanvas extends PApplet {
         }
     }
 
-    boolean useDataFromDB = false;
+    boolean useDataFromDB = true;
     boolean enableSwitching = true;
     boolean inSketchSwitchMode;
     float switchPercent;
