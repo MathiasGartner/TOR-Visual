@@ -131,7 +131,7 @@ public class MainCanvas extends PApplet {
         // FRONT ----------------------
 
         //1
-        Orange OrangeSketch = new Orange(this, sketchAreas.get(1), this.resultsToShow);
+        Orange OrangeSketch = new Orange(this, sketchAreas.get(0), this.resultsToShow);
         sketchesFront.add(OrangeSketch);
 
         //2
@@ -159,7 +159,7 @@ public class MainCanvas extends PApplet {
         sketchesFront.add(LuffaSketch);
 
         //8
-        Platanen PlatanenSketch = new Platanen(this, sketchAreas.get(2), this.resultsToShow);
+        Platanen PlatanenSketch = new Platanen(this, sketchAreas.get(7), this.resultsToShow);
         sketchesFront.add(PlatanenSketch);
 
         //9
@@ -217,11 +217,11 @@ public class MainCanvas extends PApplet {
         sketchesBack.add(CinnamonSketch);
 
         //3
-        Coffee CoffeeSketch = new Coffee(this, sketchAreas.get(0), this.resultsToShow);
+        Coffee CoffeeSketch = new Coffee(this, sketchAreas.get(2), this.resultsToShow);
         sketchesBack.add(CoffeeSketch);
 
         //4
-        Kirschkern KirschkernSketch = new Kirschkern(this, sketchAreas.get(6), this.resultsToShow);
+        Kirschkern KirschkernSketch = new Kirschkern(this, sketchAreas.get(3), this.resultsToShow);
         sketchesBack.add(KirschkernSketch);
 
         //5
@@ -233,7 +233,7 @@ public class MainCanvas extends PApplet {
         sketchesBack.add(ApfelSketch);
 
         //7
-        Eucalyptus EucalyptusSketch = new Eucalyptus(this, sketchAreas.get(7), this.resultsToShow);
+        Eucalyptus EucalyptusSketch = new Eucalyptus(this, sketchAreas.get(6), this.resultsToShow);
         sketchesBack.add(EucalyptusSketch);
 
         //8
