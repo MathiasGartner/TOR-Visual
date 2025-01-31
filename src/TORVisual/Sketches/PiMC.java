@@ -138,7 +138,7 @@ public class PiMC extends EmbeddedSketch {
         }
 
         piPoint = sketch.loadImage("images/point_gradient.png");
-        piPoint.resize(4, 0);
+        piPoint.resize(10, 0);
 
         piGlyph = sketch.loadImage("images/pi.png");
         piGlyph.resize(20, 0);
@@ -184,7 +184,7 @@ public class PiMC extends EmbeddedSketch {
             if (p.inCircle) {
                 piPoints.tint(Utils.Colors.GREEN);
             }
-            piPoints.image(piPoint, p.drawAt.x, p.drawAt.y);
+            piPoints.image(piPoint, p.drawAt.x - (float)(piPoint.pixelWidth / 2.0), (float)(p.drawAt.y - piPoint.pixelHeight / 2.0));
             piPoints.noTint();
         }
         piPoints.endDraw();

@@ -11,6 +11,6 @@ public class PiMCPoint {
     public PiMCPoint(float x, float y, float drawSize) {
         this.coords = new Point2D.Float(x, y);
         this.drawAt = new Point2D.Float(drawSize + x * drawSize, drawSize + y * drawSize);
-        this.inCircle = Math.sqrt(x * x + y * y) <= 1.0;
+        this.inCircle = (x * x + y * y) <= 1.0;
     }
 }
