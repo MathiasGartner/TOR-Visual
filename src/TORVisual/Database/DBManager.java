@@ -22,6 +22,23 @@ public class DBManager {
         return conn;
     }
 
+    public ArrayList<Client> getClients() throws SQLException {
+        var clients = new ArrayList<Client>();
+        String sql = "SELECT c.Id, c.Position, c.Material FROM client c WHERE c.Position IS NOT NULL";
+        try (
+                Connection conn = this.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+        ) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    var c = new Client(rs.getInt("Id"), rs.getInt("Position"), rs.getString("Material"));
+                    clients.add(c);
+                }
+            }
+        }
+        return clients;
+    }
+
     private ArrayList<DiceResult> getDiceResults(ResultSet rs) throws SQLException {
         var diceResults = new ArrayList<DiceResult>();
         while (rs.next()) {

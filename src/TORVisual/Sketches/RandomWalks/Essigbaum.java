@@ -6,13 +6,13 @@ import processing.core.PApplet;
 
 import java.util.ArrayList;
 
-public class WoodCircle extends RandomWalker {
+public class Essigbaum extends RandomWalker {
 
     float dh, dw, sizemax, sd, swmax;
     float sw;
     float swd;
 
-    public WoodCircle(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
+    public Essigbaum(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
         name = "Essigbaum";
         nameLatin = "Rhus typhina";

@@ -127,141 +127,24 @@ public class MainCanvas extends PApplet {
         sketchesAll = new ArrayList<EmbeddedSketch>();
         sketchesGroups = new ArrayList<ArrayList<EmbeddedSketch>>();
 
-
-        // FRONT ----------------------
-
-        //1
-        Orange OrangeSketch = new Orange(this, sketchAreas.get(0), this.resultsToShow);
-        sketchesFront.add(OrangeSketch);
-
-        //2
-        Kork KorkSketch = new Kork(this, sketchAreas.get(1), this.resultsToShow);
-        sketchesFront.add(KorkSketch);
-
-        //3
-        Polstermoos PolstermoosSketch = new Polstermoos(this, sketchAreas.get(2), this.resultsToShow);
-        sketchesFront.add(PolstermoosSketch);
-
-        //4
-        Palmenblatt PalmenblattSketch = new Palmenblatt(this, sketchAreas.get(3), this.resultsToShow);
-        sketchesFront.add(PalmenblattSketch);
-
-        //5
-        Pepper PepperSketch = new Pepper(this, sketchAreas.get(4), this.resultsToShow);
-        sketchesFront.add(PepperSketch);
-
-        //6
-        AcaciaBohnen AcaciaBohnenSketch = new AcaciaBohnen(this, sketchAreas.get(5), this.resultsToShow);
-        sketchesFront.add(AcaciaBohnenSketch);
-
-        //7
-        Luffa LuffaSketch = new Luffa(this, sketchAreas.get(6), this.resultsToShow);
-        sketchesFront.add(LuffaSketch);
-
-        //8
-        Platanen PlatanenSketch = new Platanen(this, sketchAreas.get(7), this.resultsToShow);
-        sketchesFront.add(PlatanenSketch);
-
-        //9
-        Pampasgras PampasgrasSketch = new Pampasgras(this, sketchAreas.get(8), this.resultsToShow);
-        sketchesFront.add(PampasgrasSketch);
-
-
-        //CENTER ----------------------
-
-        //1
-        Strandflieder StrandfliederSketch = new Strandflieder(this, sketchAreas.get(0), this.resultsToShow);
-        sketchesCenter.add(StrandfliederSketch);
-
-        //2
-        Schlitzahorn SchlitzahornSketch = new Schlitzahorn(this, sketchAreas.get(1), this.resultsToShow);
-        sketchesCenter.add(SchlitzahornSketch);
-
-        //3
-        Palmringe PalmingeSketch = new Palmringe(this, sketchAreas.get(2), this.resultsToShow);
-        sketchesCenter.add(PalmingeSketch);
-
-        //4
-        EllipseCotton EllipseCottonSketch = new EllipseCotton(this, sketchAreas.get(3), this.resultsToShow);
-        sketchesCenter.add(EllipseCottonSketch);
-
-        //5
-        Airfarn AirfarnSketch = new Airfarn(this, sketchAreas.get(4), this.resultsToShow);
-        sketchesCenter.add(AirfarnSketch);
-
-        //6
-        Samtgras SamtgrasSketch = new Samtgras(this, sketchAreas.get(5), this.resultsToShow);
-        sketchesCenter.add(SamtgrasSketch);
-
-        //7
-        Wachtelbohne WachtelbohneSketch = new Wachtelbohne(this, sketchAreas.get(6), this.resultsToShow);
-        sketchesCenter.add(WachtelbohneSketch);
-
-        //8 Essigbaum
-        WoodCircle WoodCircleSketch = new WoodCircle(this, sketchAreas.get(7), this.resultsToShow);
-        sketchesCenter.add(WoodCircleSketch);
-
-        //9
-        Chili ChiliSketch = new Chili(this, sketchAreas.get(8), this.resultsToShow);
-        sketchesCenter.add(ChiliSketch);
-
-
-        //BACK ----------------------
-
-        //1
-        Corn CornSketch = new Corn(this, sketchAreas.get(0), this.resultsToShow);
-        sketchesBack.add(CornSketch);
-
-        //2
-        Cinnamon CinnamonSketch = new Cinnamon(this, sketchAreas.get(1), this.resultsToShow);
-        sketchesBack.add(CinnamonSketch);
-
-        //3
-        Coffee CoffeeSketch = new Coffee(this, sketchAreas.get(2), this.resultsToShow);
-        sketchesBack.add(CoffeeSketch);
-
-        //4
-        Kirschkern KirschkernSketch = new Kirschkern(this, sketchAreas.get(3), this.resultsToShow);
-        sketchesBack.add(KirschkernSketch);
-
-        //5
-        Linsen LinsenSketch = new Linsen(this, sketchAreas.get(4), this.resultsToShow);
-        sketchesBack.add(LinsenSketch);
-
-        //6
-        Apfel ApfelSketch = new Apfel(this, sketchAreas.get(5), this.resultsToShow);
-        sketchesBack.add(ApfelSketch);
-
-        //7
-        Eucalyptus EucalyptusSketch = new Eucalyptus(this, sketchAreas.get(6), this.resultsToShow);
-        sketchesBack.add(EucalyptusSketch);
-
-        //8
-        Lavendel LavendelSketch = new Lavendel(this, sketchAreas.get(7), this.resultsToShow);
-        sketchesBack.add(LavendelSketch);
-
-        //9
-        Sternanis SternanisSketch = new Sternanis(this, sketchAreas.get(8), this.resultsToShow);
-        sketchesBack.add(SternanisSketch);
-
-        //---------------------
-        // BACKUP CUBE
-        //Limetten LimettenSketch = new Ellipse(this, sketchAreas.get(0), this.resultsToShow);
-        //sketchesBack.add(LimettenSketch);
-
-        //---------------------
-        // BACKUP CUBE
-        //Iceland_Moss Iceland_MossSketch = new Iceland_Moss(this, sketchAreas.get(4), this.resultsToShow);
-        //sketchesFront.add(Iceland_MossSketch);
-
-        //---------------------
-        // BACKUP CUBE
-        //Orange  OrangeSketch = new Orange(this, sketchAreas.get(0), this.resultsToShow);
-        //sketchesFront.add(OrangeSketch);
-
         sketchesGroups.add(sketchesFront);
         sketchesGroups.add(sketchesCenter);
         sketchesGroups.add(sketchesBack);
+
+        try {
+            DBManager db = new DBManager();
+            var clients = db.getClients();
+            for (var c : clients) {
+                int areaInGroup = (c.Position - 1) % 9;
+                int groupId = (c.Position - 1) / 9;
+                var group = sketchesGroups.get(groupId);
+                group.add(WalkerFactory.create(c.Material, this, sketchAreas.get(areaInGroup), this.resultsToShow));
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
         for (var sg : sketchesGroups) {
             sketchesAll.addAll(sg);
         }
@@ -335,7 +218,7 @@ public class MainCanvas extends PApplet {
         }
     }
 
-    boolean useDataFromDB = true;
+    boolean useDataFromDB = false;
     boolean enableSwitching = true;
     boolean inSketchSwitchMode;
     float switchPercent;

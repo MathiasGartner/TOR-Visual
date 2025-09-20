@@ -11,7 +11,7 @@ public class SettingsVisual {
     //public static final String DiceResultEventSource = "Kapelica2022";
     //public static final String DiceResultEventSource = "CyberArts2021";
     //public static final String DiceResultEventSource = "ArsElectronica2020";
-    public static final boolean UseAllDiceResultEventSourcesForPi = true;
+    public static final boolean UseAllDiceResultEventSourcesForPi = false;
 
     private SettingsVisual() {
     }
