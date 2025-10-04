@@ -12,8 +12,10 @@ public class Baumwolle extends RandomWalker {
 
     public Baumwolle(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+
         name = "Baumwolle";
         nameLatin = "Gossypium";
+
         cr = 255;
         cg = 255;
         cb = 255;
@@ -25,7 +27,6 @@ public class Baumwolle extends RandomWalker {
         h = this.canvas.height / 100 * 0.4f;
         hmax = this.canvas.height / 100 * 1.0f;
         wmax = this.canvas.width / 100 * 1.0f;
-
     }
 
     @Override

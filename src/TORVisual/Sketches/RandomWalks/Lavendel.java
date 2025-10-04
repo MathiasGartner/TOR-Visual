@@ -14,8 +14,10 @@ public class Lavendel extends RandomWalker {
 
     public Lavendel(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+
         name = "Lavendel";
         nameLatin = "Lavandula";
+
         colorStart = sketch.color(71, 55, 119);
         colorEnd = sketch.color(63, 52, 94);
 

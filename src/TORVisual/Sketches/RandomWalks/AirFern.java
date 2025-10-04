@@ -13,6 +13,9 @@ public class AirFern extends RandomWalker {
     public AirFern(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
 
+        name = "Air-Fern";
+        nameLatin = "Sertularia argentea";
+
         colorStart = sketch.color(52, 94, 92);
         colorEnd = sketch.color(72, 112, 93);
 
@@ -34,10 +37,6 @@ public class AirFern extends RandomWalker {
         sw = this.area.w / 100.0f * 0.2f; //stroke weight
         swd = this.area.w / 100.0f * 0.05f; //stroke weight difference
         sd = this.area.h / 100.0f * 0.1f; //size difference
-
-        name = "Air-Fern";
-        nameLatin = "Sertularia argentea";
-
     }
 
     @Override

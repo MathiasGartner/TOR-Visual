@@ -12,9 +12,9 @@ public class Eucalyptus extends RandomWalker {
 
     public Eucalyptus(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+
         name = "Eucalyptus";
         nameLatin = "Eucalyptus ovata";
-
 
         colorStart = sketch.color(60, 97, 75);
         colorEnd = sketch.color(110, 170, 140);

@@ -12,6 +12,7 @@ public class Samtgras extends RandomWalker {
 
     public Samtgras(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+
         name = "Samtgras";
         nameLatin = "Lagurus ovatus";
 

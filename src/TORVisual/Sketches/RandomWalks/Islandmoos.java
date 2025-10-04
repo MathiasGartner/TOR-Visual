@@ -17,7 +17,7 @@ public class Islandmoos extends RandomWalker {
         super(sketch, area, resultsToShow);
 
         name = "Islandmoos";
-        nameLatin = "... Islandica";
+        nameLatin = "Cetraria Islandica";
 
         x = startX;
         y = startY;

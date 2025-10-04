@@ -14,7 +14,9 @@ public class Program {
         MainCanvas mainCanvas;
         System.out.println("Start...");
         System.out.println("w:" + w + ", h:" + h);
-        if (args.length == 1 || true) {
+        int numArgs = args.length;
+        numArgs = 3;
+        if (numArgs == 1) {
             try {
                 //screen = Integer.parseInt(args[0]);
                 screen = Integer.parseInt("0");
@@ -25,7 +27,7 @@ public class Program {
             }
             mainCanvas = new MainCanvas(screen);
         }
-        else if (args.length == 2) {
+        else if (numArgs == 2) {
             try {
                 w = Integer.parseInt(args[0]);
                 h = Integer.parseInt(args[1]);

@@ -14,6 +14,7 @@ public class Palmenblatt extends RandomWalker {
 
     public Palmenblatt(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+
         name = "Palmenblatt";
         nameLatin = "Dypsis lutescens";
 

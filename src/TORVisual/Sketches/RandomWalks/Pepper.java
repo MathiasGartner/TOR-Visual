@@ -14,8 +14,10 @@ public class Pepper extends RandomWalker {
 
     public Pepper(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+
         name = "Pfeffer";
         nameLatin = "Schinus";
+
         colorStart = canvas.color(164, 55, 60);
         /*colorEnd = canvas.color(172,76,78);
 

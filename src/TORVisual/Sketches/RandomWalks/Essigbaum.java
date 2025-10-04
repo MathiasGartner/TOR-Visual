@@ -14,6 +14,7 @@ public class Essigbaum extends RandomWalker {
 
     public Essigbaum(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+
         name = "Essigbaum";
         nameLatin = "Rhus typhina";
 

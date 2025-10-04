@@ -54,7 +54,7 @@ public class MainCanvas extends PApplet {
     public MainCanvas(int displayId) {
         this();
         this.displayId = displayId;
-        fullScreen = true;
+        this.fullScreen = true;
     }
 
     public MainCanvas(int displayId, int w, int h) {
@@ -62,7 +62,7 @@ public class MainCanvas extends PApplet {
         this.displayId = displayId;
         this.screenW = w;
         this.screenH = h;
-        fullScreen = true;
+        this.fullScreen = false;
     }
 
     public void settings() {
@@ -150,7 +150,7 @@ public class MainCanvas extends PApplet {
         }
         sketchesAll.add(piMCSketch);
 
-        sketchesToShow = sketchesFront;
+        sketchesToShow = sketchesBack;
 
         for (var sketch : sketchesToShow) {
             stroke(sketch.backgroundColor);
@@ -192,8 +192,8 @@ public class MainCanvas extends PApplet {
         }
 
         oldTimeStamp = this.minute();
-        sketchGroupIndexToShow = 0;
-        sketchGroupIndexToShowNext = 0;
+        sketchGroupIndexToShow = 2;
+        sketchGroupIndexToShowNext = 2;
         sketchesToShowNext = null;
         inSketchSwitchMode = false;
 
@@ -320,6 +320,10 @@ public class MainCanvas extends PApplet {
         if (inSketchSwitchMode) {
             tint(255, 255 * (1.0f - switchPercent));
             fill(Utils.Colors.WHITE, 230 * (1.0f - switchPercent));
+        }
+        else {
+            tint(255, 255);
+            fill(Utils.Colors.WHITE, 230);
         }
         for (var sketch : sketchesToShow) {
             this.displayRandomWalkSketch((RandomWalker) sketch);

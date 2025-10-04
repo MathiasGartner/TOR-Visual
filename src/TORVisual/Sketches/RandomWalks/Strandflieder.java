@@ -11,6 +11,7 @@ public class Strandflieder extends RandomWalker {
 
     public Strandflieder(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+
         name = "Strandflieder";
         nameLatin = "Limonium sinuatum";
 

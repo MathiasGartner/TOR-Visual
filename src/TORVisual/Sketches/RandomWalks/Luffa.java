@@ -14,8 +14,10 @@ public class Luffa extends RandomWalker {
 
     public Luffa(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+
         name = "Luffa";
         nameLatin = "Luffa aegyptiaca";
+
         cr = 250; //rgb color value red
         cg = 246; //rgb color value green
         cb = 210;  //rgb color value blue

@@ -11,6 +11,7 @@ public class Platanen extends RandomWalker {
 
     public Platanen(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+
         name = "Platanen";
         nameLatin = "Platanus hispanica";
 

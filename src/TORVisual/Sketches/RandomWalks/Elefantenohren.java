@@ -7,16 +7,16 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 
 
-public class Orangenscheiben extends RandomWalker {
+public class Elefantenohren extends RandomWalker {
     float dh, dw, sizemax, sizemin, sd, swmax;
     float sw;
     float swd;
 
-    public Orangenscheiben(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
+    public Elefantenohren(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
 
-        name = "Orangenscheiben";
-        nameLatin = "Citrus sinensis";
+        name = "Elefantenohren";
+        nameLatin = "Aspidosperma cuspa";
 
         x1 = startX;
         y1 = startY;

@@ -12,6 +12,7 @@ public class Kork extends RandomWalker {
 
     public Kork(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+
         name = "Kork";
         nameLatin = "Quercus suber";
 

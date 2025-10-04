@@ -12,6 +12,7 @@ public class AcaciaBohnen extends RandomWalker {
 
     public AcaciaBohnen(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+
         name = "Acacia Bohnen";
         nameLatin = "Delonix regia";
 

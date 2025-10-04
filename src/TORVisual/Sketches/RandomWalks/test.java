@@ -13,14 +13,12 @@ public class test extends RandomWalker {
     public test(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
 
-
         x = startX;
         y = startY;
         dx = this.area.w / 100.0f * 0.9f; //difference x
         dy = this.area.w / 100.0f * 0.9f; //difference y
 
         size = this.area.h / 100.0f * 4f; //circle size
-
     }
 
     @Override

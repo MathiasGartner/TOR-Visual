@@ -14,8 +14,10 @@ public class Zimtstangen extends RandomWalker {
 
     public Zimtstangen(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+
         name = "Zimt";
         nameLatin = "Cinnamomum cassia";
+
         x1 = startX;
         y1 = startY;
 

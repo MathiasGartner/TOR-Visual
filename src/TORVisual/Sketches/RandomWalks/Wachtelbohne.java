@@ -12,6 +12,7 @@ public class Wachtelbohne extends RandomWalker {
 
     public Wachtelbohne(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+
         name = "Wachtelbohne";
         nameLatin = "Phaseolus vulgaris";
 

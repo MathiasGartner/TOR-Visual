@@ -13,8 +13,10 @@ public class JapanischerSchlitzahorn extends RandomWalker {
 
     public JapanischerSchlitzahorn(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+
         name = "Japanischer Schlitzahorn";
         nameLatin = "Acer palmatum";
+
         colorStart = sketch.color(110, 41, 33);
         colorEnd = sketch.color(36, 79, 25);
 

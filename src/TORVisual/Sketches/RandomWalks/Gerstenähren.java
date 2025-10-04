@@ -15,6 +15,7 @@ public class Gerstenähren extends RandomWalker {
 
     public Gerstenähren(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+
         name = "Gerstenähren";
         nameLatin = "Hordeum vulgare";
 

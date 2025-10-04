@@ -12,6 +12,7 @@ public class Palmringe extends RandomWalker {
 
     public Palmringe(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
+
         name = "Palmringe";
         nameLatin = "Borassus flabellifer";
 
