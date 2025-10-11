@@ -5,37 +5,37 @@ import TORVisual.SketchArea;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
-
-
 public class Lianenscheiben extends RandomWalker {
-    float dh, dw, sizemax, sizemin, sd, swmax;
-    float sw;
-    float swd;
+    // Variablen für Winkel, Strichstärke, Größe und Transparenz
+    float angle_rad, sw, swd, swmax, size, sizemax, sizemin, sd, dangle;
 
     public Lianenscheiben(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
 
         name = "Lianenscheiben";
-        nameLatin = "Serjania";
+        nameLatin = "Serjania Sp.";
 
-        x1 = startX;
-        y1 = startY;
+        // NEU: Farben weiter abgedunkelt
+        // Ein dunkleres, erdiges Braun als Startfarbe
+        colorStart = sketch.color(130, 90, 40);
+        // Ein sehr tiefes, fast schwarzes Braun als Endfarbe
+        colorEnd = sketch.color(60, 40, 20);
 
-        colorStart = sketch.color(255, 151, 33);
-        colorEnd = sketch.color(240, 77, 40);
+        alpha = 15;
 
-        alpha = 10;
-        dx = this.area.w / 100.0f * 0.6f; //difference x
-        dy = this.area.w / 100.0f * 0.5f; //difference y
+        dx = this.area.w / 100.0f * 0.7f;
+        dy = this.area.w / 100.0f * 0.8f;
+        angle_rad = 20;
+        dangle = 0.4f;
+        sw = this.area.w / 100.0f * 0.3f;
+        swd = this.area.w / 100.0f * 0.04f;
+        swmax = this.area.w / 100.0f * 1f;
 
-        sw = this.area.w / 100.0f * 0.02f; //stroke weight
-        swd = this.area.w / 100.0f * 0.02f; //stroke weight difference
-        swmax = this.area.w / 100.0f * 0.4f; //stroke weight maximum
-        size = this.area.h / 100.0f * 0.2f; //circle size
-        sizemax = this.area.h / 100.0f * 1.2f; //circle size maximum
-        sizemin = this.area.h / 100.0f * 0.1f;
-        sd = this.area.h / 100.0f * 0.03f; //size difference
-
+        // NEU: Shapes weiter verkleinert
+        size = this.area.h / 100.0f * 0.3f;     // Noch kleinere Startgröße
+        sizemax = this.area.h / 100.0f * 0.6f;   // Noch kleinere Maximalgröße
+        sizemin = this.area.h / 100.0f * 0.1f;   // Noch kleinere Minimalgröße
+        sd = this.area.h / 100.0f * 0.02f;      // Kleinere Schrittweite der Größenänderung
     }
 
     @Override
@@ -45,57 +45,57 @@ public class Lianenscheiben extends RandomWalker {
 
             switch (r) {
                 case 1:
-
-                    if (colorPercent > 0) {
-                        colorPercent -= dColor;
-                    }
-                    if (sw > swd & sw < swmax) {
-                        sw -= swd;  //stroke weight - stroke weight distance
-                    }
+                    if (sw > swd && sw < swmax)
+                        sw -= swd;
                     break;
 
                 case 2:
-                    moveX(-dx);
-                    if (size > sizemin & size < sizemax) {
-                        size -= sd;  //circle size - difference size
-                    }
+                    if (alpha <= 27)
+                        alpha += 3;
+
+                    if (size > sizemin && size < sizemax)
+                        size -= sd;
+
+                    angle_rad = angle_rad - dangle;
                     break;
 
-
                 case 3:
-
+                    if (alpha >= 8)
+                        alpha -= 3;
                     break;
 
                 case 4:
-                    moveY(-dy);
-                    if (colorPercent < 1) {
-                        colorPercent += dColor;
-                    }
+                    angle_rad = angle_rad + dangle;
                     break;
 
                 case 5:
+                    moveY((float) Math.sin(angle_rad) * dy);
+                    moveX((float) Math.cos(angle_rad) * dx);
 
-
-                    if (size + sd < sizemax) {
-                        size += sd; //+size difference
-                    }
+                    if (size + sd < sizemax)
+                        size += sd;
                     break;
-
 
                 case 6:
-                    moveY(dy);
+                    moveY(-(float) Math.sin(angle_rad) * dy);
+                    moveX(-(float) Math.cos(angle_rad) * dx);
 
-                    moveX(dx);
-                    if (sw + swd < swmax) {
-                        sw += swd; //stroke weight + stroke weight distance
-                    }
+                    if (sw + swd < swmax)
+                        sw += swd;
                     break;
             }
+
+            alpha = sketch.constrain(alpha, 5, 30);
+
             var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
-            this.canvas.fill(c, alpha * 0.5f);
-            this.canvas.strokeWeight((float) sw);
-            this.canvas.stroke(c, alpha * 0.7f);
-            this.canvas.circle(x, y, (float) size);
+
+            this.canvas.fill(c, alpha);
+            this.canvas.strokeWeight(sw);
+            this.canvas.stroke(c, alpha);
+            this.canvas.circle(x, y, size);
         }
     }
 }
+
+
+
