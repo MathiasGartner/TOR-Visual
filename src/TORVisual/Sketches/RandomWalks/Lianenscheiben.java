@@ -13,7 +13,7 @@ public class Lianenscheiben extends RandomWalker {
         super(sketch, area, resultsToShow);
 
         name = "Lianenscheiben";
-        nameLatin = "Serjania Sp.";
+        nameLatin = "Serjania";
 
         // NEU: Farben weiter abgedunkelt
         // Ein dunkleres, erdiges Braun als Startfarbe

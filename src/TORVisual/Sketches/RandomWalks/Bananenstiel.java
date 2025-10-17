@@ -6,10 +6,12 @@ import processing.core.PApplet;
 
 import java.util.ArrayList;
 
-
 public class Bananenstiel extends RandomWalker {
 
     float sw, sw_max, sw_min, d_sw; //stroke-weight, stroke-weight-max, stroke-weight-min, stroke-weight-delta
+
+    // NEU: Eine ArrayList für die neue Farbpalette
+    ArrayList<Integer> colorPalette;
 
     public Bananenstiel(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
@@ -24,12 +26,15 @@ public class Bananenstiel extends RandomWalker {
         this.minY = this.border;
         this.maxY = this.area.h - this.border;
 
-        // Define a color palette of greenish-brown and greyish-yellow tones
-        colorStart = sketch.color(100, 110, 60); // Dark, desaturated olive green
-        colorEnd = sketch.color(180, 160, 90);   // Brownish-yellow
+        // GEÄNDERT: Neue Farbpalette mit den gewünschten Grüntönen
+        colorPalette = new ArrayList<Integer>();
+        colorPalette.add(sketch.color(165, 187, 175)); // #A5BBAF
+        colorPalette.add(sketch.color(133, 154, 123)); // #859A7B
+        colorPalette.add(sketch.color(54, 79, 76));    // #364F4C
+        colorPalette.add(sketch.color(158, 190, 169)); // #9EBEA9
+        colorPalette.add(sketch.color(55, 69, 78));    // #37454E
 
         alpha = 25;
-        dColor = 0.005f;
 
         // Increase movement steps to cover more area
         dx = this.area.w / 100.0f * 0.7f;
@@ -86,13 +91,11 @@ public class Bananenstiel extends RandomWalker {
                 case 1:
                     moveX_bouncy(-dx * 0.8f);
                     moveY_bouncy(-dy);
-                    if (colorPercent > 0) {
-                        colorPercent -= dColor;
-                    }
+                    // Die alte Logik zur Farbveränderung wird nicht mehr benötigt
                     break;
 
                 case 2:
-                    moveX_bouncy(dx * 0.8f); // Adjusted this value to balance horizontal movement
+                    moveX_bouncy(dx * 0.8f);
                     moveY_bouncy(-dy * 0.5f);
                     if (sw > sw_min) {
                         sw -= d_sw;
@@ -101,7 +104,6 @@ public class Bananenstiel extends RandomWalker {
 
                 case 3:
                     moveY_bouncy(dy * 1.2f);
-                    // No color change to create some consistency
                     break;
 
                 case 4:
@@ -115,9 +117,7 @@ public class Bananenstiel extends RandomWalker {
                 case 5:
                     moveX_bouncy(dx * 0.8f);
                     moveY_bouncy(dy);
-                    if (colorPercent < 1) {
-                        colorPercent += dColor;
-                    }
+                    // Die alte Logik zur Farbveränderung wird nicht mehr benötigt
                     break;
 
                 case 6:
@@ -126,8 +126,8 @@ public class Bananenstiel extends RandomWalker {
                     break;
             }
 
-            // Interpolate color and set drawing properties
-            var c = sketch.lerpColor(colorStart, colorEnd, colorPercent);
+            // GEÄNDERT: Wählt eine zufällige Farbe aus der neuen Palette
+            var c = colorPalette.get((int)sketch.random(colorPalette.size()));
             this.canvas.strokeWeight(sw);
             this.canvas.stroke(c, alpha);
             this.canvas.noFill();

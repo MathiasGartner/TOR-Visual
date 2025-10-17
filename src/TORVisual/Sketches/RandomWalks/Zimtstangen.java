@@ -7,6 +7,117 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 
 public class Zimtstangen extends RandomWalker {
+    float angle_rad, sw, swd, swmax, sizemax, sizemin, sd, dangle;
+
+    // NEU: Eine ArrayList, um die Farbpalette zu speichern
+    ArrayList<Integer> colorPalette;
+
+    public Zimtstangen(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
+        super(sketch, area, resultsToShow);
+
+        name = "Zimtstangen";
+        nameLatin = "Cinnamomum verum";
+
+        // NEU: Die Farbpalette wird mit den vier angegebenen Farbtönen gefüllt
+        colorPalette = new ArrayList<Integer>();
+        colorPalette.add(sketch.color(58, 40, 36));   // #3A2824 (Sehr dunkles Braun)
+        colorPalette.add(sketch.color(159, 119, 94)); // #9F775E (Mittleres Braun)
+        colorPalette.add(sketch.color(229, 181, 161));// #E5B5A1 (Helles, sandiges Braun)
+        colorPalette.add(sketch.color(147, 71, 44));  // #93472C (Rötliches Braun)
+
+        alpha = 10;
+        sw = this.area.w / 100.0f * 0.1f;
+        swd = this.area.w / 100.0f * 0.05f;
+        swmax = this.area.w / 100.0f * 0.8f;
+        dx = this.area.w / 100.0f * 0.8f;
+        dy = this.area.w / 100.0f * 0.8f;
+        angle_rad = 0;
+        dangle = 0.5f;
+
+        size = this.area.h / 100.0f * 3.0f;
+        sd = this.area.h / 100.0f * 0.2f;
+
+        sizemin = this.area.h / 100.0f * 1.5f;
+        sizemax = this.area.h / 100.0f * 5.0f;
+    }
+
+    void drawCinnamonStick(float x, float y, float length, float rotation) {
+        float stickWidth = length / 8.0f;
+
+        this.canvas.pushMatrix();
+        this.canvas.translate(x, y);
+        this.canvas.rotate(rotation);
+        this.canvas.rectMode(PApplet.CENTER);
+        this.canvas.rect(0, 0, stickWidth, length);
+        this.canvas.popMatrix();
+    }
+
+    @Override
+    public void draw() {
+        for (var result : this.resultsToShow) {
+            int r = result.Result;
+
+            switch (r) {
+                case 1:
+                    moveY((float) Math.sin(angle_rad) * dy);
+                    moveX((float) Math.cos(angle_rad) * dx);
+                    if (sw > swd && sw < swmax)
+                        sw -= swd;
+                    break;
+
+                case 2:
+                    if (alpha < 128) // max. 50% alpha
+                        alpha += sketch.random(1, 4);
+
+                    if (size > sizemin && size < sizemax)
+                        size -= sd;
+
+                    angle_rad = angle_rad - dangle;
+                    break;
+
+                case 3:
+                    if (alpha > 0)
+                        alpha -= sketch.random(1, 4);
+
+                    angle_rad = angle_rad + dangle;
+                    break;
+
+                case 4:
+                    moveY(-(float) Math.sin(angle_rad) * dy);
+                    moveX(-(float) Math.cos(angle_rad) * dx);
+                    break;
+
+                case 5:
+                    moveY(-(float) Math.sin(angle_rad) * dy);
+                    moveX(+(float) Math.cos(angle_rad) * dx);
+                    if (size + sd < sizemax)
+                        size += sd;
+                    break;
+
+                case 6:
+                    moveY(+(float) Math.sin(angle_rad) * dy);
+                    moveX(-(float) Math.cos(angle_rad) * dx);
+                    if (sw + swd < swmax)
+                        sw += swd;
+                    break;
+            }
+
+            // GEÄNDERT: Wählt eine zufällige Farbe aus der neuen Palette
+            int c = colorPalette.get((int)sketch.random(colorPalette.size()));
+
+            this.canvas.fill(c, alpha / 2);
+            this.canvas.strokeWeight((float) sw);
+            this.canvas.stroke(c, alpha);
+
+            drawCinnamonStick(x, y, (float) size, angle_rad);
+        }
+    }
+}
+
+
+
+
+/*public class Zimtstangen extends RandomWalker {
 
     float dh, dw, sizemax, sd, swmax, xdistance, ydistance, distancemax, dxrotate, dyrotate;
     float sw;
@@ -143,6 +254,7 @@ public class Zimtstangen extends RandomWalker {
             int asdf = 0;
         }*/
             //System.out.println(x1 + ", " + y1 + ", " + x2 + ", " + y2);
-        }
+      /*  }
     }
 }
+*/

@@ -16,8 +16,8 @@ public class Palmringe extends RandomWalker {
         name = "Palmringe";
         nameLatin = "Borassus flabellifer";
 
-        colorStart = sketch.color(56, 37, 2);
-        colorEnd = sketch.color(46, 34, 15);
+        colorStart = sketch.color(70, 39, 31);
+        colorEnd = sketch.color(153, 110, 83);
 
         alpha = 20;
         dx = this.area.w / 100.0f * 0.4f; //difference x

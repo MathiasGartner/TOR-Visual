@@ -15,11 +15,22 @@ public class Amberbaum extends RandomWalker {
     float alphaMin, alphaMax, alphaStep;
     float baseAlpha;
 
+    // NEU: Eine ArrayList für die neue Farbpalette
+    ArrayList<Integer> colorPalette;
+
     public Amberbaum(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
 
         name = "Amberbaum";
         nameLatin = "Liquidambar";
+
+        // NEU: Die Farbpalette wird mit den vier angegebenen Farbtönen gefüllt
+        colorPalette = new ArrayList<Integer>();
+        colorPalette.add(sketch.color(86, 87, 71));    // #565747
+        colorPalette.add(sketch.color(190, 191, 178)); // #BEBFB2
+        colorPalette.add(sketch.color(185, 174, 110)); // #B9AE6E
+        colorPalette.add(sketch.color(165, 153, 105)); // #A59969
+
         // Define movement speed
         dx = this.area.w / 100.0f * 0.5f;
         dy = this.area.h / 100.0f * 0.5f;
@@ -35,9 +46,6 @@ public class Amberbaum extends RandomWalker {
         alphaStep = 5;
         baseAlpha = 40;
 
-        // Set colors to mimic the brownish-red and orange of the fruit
-        colorStart = sketch.color(180, 60, 40);  // Brownish-red
-        colorEnd = sketch.color(230, 90, 50);    // Brighter orange-red
         alpha = (int) baseAlpha;
 
         // Initialize position and size
@@ -110,8 +118,8 @@ public class Amberbaum extends RandomWalker {
                     break;
             }
 
-            // Interpolate color based on the current size
-            int c = sketch.lerpColor(colorStart, colorEnd, (size - sizeMin) / (sizeMax - sizeMin));
+            // GEÄNDERT: Wählt eine zufällige Farbe aus der neuen Palette
+            int c = colorPalette.get((int)sketch.random(colorPalette.size()));
 
             this.canvas.fill(c, alpha);
             this.canvas.stroke(c, alpha);

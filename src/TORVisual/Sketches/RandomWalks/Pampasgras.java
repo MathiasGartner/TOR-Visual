@@ -17,22 +17,19 @@ public class Pampasgras extends RandomWalker {
         name = "Pampasgras";
         nameLatin = "Cortaderia selloana";
 
-        cr = 186;
-        cg = 179;
-        cb = 117;
-        dx = this.area.w / 100.0f * 0.6f; //difference x
-        dy = this.area.w / 100.0f * 0.3f; //difference y
+        // Unbenutzte Farbvariablen cr, cg, cb wurden ignoriert
+        dx = this.area.w / 100.0f * 0.6f;
+        dy = this.area.w / 100.0f * 0.3f;
         ds = this.area.w / 100.0f * 0.02f;
         h = this.area.h / 100 * 0.5f;
         hmax = this.area.h / 100 * 1.5f;
         w = this.area.w / 100 * 0.1f;
         wmax = this.area.w / 100 * 0.5f;
-        //  size =this.area.h/100.0f*2f;
         dColor = 0.05f;
-        colorStart = sketch.color(168, 179, 117);
-        colorEnd = sketch.color(245, 237, 169);
-        //sizemax=this.area.w/100.0f*1.5f;
-        //sizemin=this.area.w/100.0f*0.15f;
+
+        // GEÄNDERT: Farben auf Lilatöne angepasst
+        colorStart = sketch.color(120, 90, 160);  // Dunkleres Lila
+        colorEnd = sketch.color(200, 180, 220); // Helles Lavendel
     }
 
     @Override
@@ -90,6 +87,6 @@ public class Pampasgras extends RandomWalker {
             this.canvas.stroke(c, alpha * 0.3f);
             this.canvas.ellipse(x, y, w, h);
         }
-
     }
 }
+

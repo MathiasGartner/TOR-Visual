@@ -15,8 +15,8 @@ public class Platanen extends RandomWalker {
         name = "Platanen";
         nameLatin = "Platanus hispanica";
 
-        colorStart = sketch.color(54, 87, 64);
-        colorEnd = sketch.color(75, 105, 84);
+        colorStart = sketch.color(100, 122, 86);
+        colorEnd = sketch.color(150, 190, 126);
 
         alpha = 10;
         sw = this.area.w / 100.0f * 0.2f; //stroke weight

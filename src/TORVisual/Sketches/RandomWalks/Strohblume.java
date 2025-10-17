@@ -7,9 +7,13 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 
 
+
 public class Strohblume extends RandomWalker {
     float flowerClusterSize;
     int stemColor;
+
+    // NEU: Eine ArrayList für mehrere Akzentfarben
+    ArrayList<Integer> accentPalette;
 
     public Strohblume(PApplet sketch, SketchArea area, ArrayList<DiceResult> resultsToShow) {
         super(sketch, area, resultsToShow);
@@ -17,21 +21,21 @@ public class Strohblume extends RandomWalker {
         name = "Strohblume";
         nameLatin = "Helichrysum";
 
-        colorStart = sketch.color(255, 255, 180); // Sehr helles Pastellgelb
-        colorEnd = sketch.color(255, 220, 0);     // Kräftiges Sonnengelb
+        colorStart = sketch.color(240, 220, 180); // Helles Sand-/Strohgelb
+        colorEnd = sketch.color(219, 204, 0);     // Kräftiges gelb
+
+        // NEU: Die Akzent-Palette wird mit den neuen Farben gefüllt
+        accentPalette = new ArrayList<Integer>();
+        accentPalette.add(sketch.color(220, 206, 0));   // #DCCE00
+        accentPalette.add(sketch.color(224, 218, 82));  // #E0DA52
 
         stemColor = sketch.color(140, 120, 90, 50);
-
-        // --- GEÄNDERT: Noch mehr Transparenz ---
-        // Alpha-Wert von 30 auf 15 reduziert.
         alpha = 15;
 
         float stepSize = this.area.w / 100.0f * 0.6f;
         dx = stepSize;
         dy = stepSize;
 
-        // --- GEÄNDERT: Shapes noch kleiner (Flower Cluster) ---
-        // Multiplikator von 0.8f auf 0.6f reduziert.
         flowerClusterSize = this.area.h / 100.0f * 0.6f;
 
         float spawnBorder = border + flowerClusterSize * 2;
@@ -43,12 +47,7 @@ public class Strohblume extends RandomWalker {
      * Zeichnet eine Blüte an der aktuellen Position des Walkers.
      */
     private void drawFlower() {
-        // --- GEÄNDERT: Shapes noch kleiner (Anzahl der Florets) ---
-        // Anzahl leicht reduziert, passend zur kleineren Blütengröße.
         int numFlorets = 15;
-
-        // --- GEÄNDERT: Shapes noch kleiner (Floret Size) ---
-        // Basisgröße der einzelnen Punkte von 2.0f auf 1.5f reduziert.
         float floretSize = 1.5f;
 
         for (int i = 0; i < numFlorets; i++) {
@@ -56,8 +55,14 @@ public class Strohblume extends RandomWalker {
             float offsetY = sketch.random(-flowerClusterSize, flowerClusterSize);
 
             if (PApplet.dist(0, 0, offsetX, offsetY) < flowerClusterSize) {
-                var c = sketch.lerpColor(colorStart, colorEnd, sketch.random(1.0f));
-                // Die Transparenz bleibt vom neuen, niedrigeren alpha-Wert beeinflusst.
+                int c;
+                if (sketch.random(1.0f) < 0.85) { // 85% Chance für eine Farbe aus dem Verlauf
+                    c = sketch.lerpColor(colorStart, colorEnd, sketch.random(1.0f));
+                } else { // 15% Chance für eine leuchtende Akzentfarbe
+                    // GEÄNDERT: Wählt eine zufällige Farbe aus der neuen Akzent-Palette
+                    c = accentPalette.get((int)sketch.random(accentPalette.size()));
+                }
+
                 this.canvas.fill(c, alpha + sketch.random(40));
                 this.canvas.noStroke();
                 this.canvas.circle(x + offsetX, y + offsetY, floretSize * sketch.random(0.5f, 1.5f));
@@ -71,16 +76,16 @@ public class Strohblume extends RandomWalker {
             int r = result.Result;
 
             switch (r) {
-                case 1: // Versuch: Nach links
+                case 1:
                     if (x > border + dx) moveX(-dx); else moveX(dx);
                     break;
-                case 2: // Versuch: Nach rechts
+                case 2:
                     if (x < this.area.w - border - dx) moveX(dx); else moveX(-dx);
                     break;
-                case 3: // Versuch: Nach oben
+                case 3:
                     if (y > border + dy) moveY(-dy); else moveY(dy);
                     break;
-                case 4: // Versuch: Nach unten
+                case 4:
                     if (y < this.area.h - border - dy) moveY(dy); else moveY(-dy);
                     break;
                 case 5:
@@ -97,7 +102,5 @@ public class Strohblume extends RandomWalker {
         }
     }
 }
-
-
 
 
