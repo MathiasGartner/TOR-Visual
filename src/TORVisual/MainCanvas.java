@@ -114,7 +114,7 @@ public class MainCanvas extends PApplet {
         piMCSketch = new PiMC(this, sketchAreas.get(9), this.resultsToShow);
         piMCSketch.setRecentDiceResultsCount(27);
         piMCSketch.canvas.textFont(font);
-        piIcon = this.loadImage("images/pi_circle_cube_illu-01.png");
+        piIcon = this.loadImage("images/pi_circle_cube_illu-01.png"); //TODO: create two separate images so we can tint them
 
         //JKU Logo
         jkuIcon = this.loadImage("images/jkuwhite_en.png");
@@ -238,7 +238,7 @@ public class MainCanvas extends PApplet {
                 }
                 else {
                     nextDiceResults = new ArrayList<DiceResult>();
-                    for (int i = 0; i < 1000; i++) {
+                    for (int i = 0; i < 100; i++) {
                         var dr = new DiceResult();
                         dr.Id = dummyId;
                         dr.Result = Utils.randDiceResult();

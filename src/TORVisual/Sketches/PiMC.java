@@ -187,10 +187,10 @@ public class PiMC extends EmbeddedSketch {
 
         resultImages = new ArrayList<PImage>();
         for (int i = 1; i <= 6; i++) {
-            resultImages.add(sketch.loadImage("images/white_v0/result-" + i + " white.png"));
+            resultImages.add(sketch.loadImage("images/result-" + i + ".png"));
         }
 
-        piPoint = sketch.loadImage("images/point_gradient.png");
+        piPoint = sketch.loadImage("images/point.png");
         piPoint.resize(10, 0);
 
         piGlyph = sketch.loadImage("images/pi.png");
